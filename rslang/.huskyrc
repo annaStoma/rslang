@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-commit": "lint-staged && npm run lint"
+    "pre-commit": "git-branch-is -r \"\\b(?:(?!master)\\w)+\\b\" && lint-staged && npm run lint"
   }
 }
