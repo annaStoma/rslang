@@ -1,0 +1,24 @@
+@import "src/app/main-page/main-page.component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 590px;
+  height: 590px;
+  box-shadow: 0 5px 7px 2px #0000004a;
+  border-radius: 5px;
+
+  .stat {
+    height: 470px;
+    width: 80%;
+  }
+  .showAll-btn {
+    margin-bottom: 17px;
+  }
+}
+
+.mat-elevation-z8 {
+  box-shadow: none;
+}

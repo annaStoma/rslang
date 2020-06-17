@@ -1,0 +1,32 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span routerLink="main">RsLangApp</span>
+    <nav>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log out</span>
+        </button>
+      </mat-menu>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="background"></div>
+<div class="main">
+  <app-game *ngFor="let game of games; index as i" class="game" [game]="game"></app-game>
+  <app-dictionaries class="box"></app-dictionaries>
+  <app-statistic-card class="box2"></app-statistic-card>
+  <app-promo class="middle"></app-promo>
+</div>
+<footer>
+  <span>RS2020Q1</span>
+  <span>Our Team</span>
+</footer>
+<router-outlet></router-outlet>
