@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { games } from './Game';
+import { Games, GAMES } from './Game';
 
 @Component({
   selector: 'app-main-page',
@@ -7,7 +7,7 @@ import { games } from './Game';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent implements OnInit {
-  games = games;
+  games: Games = GAMES;
   constructor() {}
 
   ngOnInit(): void {}

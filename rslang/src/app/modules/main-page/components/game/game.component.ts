@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-interface Game {
+export interface Game {
   name: string;
   link: string;
   description: string;
+  background: string;
 }
 
 @Component({

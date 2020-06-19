@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <mat-toolbar-row>
     <span routerLink="main">RsLangApp</span>
     <nav>
@@ -18,15 +18,3 @@
     </nav>
   </mat-toolbar-row>
 </mat-toolbar>
-<div class="background"></div>
-<div class="main">
-  <app-game *ngFor="let game of games; index as i" class="game" [game]="game"></app-game>
-  <app-dictionaries class="box"></app-dictionaries>
-  <app-statistic-card class="box2"></app-statistic-card>
-  <app-promo class="middle"></app-promo>
-</div>
-<footer>
-  <span>RS2020Q1</span>
-  <span>Our Team</span>
-</footer>
-<router-outlet></router-outlet>

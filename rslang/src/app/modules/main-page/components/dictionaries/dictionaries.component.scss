@@ -1,15 +1,15 @@
-@import "src/app/main-page/main-page.component";
+@import "../../../../constants";
 
 :host {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  width: 590px;
-  height: 590px;
+  width: $card-size * 2 + $card-margins * 2;
+  height: $card-size * 2 + $card-margins * 2;
   border-radius: 5px;
-  box-shadow: 0 5px 7px 2px #0000004a;
+  box-shadow: 0 5px 7px 2px $shadow;
   align-items: center;
-  background: white;
+  background: $card-background-color;
 }
 
 .dictionaries-list {
@@ -22,6 +22,13 @@
   width: 75%;
   height: 10%;
   margin-bottom: 65px;
+  background: $accent;
+}
+
+.title {
+  margin: 17px 0 0 40px;
+  width: 100%;
+  font-size: 18px;
 }
 
 .hard,
@@ -37,7 +44,7 @@
   mat-icon {
     height: auto;
     width: auto;
-    color: $main-color;
+    color: $primary;
     font-size: 120px;
   }
 }

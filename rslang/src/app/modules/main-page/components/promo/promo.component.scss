@@ -1,4 +1,4 @@
-@import "src/app/main-page/main-page.component";
+@import "../../../../constants";
 
 :host {
   display: flex;
@@ -7,13 +7,21 @@
   align-items: center;
   box-shadow: 0 5px 7px 2px #0000004a;
   border-radius: 7px;
-  background: white;
+  background: $card-background-color;
+  width: $card-size * 2 + $card-margins * 2;
+  height: $card-size;
 
   .promo-list {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 17px;
+  }
+
+  .title {
+    margin: 17px 0 0 40px;
+    width: 100%;
+    font-size: 18px;
   }
 
   .video,
@@ -28,7 +36,7 @@
     mat-icon {
       height: auto;
       width: auto;
-      color: $main-color;
+      color: $primary;
       font-size: 120px;
       margin-bottom: 10px;
     }
