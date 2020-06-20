@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-english-puzzle',
   templateUrl: './englishPuzzle.component.html',
-  styleUrls: ['./englishPuzzle.component.css'],
+  styleUrls: ['./englishPuzzle.component.scss'],
 })
 export class EnglishPuzzleComponent implements OnInit {
   constructor() {}

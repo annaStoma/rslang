@@ -1,0 +1,18 @@
+@import "./blocks/field-for-answer.scss";
+@import "./blocks/word.scss";
+@import "./blocks/field-for-words.scss";
+@import "./blocks/dropzone.scss";
+
+body {
+  margin: 0;
+}
+
+.block {
+  width: 50px;
+}
+
+.text {
+  height: 50px;
+  width: 100%;
+  background-color: yellow;
+}
