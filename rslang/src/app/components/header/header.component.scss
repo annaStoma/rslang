@@ -1,0 +1,15 @@
+@import "../../constants";
+
+:host {
+  width: 100%;
+
+  .mat-toolbar {
+    background: $primary;
+    color: $font-color;
+
+    .mat-toolbar-row {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
