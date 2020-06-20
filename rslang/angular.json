@@ -127,8 +127,5 @@
       }
     }
   },
-  "defaultProject": "rslang",
-  "cli": {
-    "analytics": false
-  }
+  "defaultProject": "rslang"
 }
