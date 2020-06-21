@@ -32,6 +32,9 @@ export class EnglishPuzzleComponent implements OnInit {
   currentTextExample: string;
   currentSplittedTextExample: string[];
   currentAnswer: string[] = [];
+  page = 0;
+  level = 0;
+  textTranslate = '';
   ngOnInit() {
     this.wordsService.getWords().subscribe((data: object[]) => {
       this.words = data;
@@ -77,7 +80,13 @@ export class EnglishPuzzleComponent implements OnInit {
     );
   }
 
-  toBottom(text) {
+  getCurrentTextTranslate(): void {
+    this.textTranslate = this.words[this.currentWordNumber][
+      'textExampleTranslate'
+    ];
+  }
+
+  wordToBottomBlock(text) {
     const index = this.currentAnswer.indexOf(text);
     if (index !== -1) {
       this.currentAnswer.splice(index, 1);
@@ -85,11 +94,35 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  toUp(text) {
+  wordToUpperBlock(text) {
     const index = this.currentSplittedTextExample.indexOf(text);
     if (index !== -1) {
       this.currentSplittedTextExample.splice(index, 1);
       this.currentAnswer.push(text);
     }
+  }
+
+  newLevel(evt) {
+    this.wordsService.level = evt.target.value;
+    this.resetQuestion();
+  }
+
+  newPage(evt) {
+    this.wordsService.page = evt.target.value;
+    this.resetQuestion();
+  }
+
+  resetQuestion() {
+    this.answers = [];
+    this.currentAnswer = [];
+    this.currentWordNumber = 0;
+    this.wordsService.getWords().subscribe((data: object[]) => {
+      this.words =
+        this.wordsService.page > 30 ? data.slice(10) : data.slice(0, 10);
+      this.currentTextExample = this.getCurrentTextExample();
+      this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
+      this.currentSplittedTextExample = this.currentTextExample.split(' ');
+      return this.words;
+    });
   }
 }

@@ -1,21 +1,21 @@
 <body>
   <div class="menu">
       <div class="menu__left">
-          <select name="" id="" class="menu__level">
-              <option value="" *ngFor="let level of levels">{{level}}</option>
+          <select name="" id="" class="menu__level" (change)="newLevel($event)">
+              <option value="{{level}}" *ngFor="let level of levels">{{level}}</option>
           </select>
-          <select name="" id="" class="menu__page">
-              <option value="" *ngFor="let page of pages">{{page}}</option>
+          <select name="" id="" class="menu__page" (change)="newPage($event)">
+              <option value="{{page}}" *ngFor="let page of pages">{{page}}</option>
           </select>
       </div>
       <div class="menu__right">
           <button class="menu__voice">voice</button>
-          <button class="menu__translate">translate</button>
+          <button (click)="getCurrentTextTranslate()" class="menu__translate">translate</button>
           <button class="menu__melody">melody</button>
           <button class="menu__background">background</button>
       </div>
   </div>
-  <p class="field-for-translate"></p>
+  <p #placeForTranslate class="field-for-translate">{{textTranslate}}</p>
   <div class="field-for-answer">
       <div class="text" [hidden]='!answers[0]'>{{answers[0]}}</div>
       <div class="text" [hidden]='!answers[1]'>{{answers[1]}}</div>
@@ -36,7 +36,7 @@
           [cdkDropListData]="currentAnswer"
           (cdkDropListDropped)="drop($event)"
           class="field-for-words dropzone">
-          <button (click)="toBottom(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
+          <button (click)="wordToBottomBlock(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
       </div>
   </div>
   <div cdkDropListOrientation="horizontal" 
@@ -46,7 +46,7 @@
        [cdkDropListData]="currentSplittedTextExample"
        (cdkDropListDropped)="drop($event)"
        class="field-for-words dropzone">
-      <button (click)="toUp(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
+      <button (click)="wordToUpperBlock(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
   </div>
   <button class="check" (click)="newLine()">check</button>
 </body>
