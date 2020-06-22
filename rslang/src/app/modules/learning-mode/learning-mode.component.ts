@@ -24,9 +24,19 @@ export class LearningModeComponent implements OnInit {
       .subscribe((data) => {
         this.userDataService.setUserId = data.userId;
         this.userDataService.setUserToken = data.token;
+        console.log(
+          this.userDataService.getUserId,
+          this.userDataService.getUserToken
+        );
         this.wordsService
-          .getUserWords(data.userId, data.token)
+          .getSettings(
+            this.userDataService.getUserId,
+            this.userDataService.getUserToken
+          )
           .subscribe((data) => console.log(data));
+        // this.wordsService
+        //   .getUserWords(data.userId, data.token)
+        //   .subscribe((data) => console.log(data));
       });
   }
 }

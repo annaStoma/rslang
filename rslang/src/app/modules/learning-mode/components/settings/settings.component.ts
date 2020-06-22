@@ -45,9 +45,15 @@ export class SettingsComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-    // this.wordsService.setSettings(this.userDataService.getUserId, this.userDataService.getUserToken, this.newSettings);
-  }
+  ngOnInit(): void {}
+
+  // async getUserSettings(): Promise<any> {
+  //   const id = await this.userDataService.getUserId;
+  //   const token = await this.userDataService.getUserToken;
+  //  const res = await this.wordsService.getSettings(id, token)
+  //     .subscribe(data => console.log(data));
+  //  return res;
+  // }
 
   saveUser(settings) {
     this.newSettings = {
