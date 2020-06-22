@@ -1,0 +1,11 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span routerLink="main">RsLangApp</span>
+    <nav>
+      <button mat-button (click)="openLogin()">Sing In</button>
+      <button mat-button (click)="openRegistration()">Register</button>
+      <app-registered></app-registered>
+      <app-alert></app-alert>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>
