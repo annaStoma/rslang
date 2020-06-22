@@ -1,0 +1,64 @@
+<div class="savannah-game-wrapper">
+  <div class="start-screen">
+    <img src="../../../../assets/savannah-game-start-page.jpg" alt="">
+
+    <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
+      <div class="close-button" (click)="closeGame()"></div>
+      <h1>SAVANNAH</h1>
+      <div class="game-name">
+        <div class="game-name-letter">H</div>
+        <div class="game-name-letter">A</div>
+        <div class="game-name-letter">N</div>
+        <div class="game-name-letter">N</div>
+        <div class="game-name-letter">A</div>
+        <div class="game-name-letter">V</div>
+        <div class="game-name-letter">A</div>
+        <div class="game-name-letter">S</div>
+      </div>
+      <p>The Savannah training helps you build your vocabulary.</p>
+    </div>
+    <div class="loader-container" [ngClass]="{hidden:isHiddenLoader}">
+      <div class="spinner-loader">
+        <div class="spinner-inner spinner-one"></div>
+        <div class="spinner-inner spinner-two"></div>
+        <div class="spinner-inner spinner-three"></div>
+      </div>
+      <div class="preloader">
+        <div class="loader"></div>
+      </div>
+      <p>Use keys 1, 2, 3, and 4 to give a quick answer</p>
+    </div>
+    <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
+  </div>
+
+  <div class="game-container" *ngIf="savannahGameCards && activeCard">
+    <div class="close-button" (click)="closeGame()"></div>
+    <div class="sound-toggler-button">SOUND
+    </div>
+    <div class="lives">lives: {{ lives }}</div>
+    <div class="lives-container">
+      <img class="lives" *ngFor="let live of livesArray" src="../../../../assets/savannah-game-lives.png" alt="">
+    </div>
+
+    <div class="active-card-container">
+      <div class="active-card" [ngClass]="{activeCardFall:isAnimationEnd}">
+        {{ activeCard.foreignWord }} </div>
+    </div>
+
+    <div class="native-words-container">
+      <div *ngFor="let card of randomCards" class="native-word-card" (click)="checkResult(card.wordId)">
+        {{ card.nativeWord }}</div>
+    </div>
+
+    <div class="" [ngClass]="{bullet:isAnimationBullet, animationStop:!isAnimationBullet}"></div>
+    <div class="hunter"></div>
+  </div>
+
+  <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
+    <h2>GAME OVER!!!</h2>
+    <p>Mistakes: {{ mistakes }}</p>
+    <p>Right words: {{ rightWords }}</p>
+  </div>
+
+
+</div>
