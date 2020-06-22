@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './components/header/authorization/authorization.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+<<<<<<< HEAD
 import { MainPageComponent } from './modules/main-page/main-page.component';
 import { GameComponent } from './modules/main-page/components/game/game.component';
 import { DictionariesComponent } from './modules/main-page/components/dictionaries/dictionaries.component';
@@ -77,6 +78,13 @@ import { AlertComponent } from './components/header/alert/alert.component';
     // provider used to create fake backend
     fakeBackendProvider,
   ],
+=======
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  providers: [],
+>>>>>>> origin/develop
   bootstrap: [AppComponent],
 })
 export class AppModule {}

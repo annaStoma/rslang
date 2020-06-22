@@ -127,8 +127,13 @@
       }
     }
   },
+<<<<<<< HEAD
   "defaultProject": "rslang",
   "cli": {
     "analytics": false
   }
 }
+=======
+  "defaultProject": "rslang"
+}
+>>>>>>> origin/develop

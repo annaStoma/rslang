@@ -2,6 +2,6 @@
   "plugins": [
     "stylelint-scss"
   ],
-  "extends": [],
+  "extends": ["stylelint-config-airbnb", "stylelint-prettier/recommended"],
   "rules": {}
 }
