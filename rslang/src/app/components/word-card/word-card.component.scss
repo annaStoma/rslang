@@ -1,0 +1,32 @@
+.example-card {
+  max-width: 400px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg");
+  background-size: cover;
+}
+
+.mat-card-image {
+  width: 320px;
+  height: 400px;
+}
+mat-card-title {
+  color: rebeccapurple;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+:host {
+  mat-form-field {
+    width: 90%;
+  }
+}

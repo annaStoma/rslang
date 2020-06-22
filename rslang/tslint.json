@@ -5,7 +5,7 @@
     "codelyzer"
   ],
   "rules": {
-    "prettier": true,
+    "prettier": false,
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,
