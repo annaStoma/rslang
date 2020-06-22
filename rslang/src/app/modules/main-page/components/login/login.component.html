@@ -1,0 +1,34 @@
+<form name="auth" class="form auth-form" [formGroup]="formLogin" (submit)="login()">
+  <div class="wrap-login">
+    <label for="login" class="label">
+      <span class="span-login">Login(e-mail): </span>
+      <input
+        formControlName="email"
+        type="text"
+        name="login"
+        id="login"
+        placeholder="login"
+        class="input"
+      />
+    </label>
+  </div>
+  <div class="wrap-password">
+    <label for="password" class="label">
+      <span class="span-password">Password: </span>
+      <input
+        formControlName="password"
+        type="password"
+        name="password"
+        id="password"
+        placeholder="password"
+        class="input"
+      />
+    </label>
+    <div *ngIf="false" class="error">
+      <span class="span-error">Connection error</span>
+    </div>
+  </div>
+  <div class="buttons">
+    <button class="login" type="submit" [disabled]="formLogin.invalid">Login</button>
+  </div>
+  </form>

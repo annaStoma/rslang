@@ -1,0 +1,21 @@
+.card {
+  width: 200px;
+  height: 100px;
+  border-radius: 5px;
+  background-color: #2d8079;
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 20px;
+  cursor: pointer;
+
+  &:hover {
+    color: coral;
+  }
+}
