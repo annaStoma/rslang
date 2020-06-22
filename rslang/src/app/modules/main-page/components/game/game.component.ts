@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 export interface Game {
   name: string;
@@ -14,7 +14,11 @@ export interface Game {
 })
 export class GameComponent implements OnInit {
   @Input() game: Game;
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor() {
+  }
+
+  ngOnInit(): void {
+  }
+
 }

@@ -2,18 +2,21 @@
 <div class="background"></div>
 <div class="main">
   <div class="column">
-    <app-game [game]="games.speakIt"></app-game>
-    <app-game [game]="games.puzzle"></app-game>
+    <app-game [bgImage]="games.speakIt.background" [game]="games.speakIt"></app-game>
+    <app-game [bgImage]="games.puzzle.background" [game]="games.puzzle"></app-game>
     <app-statistic-card></app-statistic-card>
-    <app-game [game]="games.savanna"></app-game>
-    <app-game [game]="games.audioCall"></app-game>
+    <app-game [bgImage]="games.savanna.background" [game]="games.savanna"></app-game>
+    <app-game [bgImage]="games.audioCall.background" [game]="games.audioCall"></app-game>
   </div>
   <div class="column">
     <app-dictionaries></app-dictionaries>
-    <app-game [game]="games.sprint"></app-game>
-    <app-game [game]="games.custom"></app-game>
+    <app-game [bgImage]="games.sprint.background" [game]="games.sprint"></app-game>
+    <app-game [bgImage]="games.custom.background" [game]="games.custom"></app-game>
     <app-promo></app-promo>
   </div>
 </div>
 <app-footer></app-footer>
 <router-outlet></router-outlet>
+<img
+  src=""
+  alt="">
