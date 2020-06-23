@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BgImageDirective } from './directives/bg-image.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FooterComponent } from './components/footer/footer.component';
     PromoComponent,
     HeaderComponent,
     FooterComponent,
+    BgImageDirective,
   ],
   imports: [
     BrowserModule,
