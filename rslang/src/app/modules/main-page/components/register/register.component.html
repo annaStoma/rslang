@@ -1,4 +1,17 @@
 <form name="reg" class="form reg-form" [formGroup]="formRegister" (submit)="register()">
+  <div class="wrap-user-name">
+    <label for="username-reg" class="label">
+      <span class="span-login">Name: </span>
+      <input
+        formControlName="userName"
+        type="text"
+        name="username"
+        id="username-reg"
+        placeholder="name"
+        class="input"
+      />
+    </label>
+  </div>
   <div class="wrap-login">
     <label for="login-reg" class="label">
       <span class="span-login">Login(e-mail): </span>
@@ -45,6 +58,6 @@
     >Password must be minimum 8 characters and  contain one uppercase, one lowercase letter, one number digit and one special character {{symbols}}</small>
   </div>
   <div class="buttons">
-    <button class="login" type="submit" [disabled]="formRegister.invalid">Registration</button>
+    <button class="login" type="submit" [disabled]="formRegister.invalid || formRegister.disabled">Registration</button>
   </div>
 </form>

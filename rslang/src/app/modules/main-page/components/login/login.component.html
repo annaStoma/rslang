@@ -29,6 +29,6 @@
     </div>
   </div>
   <div class="buttons">
-    <button class="login" type="submit" [disabled]="formLogin.invalid">Login</button>
+    <button class="login" type="submit" [disabled]="formLogin.invalid || formLogin.disabled">Login</button>
   </div>
   </form>

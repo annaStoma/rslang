@@ -10,6 +10,7 @@
     margin: 0;
     outline: none;
     cursor: pointer;
+    margin-right: 20px;
 
     &:hover {
       color: coral;
@@ -23,4 +24,16 @@
 
 a {
   margin-right: 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    color: coral;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
 }

@@ -1,7 +1,14 @@
 <div class="header">
-  <h1 routerLink="/">header works!</h1>
+  <div class="logo">
+    <h1 routerLink="/">header works!</h1>
+    <a routerLink="/promo">PROMO</a>
+    <a routerLink="/about-us">ABOUT US</a>
+  </div>
   <div class="auth">
     <a routerLink="/login">login</a>
     <a routerLink="/register">register</a>
+  </div>
+  <div *ngIf="user" class="user-block">
+    <span>user.name</span>
   </div>
 </div>

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.scss'],
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent {
   games = [
     {
       name: 'Savanna',
@@ -38,7 +38,4 @@ export class MainPageComponent implements OnInit {
       image: 'assets/own-game.jpg',
     },
   ];
-  constructor() {}
-
-  ngOnInit(): void {}
 }
