@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AuthData } from '../interfaces';
+import { AuthData, User } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +17,19 @@ export class LocalstorageService {
   }
 
   setUser(user): void {
-    console.log(user);
     localStorage.setItem('name', user.name);
     localStorage.setItem('email', user.email);
+  }
+
+  getUser(): User {
+    const name = localStorage.getItem('name');
+    const email = localStorage.getItem('email');
+
+    if (name && email) {
+      return { name, email };
+    }
+
+    return null;
   }
 
   deleteUser(): void {

@@ -3,12 +3,16 @@
     <h1 routerLink="/">header works!</h1>
     <a routerLink="/promo">PROMO</a>
     <a routerLink="/about-us">ABOUT US</a>
+    <a *ngIf="user" routerLink="/statistic">STATISTIC</a>
   </div>
-  <div class="auth">
+  <div *ngIf="!user" class="auth">
     <a routerLink="/login">login</a>
     <a routerLink="/register">register</a>
   </div>
   <div *ngIf="user" class="user-block">
-    <span>user.name</span>
+    <span>{{ user.name }}</span><br>
+    <span>{{ user.email }}</span><br>
+    <span class="link" (click)="logout()">logout</span><br>
+    <span class="link" routerLink="/setting">setting</span>
   </div>
 </div>

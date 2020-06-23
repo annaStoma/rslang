@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './modules/main-page/main-page.module';
 import { MainPageRoutingModule } from './modules/main-page/main-page-routing.module';
 import { MiniGamesRoutingModule } from './modules/mini-games/mini-games.routing.module';
-import { MiniGamesModule } from './modules/mini-games/mini-games.module';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -16,6 +15,7 @@ import { PromoComponent } from './components/promo/promo.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { MiniGamesModule } from './modules/mini-games/mini-games.module';
 
 @NgModule({
   declarations: [

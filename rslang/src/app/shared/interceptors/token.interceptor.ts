@@ -12,6 +12,7 @@ import {
 
 import { AuthService } from '../services/auth.service';
 import { LocalstorageService } from '../services/localstorage.service';
+import { UserBlockService } from '../services/user-block.service';
 
 enum Error {
   TOKEN_EXPIRED = 401,
@@ -23,7 +24,8 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private localData: LocalstorageService
+    private localData: LocalstorageService,
+    private userBlockService: UserBlockService
   ) {}
 
   intercept(
@@ -46,6 +48,8 @@ export class TokenInterceptor implements HttpInterceptor {
     if (err.status === Error.FORBIDDEN || err.status === Error.TOKEN_EXPIRED) {
       this.auth.setToken(null);
       this.localData.clearAuthData();
+      this.userBlockService.setUser(null);
+      this.localData.deleteUser();
       const queryParam =
         err.status === Error.TOKEN_EXPIRED ? 'sessionFailed' : 'accessDenied';
       const queryParams = {};

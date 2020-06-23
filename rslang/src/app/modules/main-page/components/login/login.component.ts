@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { AuthService } from '../../../../shared/services/auth.service';
 import { LocalstorageService } from '../../../../shared/services/localstorage.service';
+import { UserBlockService } from '../../../../shared/services/user-block.service';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +20,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private localData: LocalstorageService
+    private localData: LocalstorageService,
+    private userBlockService: UserBlockService
   ) {}
 
   ngOnInit(): void {
+    this.auth.setToken(null);
+    this.userBlockService.setUser(null);
+    this.localData.deleteUser();
+    this.localData.clearAuthData();
+
     this.formLogin = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -61,6 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.stream = this.auth.login(this.formLogin.value).subscribe(
       (res) => {
         this.localData.setUser(res);
+        this.userBlockService.setUser(res);
         this.router.navigate(['/']);
       },
       (err) => {

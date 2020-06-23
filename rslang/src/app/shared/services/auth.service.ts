@@ -11,6 +11,8 @@ import {
 } from '../interfaces';
 import { Config } from '../../common/config';
 import { LocalstorageService } from './localstorage.service';
+import { UserBlockService } from './user-block.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,9 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalstorageService
+    private localData: LocalstorageService,
+    private userBlockService: UserBlockService,
+    private router: Router
   ) {
     this.url = this.config.url();
   }
@@ -58,6 +62,9 @@ export class AuthService {
 
   logout() {
     this.setToken(null);
+    this.userBlockService.setUser(null);
+    this.localData.deleteUser();
     this.localData.clearAuthData();
+    this.router.navigate(['/login']);
   }
 }

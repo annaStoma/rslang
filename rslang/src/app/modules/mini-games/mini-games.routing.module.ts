@@ -8,35 +8,61 @@ import { SavannaComponent } from './modules/savanna/component/savanna/savanna.co
 import { OwnGameComponent } from './modules/own-game/component/own-game/own-game.component';
 import { SprintComponent } from './modules/sprint/component/sprint/sprint.component';
 import { NotFoundPageComponent } from '../../components/not-found-page/not-found-page.component';
+import { AuthGuard } from '../../shared/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MiniGamesComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'speakit',
         component: SpeakitComponent,
+        loadChildren: () =>
+          import('./modules/speakit/speakit.module').then(
+            (module) => module.SpeakitModule
+          ),
       },
       {
         path: 'savanna',
         component: SavannaComponent,
+        loadChildren: () =>
+          import('./modules/savanna/savanna.module').then(
+            (module) => module.SavannaModule
+          ),
       },
       {
         path: 'audiocall',
         component: AudiocallComponent,
+        loadChildren: () =>
+          import('./modules/audiocall/audiocall.module').then(
+            (module) => module.AudiocallModule
+          ),
       },
       {
         path: 'english-puzzle',
         component: EnglishPuzzleComponent,
+        loadChildren: () =>
+          import('./modules/english-puzzle/english-puzzle.module').then(
+            (module) => module.EnglishPuzzleModule
+          ),
       },
       {
         path: 'own-game',
         component: OwnGameComponent,
+        loadChildren: () =>
+          import('./modules/own-game/own-game.module').then(
+            (module) => module.OwnGameModule
+          ),
       },
       {
         path: 'sprint',
         component: SprintComponent,
+        loadChildren: () =>
+          import('./modules/sprint/sprint.module').then(
+            (module) => module.SprintModule
+          ),
       },
       {
         path: '**',
