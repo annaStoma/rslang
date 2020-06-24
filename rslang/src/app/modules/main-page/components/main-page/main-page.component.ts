@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Games } from '../../../../shared/interfaces';
+import { games } from '../../../../common/games';
 
 @Component({
   selector: 'app-main-page',
@@ -6,36 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page.component.scss'],
 })
 export class MainPageComponent {
-  games = [
-    {
-      name: 'Savanna',
-      url: 'savanna',
-      image: 'assets/savanna.jpg',
-    },
-    {
-      name: 'Speakit',
-      url: 'speakit',
-      image: 'assets/speakit.jpg',
-    },
-    {
-      name: 'English Puzzle',
-      url: 'english-puzzle',
-      image: 'assets/english-puzzle.jpg',
-    },
-    {
-      name: 'Sprint',
-      url: 'sprint',
-      image: 'assets/sprint.jpg',
-    },
-    {
-      name: 'Audio Call',
-      url: 'audiocall',
-      image: 'assets/audiocall.jpg',
-    },
-    {
-      name: 'Own Game',
-      url: 'own-game',
-      image: 'assets/own-game.jpg',
-    },
-  ];
+  games: Games = games;
 }

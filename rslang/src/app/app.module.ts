@@ -43,5 +43,6 @@ import { MiniGamesModule } from './modules/mini-games/mini-games.module';
     },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

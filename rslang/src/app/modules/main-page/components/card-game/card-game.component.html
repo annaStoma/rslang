@@ -1,3 +1,9 @@
-<div [routerLink]="game.url" class="card">
-    <span>{{ game.name }}</span>
+<div class="content">
+  <div class="header">
+    <p  class="title">{{game.name}}</p>
+    <span class="description">{{game.description}}</span>
+  </div>
+  <button mat-raised-button class="play-btn" routerLink="{{game.link}}">Play</button>
 </div>
+
+<img src="" alt="">

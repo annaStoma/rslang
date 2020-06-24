@@ -1,18 +1,42 @@
-<div class="header">
-  <div class="logo">
-    <h1 routerLink="/">header works!</h1>
-    <a routerLink="/promo">PROMO</a>
-    <a routerLink="/about-us">ABOUT US</a>
-    <a *ngIf="user" routerLink="/statistic">STATISTIC</a>
-  </div>
-  <div *ngIf="!user" class="auth">
-    <a routerLink="/login">login</a>
-    <a routerLink="/register">register</a>
-  </div>
-  <div *ngIf="user" class="user-block">
-    <span>{{ user.name }}</span><br>
-    <span>{{ user.email }}</span><br>
-    <span class="link" (click)="logout()">logout</span><br>
-    <span class="link" routerLink="/setting">setting</span>
-  </div>
-</div>
+<!--<div class="header">-->
+<!--  <div class="logo">-->
+<!--    <h1 routerLink="/">header works!</h1>-->
+<!--    <a routerLink="/promo">PROMO</a>-->
+<!--    <a routerLink="/about-us">ABOUT US</a>-->
+<!--    <a *ngIf="user" routerLink="/statistic">STATISTIC</a>-->
+<!--  </div>-->
+<!--  <div *ngIf="!user" class="auth">-->
+<!--    <a routerLink="/login">login</a>-->
+<!--    <a routerLink="/register">register</a>-->
+<!--  </div>-->
+<!--  <div *ngIf="user" class="user-block">-->
+<!--    <span>{{ user.name }}</span><br>-->
+<!--    <span>{{ user.email }}</span><br>-->
+<!--    <span class="link" (click)="logout()">logout</span><br>-->
+<!--    <span class="link" routerLink="/setting">setting</span>-->
+<!--  </div>-->
+<!--</div>-->
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span routerLink="/">RsLangApp</span>
+    <span routerLink="/promo">PROMO</span>
+    <span routerLink="/about-us">ABOUT US</span>
+    <nav *ngIf="user">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <span>{{ user.name }}</span><br>
+        <span>{{ user.email }}</span><br>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span routerLink="/setting">Settings</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span (click)="logout()">Log out</span>
+        </button>
+      </mat-menu>
+    </nav>
+  </mat-toolbar-row>
+</mat-toolbar>

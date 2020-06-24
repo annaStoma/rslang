@@ -1,47 +1,15 @@
-.header {
-  color: white;
-  background-color: dimgrey;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
+@import "../../constants";
 
-  & h1 {
-    margin: 0;
-    outline: none;
-    cursor: pointer;
-    margin-right: 20px;
+:host {
+  width: 100%;
 
-    &:hover {
-      color: coral;
+  .mat-toolbar {
+    background: $primary;
+    color: $font-color;
+
+    .mat-toolbar-row {
+      display: flex;
+      justify-content: space-between;
     }
-  }
-}
-
-.auth {
-  padding: 0 10px;
-}
-
-a {
-  margin-right: 20px;
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-
-  &:hover {
-    color: coral;
-  }
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.link {
-  cursor: pointer;
-
-  &:hover {
-    color: coral;
   }
 }

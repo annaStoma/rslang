@@ -99,3 +99,26 @@ export interface User {
   name: string;
   email: string;
 }
+
+export interface Games {
+  speakIt: GameItem;
+  puzzle: GameItem;
+  savannah: GameItem;
+  audioCall: GameItem;
+  sprint: GameItem;
+  ownGame: GameItem;
+}
+
+export interface GameItem {
+  name: string;
+  link: string;
+  description: string;
+  background: string;
+}
+
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
