@@ -11,6 +11,7 @@ import { UserBlockService } from '../../../../shared/services/user-block.service
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+
 })
 export class LoginComponent implements OnInit, OnDestroy {
   formLogin: FormGroup;
@@ -40,7 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         Validators.minLength(4),
       ]),
     });
-
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
         // need to add material tooltip to the login form TODO

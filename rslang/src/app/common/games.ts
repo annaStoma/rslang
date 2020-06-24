@@ -5,14 +5,14 @@ export const games: Games = {
     name: 'SpeakIt',
     link: 'speakit',
     description: 'Learn how to pronounce',
-    background: 'assets/images/speakit.png',
+    background: 'assets/images/speakit.jpg',
   },
   puzzle: {
     name: 'English Puzzle',
     link: 'english-puzzle',
     description: 'Build an app from the available words',
     background:
-      'assets/images/english-puzzle.png',
+      'assets/images/english-puzzle.jpg',
   },
   savannah: {
     name: 'Savannah',
@@ -31,7 +31,7 @@ export const games: Games = {
     name: 'Sprint',
     link: 'sprint',
     description: 'Determine whether the word is translated correctly.',
-    background: 'assets/images/sprint.png',
+    background: 'assets/images/sprint.jpg',
   },
   ownGame: {
     name: 'Own Game',
