@@ -21,6 +21,15 @@
     <span routerLink="/">RsLangApp</span>
     <span routerLink="/promo">PROMO</span>
     <span routerLink="/about-us">ABOUT US</span>
+    <nav *ngIf="!user">
+      <button mat-raised-button color="accent" routerLink="/login">
+        login
+      </button>
+      <button mat-raised-button color="accent" routerLink="/register">
+        register
+      </button>
+
+    </nav>
     <nav *ngIf="user">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>account_circle</mat-icon>
