@@ -11,12 +11,10 @@ const routes: Routes = [
   {
     path: 'promo',
     component: PromoComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'about-us',
     component: AboutUsComponent,
-    canActivate: [AuthGuard],
   },
   {
     path: 'statistic',
