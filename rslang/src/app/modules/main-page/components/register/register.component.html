@@ -5,15 +5,15 @@
         <mat-label for="username-reg" class="label">
           <span class="span-login">Name: </span>
         </mat-label>
-          <input
-            matInput
-            formControlName="userName"
-            type="text"
-            name="username"
-            id="username-reg"
-            placeholder="name"
-            class="input"
-          />
+        <input
+          matInput
+          formControlName="userName"
+          type="text"
+          name="username"
+          id="username-reg"
+          placeholder="name"
+          class="input"
+        />
       </mat-form-field>
     </div>
     <div class="wrap-login">
@@ -21,23 +21,21 @@
         <mat-label for="login-reg" class="label">
           <span class="span-login">Login(e-mail): </span>
         </mat-label>
-          <input
-            matInput
-            formControlName="email"
-            type="text"
-            name="login"
-            id="login-reg"
-            placeholder="login"
-            class="input"
-          />
-        <small
-          *ngIf="formRegister.get('email')?.errors?.required
-              && formRegister.get('email')?.touched"
-        >Field can not be empty</small>
-        <small
-          *ngIf="formRegister.get('email')?.errors?.pattern
-              && formRegister.get('email')?.touched"
-        >E-mail must be format mymail@mydomain.com</small>
+        <input
+          matInput
+          formControlName="email"
+          type="text"
+          name="login"
+          id="login-reg"
+          placeholder="login"
+          class="input"
+          (focus)="emailTooltip.show()"
+          (input)="emailInput()"
+          #emailTooltip="matTooltip"
+          [matTooltip]="emailTooltipText"
+          matTooltipPosition="right"
+          [matTooltipDisabled]="isShowTooltipEmail"
+        />
       </mat-form-field>
     </div>
 
@@ -46,31 +44,40 @@
         <mat-label for="password-reg" class="label">
           <span class="span-password">Password: </span>
         </mat-label>
-          <input
-            matInput
-            formControlName="password"
-            type="password"
-            name="password"
-            id="password-reg"
-            placeholder="password"
-            class="input"
-          />
-
-        <div *ngIf="false" class="error">
-          <span class="span-error">Connection error</span>
-        </div>
-        <small
-          *ngIf="formRegister.get('password')?.errors?.required
-              && formRegister.get('password')?.touched"
-        >Field can not be empty</small>
-        <small
-          *ngIf="formRegister.get('password')?.errors?.pattern
-              && formRegister.get('password')?.touched"
-        >Password must be minimum 8 characters and  contain one uppercase, one lowercase letter, one number digit and one special character {{symbols}}</small>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password-reg"
+          placeholder="password"
+          class="input"
+          (focus)="passwordTooltip.show()"
+          (input)="passwordInput()"
+          (mouseover)="passwordInput()"
+          #passwordTooltip="matTooltip"
+          [matTooltip]="passwordTooltipText"
+          matTooltipPosition="right"
+          [matTooltipDisabled]="isShowTooltipPassword"
+        />
       </mat-form-field>
     </div>
-    <div class="buttons">
-      <button  mat-raised-button color="accent" class="login" type="submit" [disabled]="formRegister.invalid || formRegister.disabled">Registration</button>
+    <div
+      class="buttons"
+      #errorTooltip="matTooltip"
+      [matTooltip]="errorTooltipText"
+      matTooltipPosition="right"
+      [matTooltipDisabled]="isShowTooltipError"
+      matTooltipHideDelay="5000"
+    >
+      <button
+        mat-raised-button
+        color="accent"
+        class="login"
+        type="submit"
+        [disabled]="formRegister.invalid || formRegister.disabled"
+      >Registration
+      </button>
     </div>
   </form>
 </div>
