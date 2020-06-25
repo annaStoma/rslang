@@ -19,7 +19,7 @@ export interface SignInData {
 export interface userSettings {
   wordsPerDay: number;
   optional: {
-    maxWords: boolean;
+    maxWords: number;
     translation: boolean;
     explantation: boolean;
     exampleText: boolean;

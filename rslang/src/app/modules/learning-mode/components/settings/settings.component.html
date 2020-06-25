@@ -1,6 +1,8 @@
+<mat-spinner *ngIf="isSpinnerVisible"></mat-spinner>
 <section class="settings">
 <form
   [formGroup]="myForm"
+  *ngIf="myForm"
   novalidate
   (ngSubmit)="saveUser(myForm.value)">
   <mat-card-title>Настройки</mat-card-title>
@@ -8,12 +10,14 @@
   <div class="form-group">
     <mat-form-field class="example-full-width">
       <mat-label>Сколько слов в день вы хотите изучать?</mat-label>
-      <input matInput
-        placeholder="введите количестов слов ..."
-        value="wordsPerDay"
-        class="form-control"
-        name="wordsPerDay"
-        formControlName="wordsPerDay"/>
+      <label>
+        <input matInput
+          placeholder="введите количестов слов ..."
+          value="wordsPerDay"
+          class="form-control"
+          name="wordsPerDay"
+          formControlName="wordsPerDay"/>
+      </label>
       <mat-error *ngIf="myForm.controls['wordsPerDay'].invalid && myForm.controls['wordsPerDay'].touched">Значение не
         может быть меньше, чем 1
       </mat-error>
@@ -23,12 +27,14 @@
   <div class="form-group">
     <mat-form-field class="example-full-width">
       <mat-label>Максимальное количество слов</mat-label>
-      <input matInput
-        placeholder="введите количестов слов ..."
-        value="wordsPerDay"
-        class="form-control"
-        name="maxWords"
-        formControlName="maxWords"/>
+      <label>
+        <input matInput
+          placeholder="введите количестов слов ..."
+          value="wordsPerDay"
+          class="form-control"
+          name="maxWords"
+          formControlName="maxWords"/>
+      </label>
       <mat-error *ngIf="myForm.controls['maxWords'].invalid && myForm.controls['maxWords'].touched">
         Максимальное количество слов не может быть меньше, чем количество изучаемых слов в день
       </mat-error>
@@ -65,7 +71,7 @@
   </div>
 
   <div class="form-group">
-    <button mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
+    <button (click)="saveUser(myForm.value)" mat-dialog-close mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
       Применить настройки
     </button>
   </div>

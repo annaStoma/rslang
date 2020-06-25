@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WordsService } from '../../../../services/words.service';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { userSettings } from '../../../../models/user.model';
-import { UserDataService } from '../../../../services/user-data.service';
+import { ApiServices } from '../../../../shared/services/api.services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-settings',
@@ -17,62 +12,48 @@ import { UserDataService } from '../../../../services/user-data.service';
 export class SettingsComponent implements OnInit {
   myForm: FormGroup;
   newSettings: userSettings;
+  isSpinnerVisible: boolean = false;
 
   constructor(
-    private wordsService: WordsService,
-    private userDataService: UserDataService
+    private apiServices: ApiServices,
+    private snackBar: MatSnackBar
   ) {
-    this.myForm = new FormGroup({
-      wordsPerDay: new FormControl(20, Validators.required),
-      maxWords: new FormControl(25, Validators.required),
-      translation: new FormControl(false, Validators.required),
-      explantation: new FormControl(true, Validators.required),
-      exampleText: new FormControl(false, Validators.required),
-      transcription: new FormControl(false, Validators.required),
-      association: new FormControl(false, Validators.required),
+    this.isSpinnerVisible = true;
+    this.apiServices.getUserSettings().subscribe(s => {
+      this.myForm = new FormGroup({
+        wordsPerDay: new FormControl(s.wordsPerDay, Validators.required),
+        maxWords: new FormControl(s.optional.maxWords, Validators.required),
+        translation: new FormControl(s.optional.translation, Validators.required),
+        explantation: new FormControl(s.optional.explantation, Validators.required),
+        exampleText: new FormControl(s.optional.exampleText, Validators.required),
+        transcription: new FormControl(s.optional.transcription, Validators.required),
+        association: new FormControl(s.optional.association, Validators.required),
+      });
+      this.isSpinnerVisible = false;
     });
-
-    this.newSettings = {
-      wordsPerDay: this.myForm.value.wordsPerDay,
-      optional: {
-        maxWords: this.myForm.value.maxWords,
-        translation: this.myForm.value.translation,
-        explantation: this.myForm.value.explantation,
-        exampleText: this.myForm.value.exampleText,
-        transcription: this.myForm.value.transcription,
-        association: this.myForm.value.association,
-      },
-    };
   }
 
-  ngOnInit(): void {}
-
-  // async getUserSettings(): Promise<any> {
-  //   const id = await this.userDataService.getUserId;
-  //   const token = await this.userDataService.getUserToken;
-  //  const res = await this.wordsService.getSettings(id, token)
-  //     .subscribe(data => console.log(data));
-  //  return res;
-  // }
+  ngOnInit(): void {
+  }
 
   saveUser(settings) {
     this.newSettings = {
-      wordsPerDay: settings.wordsPerDay,
+      wordsPerDay: +settings.wordsPerDay,
       optional: {
-        maxWords: settings.maxWords,
+        maxWords: +settings.maxWords,
         translation: settings.translation,
         explantation: settings.explantation,
         exampleText: settings.exampleText,
         transcription: settings.transcription,
         association: settings.association,
-      },
-    };
-    this.wordsService
-      .setSettings(
-        this.userDataService.getUserId,
-        this.userDataService.getUserToken,
-        this.newSettings
-      )
-      .subscribe((data) => data);
+      }};
+    this.apiServices.setUserSettings(this.newSettings).subscribe((data) => data);
+    this.openSnackBar('Настройки изменены', 'Success');
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }
