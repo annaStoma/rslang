@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingsComponent } from './components/settings/settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
@@ -11,8 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [SettingsComponent],
-  exports: [SettingsComponent],
+  declarations: [],
+  exports: [],
   imports: [
     CommonModule,
     ReactiveFormsModule,
