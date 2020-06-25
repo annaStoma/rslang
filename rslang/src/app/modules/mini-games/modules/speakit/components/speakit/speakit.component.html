@@ -11,58 +11,29 @@
       <span id="text-meaning" class="text-meaning"></span>
     </div>
     <div class="level-of-difficulty" id="level-of-difficulty">
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="0" checked>
+      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="0" checked>
         <span class="text-radio">A</span>
       </label>
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="1">
+      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="1">
         <span class="text-radio">B</span>
       </label>
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="2">
+      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="2">
         <span class="text-radio">C</span>
       </label>
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="3">
+      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="3">
         <span class="text-radio">D</span>
       </label>
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="4">
+      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="4">
         <span class="text-radio">E</span>
       </label>
-      <label class="label-radio"><input class="radio-input"  type="radio" name="dif" class="difficult" value="5">
+      <label class="label-radio"><input  type="radio" name="dif" class="difficult radio-input" value="5">
         <span class="text-radio">F</span>
       </label>
     </div>
     <div class="word-original" id="word-original">
-      <label for="word-1" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-1">
-        <span class="word-label__span"></span>
-      </label>
-      <label for="word-2" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-2">
-        <span class="word-label__span"></span>
-      </label><label for="word-3" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-3">
-        <span class="word-label__span"></span>
-      </label><label for="word-4" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-4">
-        <span class="word-label__span"></span>
-      </label><label for="word-5" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-5">
-        <span class="word-label__span"></span>
-      </label><label for="word-6" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-6">
-        <span class="word-label__span"></span>
-      </label><label for="word-7" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-7">
-        <span class="word-label__span"></span>
-      </label><label for="word-8" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-8">
-        <span class="word-label__span"></span>
-      </label><label for="word-9" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-9">
-        <span class="word-label__span"></span>
-      </label><label for="word-10" class="word-label">
-        <input type="button" class="word-sound" value="" id="word-10">
-        <span class="word-label__span"></span>
-      </label>
+      <app-word-card
+        *ngFor="let word of words; index as i"
+      ></app-word-card>
     </div>
     <div class="control-buttons" id="control-buttons">
       <input type="button" class="control-buttons__button" id="restart" value="new game" name="restart">
@@ -71,9 +42,11 @@
       <input type="button" class="control-buttons__button" id="games" value="games stats" name="games">
     </div>
   </div>
-  <div class="start-page" id="start-page">
+
+  <div *ngIf="false" class="start-page" id="start-page">
     <button class="start-game" id="start-game">start game</button>
   </div>
+
   <div class="start-page close results-page" id="results-page">
     <div class="show-results" id="show-results">
       <div class="dont-know">
@@ -101,6 +74,7 @@
       <button id="stats-close">close</button>
     </div>
   </div>
+
   <div class="start-page close win-page" id="win-page">
     <div class="show-congratulation">
       <span>Congratulation!</span>
