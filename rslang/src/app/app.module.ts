@@ -36,7 +36,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     PromoComponent,
     AboutUsComponent,
     LearningModeComponent,
-    WordCardComponent,
+    WordCardComponent
   ],
   imports: [
     HttpClientModule,
@@ -62,7 +62,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: TokenInterceptor,
-    }
+    },
   ],
   bootstrap: [AppComponent],
   exports: [],
