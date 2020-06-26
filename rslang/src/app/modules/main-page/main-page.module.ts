@@ -21,6 +21,8 @@ import { BgImageDirective } from '../../components/directives/bg-image.directive
 import { StatisticCardComponent } from './components/statistic-card/statistic-card.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { DictionariesComponent } from './components/dictionaries/dictionaries.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../../shared/interceptors/token.interceptor';
 
 
 @NgModule({
@@ -59,6 +61,13 @@ import { DictionariesComponent } from './components/dictionaries/dictionaries.co
     MatFormFieldModule,
     MatTooltipModule,
     MatSelectModule
+  ],
+    providers: [
+    {
+      provide: [HTTP_INTERCEPTORS],
+      multi: true,
+      useClass: TokenInterceptor,
+    },
   ],
 })
 export class MainPageModule {}

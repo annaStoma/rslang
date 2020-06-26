@@ -18,6 +18,9 @@ export class SettingsComponent implements OnInit {
     private apiServices: ApiServices,
     private snackBar: MatSnackBar
   ) {
+  }
+
+  ngOnInit(): void {
     this.isSpinnerVisible = true;
     this.apiServices.getUserSettings().subscribe(s => {
       this.myForm = new FormGroup({
@@ -31,9 +34,6 @@ export class SettingsComponent implements OnInit {
       });
       this.isSpinnerVisible = false;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   saveUser(settings) {

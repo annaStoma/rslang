@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiServices } from '../../../../../../shared/services/api.services';
 
 @Component({
   selector: 'app-english-puzzle',
@@ -6,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./english-puzzle.component.scss'],
 })
 export class EnglishPuzzleComponent implements OnInit {
-  constructor() {}
+  constructor(private apiService: ApiServices) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.apiService.getUserSettings().subscribe(res => {
+      console.log(res)
+    })
+  }
 }

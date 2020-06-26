@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SettingsModule } from './modules/learning-mode/components/settings/setting.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SettingsModule
   ],
   providers: [
     {
