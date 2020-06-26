@@ -5,7 +5,7 @@ import { PromoComponent } from '../../components/promo/promo.component';
 import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import { AuthGuard } from '../../shared/guards/auth.guard';
 import { StatisticsComponent } from '../statistics/components/statistics/statistics.component';
-import { SettingComponent } from '../setting/components/setting/setting.component';
+import { SettingsComponent } from '../learning-mode/components/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -30,11 +30,11 @@ const routes: Routes = [
   },
   {
     path: 'setting',
-    component: SettingComponent,
+    component: SettingsComponent,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('../setting/setting.module').then(
-        (module) => module.SettingModule
+      import('../learning-mode/components/settings/setting.module').then(
+        (module) => module.SettingsModule
       ),
      data: { title: 'Setting'}
   },

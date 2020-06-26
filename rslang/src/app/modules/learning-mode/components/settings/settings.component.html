@@ -1,0 +1,79 @@
+<mat-spinner *ngIf="isSpinnerVisible"></mat-spinner>
+<section class="settings">
+<form
+  [formGroup]="myForm"
+  *ngIf="myForm"
+  novalidate
+  (ngSubmit)="saveUser(myForm.value)">
+  <mat-card-title>Настройки</mat-card-title>
+
+  <div class="form-group">
+    <mat-form-field class="example-full-width">
+      <mat-label>Сколько слов в день вы хотите изучать?</mat-label>
+      <label>
+        <input matInput
+          placeholder="введите количестов слов ..."
+          value="wordsPerDay"
+          class="form-control"
+          name="wordsPerDay"
+          formControlName="wordsPerDay"/>
+      </label>
+      <mat-error *ngIf="myForm.controls['wordsPerDay'].invalid && myForm.controls['wordsPerDay'].touched">Значение не
+        может быть меньше, чем 1
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-form-field class="example-full-width">
+      <mat-label>Максимальное количество слов</mat-label>
+      <label>
+        <input matInput
+          placeholder="введите количестов слов ..."
+          value="wordsPerDay"
+          class="form-control"
+          name="maxWords"
+          formControlName="maxWords"/>
+      </label>
+      <mat-error *ngIf="myForm.controls['maxWords'].invalid && myForm.controls['maxWords'].touched">
+        Максимальное количество слов не может быть меньше, чем количество изучаемых слов в день
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="form-group">
+    <mat-checkbox color="primary"  class="form-control" name="phone" formControlName="translation">Показывать перевод
+    </mat-checkbox>
+  </div>
+
+  <div class="form-group">
+    <mat-checkbox color="primary" class="form-control" name="explantation" formControlName="explantation">Показывать
+      пояснение
+    </mat-checkbox>
+  </div>
+
+  <div class="form-group">
+    <mat-checkbox color="primary" class="form-control" name="exampleText" formControlName="exampleText">Показывать
+      пример текста
+    </mat-checkbox>
+  </div>
+
+  <div class="form-group">
+    <mat-checkbox color="primary" class="form-control" name="transcription" formControlName="transcription">Показывать
+      транскрипцию
+    </mat-checkbox>
+  </div>
+
+  <div class="form-group">
+    <mat-checkbox color="primary" class="form-control" name="association" formControlName="association">Показывать
+      ассоциации
+    </mat-checkbox>
+  </div>
+
+  <div class="form-group">
+    <button (click)="saveUser(myForm.value)" mat-dialog-close mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
+      Применить настройки
+    </button>
+  </div>
+</form>
+</section>

@@ -1,8 +1,9 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './modules/main-page/main-page.module';
 import { MainPageRoutingModule } from './modules/main-page/main-page-routing.module';
@@ -16,6 +17,16 @@ import { AboutUsComponent } from './components/about-us/about-us.component';
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MiniGamesModule } from './modules/mini-games/mini-games.module';
+import { LearningModeComponent } from './modules/learning-mode/learning-mode.component';
+import { WordCardComponent } from './components/word-card/word-card.component';
+import { LearningModeModule } from './modules/learning-mode/learning-mode.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -24,6 +35,8 @@ import { MiniGamesModule } from './modules/mini-games/mini-games.module';
     FooterComponent,
     PromoComponent,
     AboutUsComponent,
+    LearningModeComponent,
+    WordCardComponent
   ],
   imports: [
     HttpClientModule,
@@ -34,6 +47,15 @@ import { MiniGamesModule } from './modules/mini-games/mini-games.module';
     MainPageRoutingModule,
     MiniGamesRoutingModule,
     MiniGamesModule,
+    HttpClientModule,
+    LearningModeModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     {

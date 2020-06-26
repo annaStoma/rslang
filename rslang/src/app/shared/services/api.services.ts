@@ -16,6 +16,7 @@ import {
   UserUpdateResponse,
   UserWordById, Word,
 } from '../interfaces';
+import { userSettings } from '../../models/user.model';
 
 type Group = 0|1|2|3|4|5;
 type Page = 0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29;
@@ -129,10 +130,10 @@ export class ApiServices {
     return this.http.put<UserStatistic>(url, statistic);
   }
 
-  getUserSettings(): Observable<UserSetting> {
+  getUserSettings(): Observable<userSettings> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.get<UserSetting>(url);
+    return this.http.get<userSettings>(url);
   }
 
   updateUserSettings(setting: UserSetting): Observable<UserSetting> {
@@ -151,5 +152,11 @@ export class ApiServices {
     this.url.pathname = `/users/${this.id}/user-data`;
     const url = this.url.toString();
     return this.http.put<UserData>(url, userData);
+  }
+
+  setUserSettings(settings: UserSetting): Observable<UserSetting> {
+    this.url.pathname = `/users/${this.id}/settings`;
+    const url = this.url.toString();
+    return this.http.put<UserSetting>(url , settings);
   }
 }
