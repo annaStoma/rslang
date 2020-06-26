@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { userSettings } from '../../../../models/user.model';
 import { ApiServices } from '../../../../shared/services/api.services';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings',
@@ -12,11 +13,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SettingsComponent implements OnInit {
   myForm: FormGroup;
   newSettings: userSettings;
-  isSpinnerVisible: boolean = false;
+  isSpinnerVisible = false;
 
   constructor(
     private apiServices: ApiServices,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
   }
 
@@ -33,10 +35,14 @@ export class SettingsComponent implements OnInit {
         association: new FormControl(s.optional.association, Validators.required),
       });
       this.isSpinnerVisible = false;
+    }, () => {
+      this.isSpinnerVisible = false;
+      this.dialog.closeAll();
     });
   }
 
-  saveUser(settings) {
+  saveUser() {
+    const settings = this.myForm.value;
     this.newSettings = {
       wordsPerDay: +settings.wordsPerDay,
       optional: {

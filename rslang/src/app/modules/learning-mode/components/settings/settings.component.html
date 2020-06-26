@@ -4,7 +4,7 @@
   [formGroup]="myForm"
   *ngIf="myForm"
   novalidate
-  (ngSubmit)="saveUser(myForm.value)">
+  (submit)="saveUser()">
   <mat-card-title>Настройки</mat-card-title>
 
   <div class="form-group">
@@ -71,7 +71,7 @@
   </div>
 
   <div class="form-group">
-    <button (click)="saveUser(myForm.value)" mat-dialog-close mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
+    <button type="submit" mat-dialog-close mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
       Применить настройки
     </button>
   </div>
