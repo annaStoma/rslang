@@ -16,6 +16,7 @@ import {
   UserUpdateResponse,
   UserWordById,
 } from '../interfaces';
+import { userSettings } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -117,10 +118,10 @@ export class ApiServices {
     return this.http.put<UserStatistic>(url, statistic);
   }
 
-  getUserSettings(): Observable<UserSetting> {
+  getUserSettings(): Observable<userSettings> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.get<UserSetting>(url);
+    return this.http.get<userSettings>(url);
   }
 
   updateUserSettings(setting: UserSetting): Observable<UserSetting> {
@@ -139,5 +140,11 @@ export class ApiServices {
     this.url.pathname = `/users/${this.id}/user-data`;
     const url = this.url.toString();
     return this.http.put<UserData>(url, userData);
+  }
+
+  setUserSettings(settings: UserSetting): Observable<UserSetting> {
+    this.url.pathname = `/users/${this.id}/settings`;
+    const url = this.url.toString();
+    return this.http.put<UserSetting>(url , settings);
   }
 }

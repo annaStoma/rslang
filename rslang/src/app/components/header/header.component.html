@@ -16,7 +16,7 @@
       </button>
        <mat-menu #menu="matMenu">
 
-        <button routerLink="/setting" mat-menu-item>
+        <button (click)="openUserSettingDialog()" mat-menu-item>
           <mat-icon>settings</mat-icon>
           <span>Settings</span>
         </button>

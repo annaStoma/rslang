@@ -1,0 +1,32 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title>Слово</mat-card-title>
+    <mat-card-subtitle>транскрипция</mat-card-subtitle>
+    <mat-card-subtitle>перевод слова</mat-card-subtitle>
+  </mat-card-header>
+  <img class="mat-card-image" mat-card-image src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+    alt="картинка-ассоциация">
+  <mat-card-content>
+    <p class="explantation">
+      предложение с объяснением значения слова
+    </p>
+
+    <p class="exampleText">
+      предложение с примером использования изучаемого слова
+    </p>
+  </mat-card-content>
+  <!--   ширина поля ввода соответствует длине изучаемого слова-->
+  <mat-form-field class="example-full-width">
+    <mat-label>Введите слово</mat-label>
+    <input matInput
+      placeholder="введите слово ..."
+      value=""
+      class="form-control"/>
+  </mat-form-field>
+  <mat-card-actions>
+    <button mat-flat-button color="accent">Удалить</button>
+    <button mat-flat-button color="warn">Сложные</button>
+    <!--    или  enter -->
+    <button mat-flat-button color="primary">Дальше</button>
+  </mat-card-actions>
+</mat-card>
