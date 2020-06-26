@@ -119,15 +119,8 @@ export class ApiServices {
   }
 
   getUserSettings(): Observable<userSettings> {
-    const headers = new HttpHeaders({
-      Accept: 'application/json',
-      Authorization: `Bearer ${ this.localData.getToken() }`,
-      'Content-Type': 'application/json',
-    });
     return this.http.get<userSettings>(
-      `https://api-rslang.herokuapp.com/users/${ this.id }/settings`,
-      {headers}
-    );
+      `https://api-rslang.herokuapp.com/users/${ this.id }/settings`);
   }
 
   updateUserSettings(setting: UserSetting): Observable<UserSetting> {
@@ -149,11 +142,6 @@ export class ApiServices {
   }
 
   setUserSettings(settings: UserSetting): Observable<UserSetting> {
-    const headers = new HttpHeaders({
-      Accept: 'application/json',
-      Authorization: `Bearer ${ this.localData.getToken() }`,
-      'Content-Type': 'application/json'
-    });
-    return this.http.put<UserSetting>(`https://api-rslang.herokuapp.com/users/${ this.id }/settings`, settings, {headers});
+    return this.http.put<UserSetting>(`https://api-rslang.herokuapp.com/users/${ this.id }/settings`, settings);
   }
 }

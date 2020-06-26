@@ -25,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
-import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
@@ -36,7 +36,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     PromoComponent,
     AboutUsComponent,
     LearningModeComponent,
-    WordCardComponent
+    WordCardComponent,
   ],
   imports: [
     HttpClientModule,
@@ -59,10 +59,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
   ],
   providers: [
     {
-      provide: [HTTP_INTERCEPTORS, MatDialogRef],
+      provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: TokenInterceptor,
-    },
+    }
   ],
   bootstrap: [AppComponent],
   exports: [],
