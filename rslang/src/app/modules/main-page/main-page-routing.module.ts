@@ -24,16 +24,7 @@ const routes: Routes = [
       import('../statistics/statistics.module').then(
         (module) => module.StatisticsModule
       ),
-  },
-  {
-    path: 'setting',
-    component: SettingsComponent,
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('../learning-mode/components/settings/setting.module').then(
-        (module) => module.SettingsModule
-      ),
-  },
+  }
 ];
 
 @NgModule({
