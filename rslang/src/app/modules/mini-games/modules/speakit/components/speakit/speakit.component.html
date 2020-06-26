@@ -33,6 +33,7 @@
     <div class="word-original" id="word-original">
       <app-word-card
         *ngFor="let word of words; index as i"
+        [word]="word"
       ></app-word-card>
     </div>
     <div class="control-buttons" id="control-buttons">
@@ -81,5 +82,4 @@
       <button id="win-close">new game</button>
     </div>
   </div>
-
 </div>

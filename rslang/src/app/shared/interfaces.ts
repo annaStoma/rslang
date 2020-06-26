@@ -39,7 +39,7 @@ export interface UsersWords {
 }
 
 export interface Word {
-  _id: string;
+  id: string;
   group: number;
   page: number;
   word: string;

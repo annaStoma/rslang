@@ -14,8 +14,11 @@ import {
   UsersWords,
   UserUpdate,
   UserUpdateResponse,
-  UserWordById,
+  UserWordById, Word,
 } from '../interfaces';
+
+type Group = 0|1|2|3|4|5;
+type Page = 0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29;
 
 @Injectable({
   providedIn: 'root',
@@ -49,6 +52,15 @@ export class ApiServices {
     this.url.pathname = `/users/${this.id}/words`;
     const url = this.url.toString();
     return this.http.get<Array<UsersWords>>(url);
+  }
+
+  getWords(group: Group, page: Page): Observable<Array<Word>> {
+    this.url.pathname = `/words`;
+    const url = this.url.toString();
+    let params = new HttpParams();
+    params = params.append('group', group.toString());
+    params = params.append('page', page.toString());
+    return this.http.get<Array<Word>>(url, { params });
   }
 
   createUserWordByWordId(
