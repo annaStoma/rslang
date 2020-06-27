@@ -1,0 +1,6 @@
+::ng-deep mat-spinner {
+  position: absolute !important;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  transform: translate(-50%, -50%);
+}
