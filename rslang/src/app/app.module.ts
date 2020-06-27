@@ -8,9 +8,10 @@ import { EnglishPuzzleComponent } from './englishPuzzle/englishPuzzle.component'
 import { HttpClientModule } from '@angular/common/http';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { BaseComponent } from './base/base.component';
 
 @NgModule({
-  declarations: [AppComponent, EnglishPuzzleComponent],
+  declarations: [AppComponent, EnglishPuzzleComponent, BaseComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
