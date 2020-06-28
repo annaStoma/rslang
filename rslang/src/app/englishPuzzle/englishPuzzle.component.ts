@@ -125,4 +125,11 @@ export class EnglishPuzzleComponent implements OnInit {
       return this.words;
     });
   }
+
+  voiceExample() {
+    const message = new SpeechSynthesisUtterance();
+    message.lang = "en";
+    message.text = this.currentTextExample;
+    window.speechSynthesis.speak(message);
+  }
 }

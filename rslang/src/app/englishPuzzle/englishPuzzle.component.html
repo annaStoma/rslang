@@ -9,7 +9,7 @@
           </select>
       </div>
       <div class="menu__right">
-          <button class="menu__voice">voice</button>
+          <button (click)="voiceExample()" class="menu__voice">voice</button>
           <button (click)="getCurrentTextTranslate()" class="menu__translate">translate</button>
           <button class="menu__melody">melody</button>
           <button class="menu__background">background</button>
@@ -17,16 +17,16 @@
   </div>
   <p #placeForTranslate class="field-for-translate">{{textTranslate}}</p>
   <div class="field-for-answer">
-      <div class="text" [hidden]='!answers[0]'>{{answers[0]}}</div>
-      <div class="text" [hidden]='!answers[1]'>{{answers[1]}}</div>
-      <div class="text" [hidden]='!answers[2]'>{{answers[2]}}</div>
-      <div class="text" [hidden]='!answers[3]'>{{answers[3]}}</div>
-      <div class="text" [hidden]='!answers[4]'>{{answers[4]}}</div>
-      <div class="text" [hidden]='!answers[5]'>{{answers[5]}}</div>
-      <div class="text" [hidden]='!answers[6]'>{{answers[6]}}</div>
-      <div class="text" [hidden]='!answers[7]'>{{answers[7]}}</div>
-      <div class="text" [hidden]='!answers[8]'>{{answers[8]}}</div>
-      <div class="text" [hidden]='!answers[9]'>{{answers[9]}}</div>
+      <div style="background-position-y: 0px;" class="text" [hidden]='!answers[0]'>{{answers[0]}}</div>
+      <div style="background-position-y: 80px;" class="text" [hidden]='!answers[1]'>{{answers[1]}}</div>
+      <div style="background-position-y: 160px;" class="text" [hidden]='!answers[2]'>{{answers[2]}}</div>
+      <div style="background-position-y: 240px;" class="text" [hidden]='!answers[3]'>{{answers[3]}}</div>
+      <div style="background-position-y: 320px;" class="text" [hidden]='!answers[4]'>{{answers[4]}}</div>
+      <div style="background-position-y: 400px;" class="text" [hidden]='!answers[5]'>{{answers[5]}}</div>
+      <div style="background-position-y: 480px;" class="text" [hidden]='!answers[6]'>{{answers[6]}}</div>
+      <div style="background-position-y: 560px;" class="text" [hidden]='!answers[7]'>{{answers[7]}}</div>
+      <div style="background-position-y: 640px;" class="text" [hidden]='!answers[8]'>{{answers[8]}}</div>
+      <div style="background-position-y: 720px;" class="text" [hidden]='!answers[9]'>{{answers[9]}}</div>
       <div [hidden]="answers.length > 9" 
           cdkDropListOrientation="horizontal" 
           cdkDropList
