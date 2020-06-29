@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { AuthService } from '../../../../shared/services/auth.service';
-import { LocalstorageService } from '../../../../shared/services/localstorage.service';
+import { LocalDataService } from '../../../../shared/services/local-data.service';
 import { UserBlockService } from '../../../../shared/services/user-block.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private localData: LocalstorageService,
+    private localData: LocalDataService,
     private userBlockService: UserBlockService
   ) {}
 

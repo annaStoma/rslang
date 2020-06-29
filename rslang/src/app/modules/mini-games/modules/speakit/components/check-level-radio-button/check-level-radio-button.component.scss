@@ -1,0 +1,16 @@
+@import "../../constants";
+
+.radio-input {
+  display: none;
+}
+
+.mat-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $text-color;
+  font-weight: 900;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+}

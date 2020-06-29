@@ -1,46 +1,47 @@
 <div class="wrap-game">
-
-  <div id="words-list" class="words-list">
-    <div class="card-img" id="card-img"></div>
+  <div id="words-list" [class.on]="!isNotPlay" class="words-list">
+    <div class="card-img" [appCardImg]="cardImg"></div>
     <div class="example-conversation record">
       <div class="output-word">
-        <input type="text" id="text-translate" readonly>
+        <input type="text" [value]="currentWord?.word" readonly>
         <span class="output-word__span" id="heard-as"></span>
       </div>
-      <span id="text-example" class="text-example"></span>
-      <span id="text-meaning" class="text-meaning"></span>
+      <span
+        [ngClass]="{
+          active: currentWord
+        }"
+        class="text-example"
+        [innerHTML]="currentWord?.textExample"
+      ></span>
+      <span
+        [ngClass]="{
+          'active': currentWord
+        }"
+        class="text-meaning"
+        [innerHTML]="currentWord?.textMeaning"
+      ></span>
     </div>
-    <div class="level-of-difficulty" id="level-of-difficulty">
-      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="0" checked>
-        <span class="text-radio">A</span>
-      </label>
-      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="1">
-        <span class="text-radio">B</span>
-      </label>
-      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="2">
-        <span class="text-radio">C</span>
-      </label>
-      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="3">
-        <span class="text-radio">D</span>
-      </label>
-      <label class="label-radio"><input type="radio" name="dif" class="difficult radio-input" value="4">
-        <span class="text-radio">E</span>
-      </label>
-      <label class="label-radio"><input  type="radio" name="dif" class="difficult radio-input" value="5">
-        <span class="text-radio">F</span>
-      </label>
+    <div class="level-of-difficulty">
+      <app-check-level-radio-button
+        *ngFor="let letter of levels; index as i"
+        [letter]="letter"
+        [idx]="i"
+      ></app-check-level-radio-button>
     </div>
     <div class="word-original" id="word-original">
       <app-word-card
         *ngFor="let word of words; index as i"
         [word]="word"
+        (currentWord)="setWord($event)"
+        (setIsNotPlay)="setIsNotPlay($event)"
+        [isNotPlay]="isNotPlay"
       ></app-word-card>
     </div>
-    <div class="control-buttons" id="control-buttons">
-      <input type="button" class="control-buttons__button" id="restart" value="new game" name="restart">
-      <input type="button" class="control-buttons__button start-speak" id="speech" value="start speak" name="speak">
-      <input type="button" class="control-buttons__button" id="results" value="show results" name="show">
-      <input type="button" class="control-buttons__button" id="games" value="games stats" name="games">
+    <div class="control-buttons">
+      <button class="control-buttons___item" mat-raised-button color="primary">new game</button>
+      <button class="control-buttons___item" mat-raised-button color="primary">start speak</button>
+      <button class="control-buttons___item" mat-raised-button color="primary">show results</button>
+      <button class="control-buttons___item" mat-raised-button color="primary">games stats</button>
     </div>
   </div>
 

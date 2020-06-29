@@ -1,4 +1,7 @@
-<label [for]="word.id" class="word-label">
-  <input type="button" class="word-sound" [value]="word.word" [id]="word.id">
-  <span class="word-label__span">{{ word.transcription }}</span>
-</label>
+<mat-card class="card" (click)="playSound()">
+  <img mat-card-image [src]="imgSrc" class="card-img">
+  <div class="words">
+    <span>{{ word.word }}</span>
+    <span>{{ word.transcription }}</span>
+  </div>
+</mat-card>

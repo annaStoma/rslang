@@ -4,3 +4,7 @@
   left: calc(50% - 50px);
   transform: translate(-50%, -50%);
 }
+
+.main-wrap {
+  min-height: calc(100vh - 130px);
+}

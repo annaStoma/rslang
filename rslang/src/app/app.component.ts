@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
 
 import { AuthService } from './shared/services/auth.service';
-import { LocalstorageService } from './shared/services/localstorage.service';
+import { LocalDataService } from './shared/services/local-data.service';
 import { UserBlockService } from './shared/services/user-block.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { UserBlockService } from './shared/services/user-block.service';
 export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
-    private localData: LocalstorageService,
+    private localData: LocalDataService,
     private userBlockService: UserBlockService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
   openUserSettingDialog(): void {
     this.dialog.open(SettingsComponent, {
+      panelClass: 'app-dialog-setting',
       width: '320px'
     });
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Config } from '../../common/config';
-import { LocalstorageService } from './localstorage.service';
+import { LocalDataService } from './local-data.service';
 import { Observable } from 'rxjs';
 import {
   AggregatedFilter,
@@ -24,14 +24,14 @@ type Page = 0|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|
 @Injectable({
   providedIn: 'root',
 })
-export class ApiServices {
+export class ApiService {
   private readonly url: URL;
   private readonly id: string;
 
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalstorageService
+    private localData: LocalDataService
   ) {
     this.url = this.config.url();
     this.id = this.localData.getUserId();

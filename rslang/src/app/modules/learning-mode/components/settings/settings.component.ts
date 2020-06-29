@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { userSettings } from '../../../../models/user.model';
-import { ApiServices } from '../../../../shared/services/api.services';
+import { ApiService } from '../../../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
   isSpinnerVisible = false;
 
   constructor(
-    private apiServices: ApiServices,
+    private apiServices: ApiService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {

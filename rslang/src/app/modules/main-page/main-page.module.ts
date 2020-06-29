@@ -60,7 +60,8 @@ import { TokenInterceptor } from '../../shared/interceptors/token.interceptor';
     MatInputModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    BgImageDirective
   ],
     providers: [
     {

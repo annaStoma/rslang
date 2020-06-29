@@ -1,0 +1,11 @@
+<label class="label-radio">
+  <input type="radio" name="difficulty" class="radio-input" [value]="idx" [checked]="idx === level" #input>
+  <button
+    mat-fab
+    class="mat-button"
+    (click)="input.checked = true"
+    [color]="input.checked ? 'warn' : 'primary'"
+  >
+    <span class="text">{{letter}}</span>
+  </button>
+</label>
