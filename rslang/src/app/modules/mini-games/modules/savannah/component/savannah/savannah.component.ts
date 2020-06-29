@@ -1,29 +1,10 @@
+import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import { SavannahCard } from './savannah-card.model';
 import { SavannahService } from './savannah.service';
 import { first } from 'rxjs/operators';
 
-export enum KEY_CODE {
-  NUMBER_ONE = 1,
-  NUMBER_TWO = 2,
-  NUMBER_THREE = 3,
-  NUMBER_FOUR = 4,
-}
-
-export enum CARD_NUMBER {
-  FIRST = 0,
-  SECOND = 1,
-  THIRD = 2,
-  FOURTH = 3,
-}
-
-const AUDIO_NAMES = {
-  ERROR: 'error',
-  FAILURE: 'failure',
-  SUCCESS: 'succes',
-  CORRECT: 'correct',
-};
 @Component({
   selector: 'app-savannah',
   templateUrl: './savannah.component.html',
@@ -40,40 +21,38 @@ export class SavannahComponent implements OnInit {
   remainGameCards: SavannahCard[];
   activeCard: SavannahCard;
   randomCards: SavannahCard[];
-  livesArray: Array<number> = [1, 1, 1, 1, 1];
   lives: number;
   rightWords: number;
   mistakes: number;
-  isHiddenDescription = false;
-  isHiddenLoader = true;
-  isHiddenButton = false;
-  isHiddenFinalScreen = true;
-  isAnimationStart = true;
-  isAnimationEnd = true;
-  isAnimationBullet = false;
-  isSoundSelected = true;
+  livesArray: Array<number> = SAVANNAH_DEFAULT_VALUES.livesArray;
+  isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
+  isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
+  isHiddenButton = SAVANNAH_DEFAULT_VALUES.isHiddenButton;
+  isHiddenFinalScreen = SAVANNAH_DEFAULT_VALUES.isHiddenFinalScreen;
+  isAnimationStart = SAVANNAH_DEFAULT_VALUES.isAnimationStart;
+  isAnimationEnd = SAVANNAH_DEFAULT_VALUES.isAnimationEnd;
+  isAnimationBullet = SAVANNAH_DEFAULT_VALUES.isAnimationBullet;
+  isSoundSelected = SAVANNAH_DEFAULT_VALUES.isSoundSelected;
 
   title: string[] = 'SAVANAH'.split('').reverse();
 
   ngOnInit(): void { }
 
   getDefaultAdditionalGameValues(): void {
-    this.isHiddenDescription = true;
-    this.isHiddenButton = true;
-    this.isHiddenLoader = false;
-    this.lives = 5;
-    this.mistakes = 0;
-    this.rightWords = 0;
-    this.isHiddenFinalScreen = true;
-    this.livesArray = [1, 1, 1, 1, 1];
+    this.isHiddenDescription = SAVANNAH_START_VALUES.isHiddenDescription;
+    this.isHiddenButton = SAVANNAH_START_VALUES.isHiddenButton;
+    this.isHiddenLoader = SAVANNAH_START_VALUES.isHiddenLoader;
+    this.lives = SAVANNAH_START_VALUES.lives;
+    this.mistakes = SAVANNAH_START_VALUES.mistakes;
+    this.rightWords = SAVANNAH_START_VALUES.rightWords;
+    this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
   }
 
   startGame(): void {
     this.getDefaultAdditionalGameValues();
     this.savannahService
       .getWords()
-      .pipe(first())
-      .subscribe((words) => {
+      .pipe(first()).subscribe((words) => {
         this.savannahCards = words;
         this.remainGameCards = [...this.savannahCards];
         this.getForeignWord();
@@ -107,9 +86,7 @@ export class SavannahComponent implements OnInit {
 
   removeElementFromArray(array: SavannahCard[], value: SavannahCard) {
     const index: number = array.indexOf(value);
-
     array.splice(index, 1);
-
     return array;
   }
 
@@ -120,16 +97,16 @@ export class SavannahComponent implements OnInit {
   getThreeRandomCardsRandomNumbers(
     cards: SavannahCard[]
   ): SavannahCard[] {
-    const ar = [...cards];
+    const array = [...cards];
     const length = 3;
     const result = [];
 
-    this.removeElementFromArray(ar, this.activeCard);
+    this.removeElementFromArray(array, this.activeCard);
 
     for (let i = 0; i < length; i++) {
-      let index = this.getRandomNumber(ar.length);
-      let curCard = ar[index];
-      ar.splice(index, 1);
+      let index = this.getRandomNumber(array.length);
+      let curCard = array[index];
+      array.splice(index, 1);
       result.push(curCard);
     }
 
@@ -213,7 +190,7 @@ export class SavannahComponent implements OnInit {
   }
 
   selectSound(): void {
-this.isSoundSelected = !this.isSoundSelected;
+    this.isSoundSelected = !this.isSoundSelected;
   }
 
   gameOver(): void {

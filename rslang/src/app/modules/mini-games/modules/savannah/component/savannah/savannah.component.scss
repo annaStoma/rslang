@@ -68,29 +68,31 @@
 }
 
 .sound-toggler-container {
- text-align: left;
- padding-top: 20px;
- padding-left: 20px;
- .sound-toggler-button {
+  text-align: left;
+  padding-top: 20px;
+  padding-left: 20px;
+
+  .sound-toggler-button {
     height: 50px;
   }
 }
 
 .crossed {
   background:
-      linear-gradient(to top left,
-          rgba(0,0,0,0) 0%,
-          rgba(0,0,0,0) calc(50% - 0.8px),
-          $shadow 50%,
-          rgba(0,0,0,0) calc(50% + 0.8px),
-          rgba(0,0,0,0) 100%),
-      linear-gradient(to top right,
-          rgba(0,0,0,0) 0%,
-          rgba(0,0,0,0) calc(50% - 0.8px),
-          $shadow 50%,
-          rgba(0,0,0,0) calc(50% + 0.8px),
-          rgba(0,0,0,0) 100%);
+    linear-gradient(to top left,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) calc(50% - 0.8px),
+      $shadow 50%,
+      rgba(0, 0, 0, 0) calc(50% + 0.8px),
+      rgba(0, 0, 0, 0) 100%),
+    linear-gradient(to top right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0) calc(50% - 0.8px),
+      $shadow 50%,
+      rgba(0, 0, 0, 0) calc(50% + 0.8px),
+      rgba(0, 0, 0, 0) 100%);
 }
+
 .game-container {
   height: 100vh;
   margin-top: 0;
@@ -133,15 +135,17 @@
     font-size: 2em;
   }
 }
+
 .native-words-container {
   display: flex;
   justify-content: space-around;
   padding-top: 40vh;
+
   @media screen and (max-width: 600px) {
-flex-direction: column;
-padding-left: 10%;
-padding-bottom: 20px;
-font-size: 1.5em;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-bottom: 20px;
+    font-size: 1.5em;
   }
 
   .native-word-card {
@@ -152,6 +156,7 @@ font-size: 1.5em;
 
 .activeCardFall {
   animation: active-card-fall 5s ease infinite;
+
   @keyframes active-card-fall {
     0% {
       top: 0;
@@ -174,6 +179,7 @@ font-size: 1.5em;
   animation: bullet 1s linear;
   background-color: $primary;
   border-radius: 3px;
+
   @keyframes bullet {
     0% {
       top: 0;
@@ -184,6 +190,7 @@ font-size: 1.5em;
     }
   }
 }
+
 .animationStop {
   animation-name: none;
 }
@@ -192,6 +199,7 @@ font-size: 1.5em;
   position: relative;
   top: 100px;
   left: 0%;
+
   @media screen and (max-width: 600px) {
     top: 0;
   }

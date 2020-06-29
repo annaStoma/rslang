@@ -3,7 +3,7 @@
     <img class="start-screen-image" src="../../../../../../../assets/images//savannah-start-page.jpg" alt="">
 
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
-      <div class="close-button" ></div>
+      <div class="close-button"></div>
       <h1>SAVANNAH</h1>
       <div class="game-name">
         <div class="game-name-letter" *ngFor="let letter of title">{{letter}}</div>
@@ -27,12 +27,13 @@
 
   <div class="game-container" *ngIf="savannahCards && activeCard">
     <img class="main-scree-image" src="../../../../../../../assets/images/savannah-background-page.jpg" alt="">
-    <div class="close-button" (click)="closeGame()"></div>
+    <div class="close-button"></div>
     <div class="sound-toggler-container" (click)="selectSound()">
       <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah-voice-button.png"
         [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
     <div class="lives-container">
-      <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah-lives.png" alt="">
+      <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah-lives.png"
+        alt="">
     </div>
 
     <div class="active-card-container">
