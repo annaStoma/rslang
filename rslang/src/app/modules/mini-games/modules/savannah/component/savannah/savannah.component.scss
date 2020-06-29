@@ -1,0 +1,211 @@
+@import "../../../../../../constants.scss";
+
+.savannah-game-wrapper {
+  text-align: center;
+}
+
+.start-screen {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: $font-color;
+
+  .start-screen-image {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  .start-screen-text {
+    margin-top: 10vh;
+  }
+
+  .start-button {
+    margin-top: 40vh;
+    margin-bottom: 30vh;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.close-button {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+
+.close-button:hover {
+  opacity: 1;
+}
+
+.close-button:before,
+.close-button:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 2px;
+  background-color: $shadow;
+}
+
+.close-button:before {
+  transform: rotate(45deg);
+}
+
+.close-button:after {
+  transform: rotate(-45deg);
+}
+
+.sound-toggler-container {
+ text-align: left;
+ padding-top: 20px;
+ padding-left: 20px;
+ .sound-toggler-button {
+    height: 50px;
+  }
+}
+
+.crossed {
+  background:
+      linear-gradient(to top left,
+          rgba(0,0,0,0) 0%,
+          rgba(0,0,0,0) calc(50% - 0.8px),
+          $shadow 50%,
+          rgba(0,0,0,0) calc(50% + 0.8px),
+          rgba(0,0,0,0) 100%),
+      linear-gradient(to top right,
+          rgba(0,0,0,0) 0%,
+          rgba(0,0,0,0) calc(50% - 0.8px),
+          $shadow 50%,
+          rgba(0,0,0,0) calc(50% + 0.8px),
+          rgba(0,0,0,0) 100%);
+}
+.game-container {
+  height: 100vh;
+  margin-top: 0;
+  margin-left: 0;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: $primary;
+
+  .main-scree-image {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10;
+  }
+}
+
+.lives-container {
+  text-align: right;
+  margin-right: 10vw;
+  margin-top: 10vh;
+
+  .lives {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.active-card-container {
+  position: relative;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .active-card {
+    position: absolute;
+    font-size: 2em;
+  }
+}
+.native-words-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 40vh;
+  @media screen and (max-width: 600px) {
+flex-direction: column;
+padding-left: 10%;
+padding-bottom: 20px;
+font-size: 1.5em;
+  }
+
+  .native-word-card {
+    font-size: 1.5em;
+    width: 100px;
+  }
+}
+
+.activeCardFall {
+  animation: active-card-fall 5s ease infinite;
+  @keyframes active-card-fall {
+    0% {
+      top: 0;
+    }
+
+    100% {
+      top: 350px;
+    }
+  }
+}
+
+.bullet {
+  position: absolute;
+  left: 40%;
+  width: 6px;
+  height: 20px;
+}
+
+.bulletActive {
+  animation: bullet 1s linear;
+  background-color: $primary;
+  border-radius: 3px;
+  @keyframes bullet {
+    0% {
+      top: 0;
+    }
+
+    100% {
+      top: 300px;
+    }
+  }
+}
+.animationStop {
+  animation-name: none;
+}
+
+.diamand-container {
+  position: relative;
+  top: 100px;
+  left: 0%;
+  @media screen and (max-width: 600px) {
+    top: 0;
+  }
+
+  .diamand-image {
+    height: 100px;
+  }
+}
+
+.final-screen {
+  position: absolute;
+  top: 90px;
+  left: 40vw;
+  background-color: $card-background-color;
+  border-radius: 20px;
+  width: $card-size;
+}
