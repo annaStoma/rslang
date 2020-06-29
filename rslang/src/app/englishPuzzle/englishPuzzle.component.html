@@ -36,7 +36,7 @@
           [cdkDropListData]="currentAnswer"
           (cdkDropListDropped)="drop($event)"
           class="field-for-words dropzone">
-          <button (click)="wordToBottomBlock(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
+          <button (click)="wordToBottomBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)" *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
       </div>
   </div>
   <div cdkDropListOrientation="horizontal" 
@@ -46,7 +46,9 @@
        [cdkDropListData]="currentSplittedTextExample"
        (cdkDropListDropped)="drop($event)"
        class="field-for-words dropzone">
-      <button (click)="wordToUpperBlock(text)" class="word" [style.width]='(text.length / numberOfLetters * 100) + "%"' *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
+      <button (click)="wordToUpperBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)" *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
   </div>
-  <button class="check" (click)="newLine()">check</button>
+  <button class="check" (click)="abort()">i don't know</button>
+  <button [hidden]="currentSplittedTextExample.length !== 0" class="check" (click)="check()">check</button>
+  <button [hidden]="hiddenContinue" class="check" (click)="newLine()">continue</button>
 </body>

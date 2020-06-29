@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, ElementRef, Renderer2 } from '@angular/core';
 import { WordsService } from './words.service';
 import {
   CdkDragDrop,
@@ -25,11 +25,15 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
+  hiddenContinue = true;
   answers: string[] = [];
+  wrongWords: string[] = [];
+  rightWords: string[] = [];
   words: object[] = [];
   currentWordNumber = 0;
   numberOfLetters: number;
   currentTextExample: string;
+  currentWord: string;
   currentSplittedTextExample: string[];
   currentAnswer: string[] = [];
   page = 0;
@@ -39,10 +43,17 @@ export class EnglishPuzzleComponent implements OnInit {
     this.wordsService.getWords().subscribe((data: object[]) => {
       this.words = data;
       this.currentTextExample = this.getCurrentTextExample();
+      this.currentWord = this.words[this.currentWordNumber]['word'];
       this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
       this.currentSplittedTextExample = this.currentTextExample.split(' ');
       return this.words;
     });
+  }
+
+  setStyleOfTextExample(text) {
+    return {
+      'width' : (text.length / this.numberOfLetters * 100) + '%',
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -62,13 +73,28 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  newLine() {
+  abort() {
+    this.wrongWords.push(this.currentTextExample);
+    this.hiddenContinue = false;
+    this.answers.push(this.currentTextExample);
+    this.currentSplittedTextExample = [];
+    this.currentAnswer = [];
+  }
+
+  check() {
     if (this.currentAnswer.join(' ') === this.currentTextExample) {
       this.answers.push(this.currentTextExample);
+      this.rightWords.push(this.currentTextExample);
+      this.currentAnswer = [];
     }
-    this.currentAnswer = [];
+    this.hiddenContinue = false;
+  }
+
+  newLine() {
+    this.hiddenContinue = true;
     this.currentWordNumber++;
     this.currentTextExample = this.getCurrentTextExample();
+    this.currentWord = this.words[this.currentWordNumber]['word'];
     this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
     this.currentSplittedTextExample = this.currentTextExample.split(' ');
   }
@@ -120,6 +146,7 @@ export class EnglishPuzzleComponent implements OnInit {
       this.words =
         this.wordsService.page > 30 ? data.slice(10) : data.slice(0, 10);
       this.currentTextExample = this.getCurrentTextExample();
+      this.currentWord = this.words[this.currentWordNumber]['word'];
       this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
       this.currentSplittedTextExample = this.currentTextExample.split(' ');
       return this.words;
