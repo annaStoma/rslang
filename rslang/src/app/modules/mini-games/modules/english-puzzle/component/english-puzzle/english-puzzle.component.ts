@@ -153,6 +153,10 @@ export class EnglishPuzzleComponent implements OnInit {
     });
   }
 
+  sayHello() {
+    this.wordsService.getUserStatistic(this.rightWords, this.wrongWords);
+  }
+
   voiceExample() {
     const message = new SpeechSynthesisUtterance();
     message.lang = "en";
