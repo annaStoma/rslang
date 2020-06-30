@@ -13,6 +13,7 @@ import { first } from 'rxjs/operators';
     './savannah-loader.scss',
     './savannah-title.scss',
   ],
+  providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
   constructor(private savannahService: SavannahService) { }
