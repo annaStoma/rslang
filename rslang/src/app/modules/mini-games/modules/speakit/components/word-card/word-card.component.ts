@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Word } from '../../../../../../shared/interfaces';
 import { Config } from '../../../../../../common/config';
+import { WordSpeakit } from '../../shared/interfaces';
 
 @Component({
   selector: 'app-word-card',
@@ -9,7 +9,7 @@ import { Config } from '../../../../../../common/config';
 })
 export class WordCardComponent implements OnInit {
 
-  @Output() currentWord = new EventEmitter<Word>();
+  @Output() currentWord = new EventEmitter<WordSpeakit>();
   @Output() setIsNotPlay = new EventEmitter<boolean>();
 
   soundOffImg = '/assets/images/speakit/sound.png';
@@ -17,8 +17,9 @@ export class WordCardComponent implements OnInit {
   imgSrc = this.soundOffImg;
   audio = new Audio();
 
-  @Input() word: Word;
+  @Input() word: WordSpeakit;
   @Input() isNotPlay: boolean;
+  @Input() speech: SpeechRecognition;
   isPlay = false;
 
   constructor(private config: Config) { }
@@ -27,8 +28,7 @@ export class WordCardComponent implements OnInit {
   }
 
   playSound(): void {
-
-    if (this.isNotPlay) {
+    if (this.isNotPlay && !this.speech) {
       this.isPlay = true;
       this.currentWord.emit(this.word);
       this.imgSrc = this.soundOnImg;

@@ -1,10 +1,17 @@
 <div class="wrap-game">
   <div id="words-list" class="words-list">
     <div class="card-img" [appCardImg]="cardImg"></div>
-    <div [class.is-playing]="!isNotPlay" class="example-conversation record">
+    <div
+      [class.is-playing]="!isNotPlay"
+      class="example-conversation record"
+      [class.record-wait]="recordWait"
+      [class.record-on]="recordOn"
+    >
       <div class="output-word">
-        <input type="text" [value]="currentWord?.wordTranslate" readonly>
-        <span class="output-word__span" id="heard-as"></span>
+        <input
+          type="text"
+          [value]="currentWord?.wordTranslate || spokenWord" readonly>
+        <span class="output-word__span" id="heard-as">{{ heardAs }}</span>
       </div>
       <span
         [ngClass]="{
@@ -40,13 +47,32 @@
         (currentWord)="setWord($event)"
         (setIsNotPlay)="setIsNotPlay($event)"
         [isNotPlay]="isNotPlay"
+        [speech]="recognition"
       ></app-word-card>
     </div>
     <div class="control-buttons">
-      <button class="control-buttons___item" mat-raised-button color="primary" (click)="newGame()">new game</button>
-      <button class="control-buttons___item" mat-raised-button color="primary" (click)="record()">start speak</button>
-      <button class="control-buttons___item" mat-raised-button color="primary">show results</button>
-      <button class="control-buttons___item" mat-raised-button color="primary">games stats</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button color="primary"
+        (click)="newGame()"
+        [disabled]="isLoading"
+      >new game</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button [color]="recognition ? 'warn' : 'primary'"
+        (click)="startStopRecord()"
+        [disabled]="isLoading"
+      >{{ recognition ? 'stop speech and restart' : 'start speech' }}</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button color="primary"
+        [disabled]="isLoading"
+      >show results</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button color="primary"
+        [disabled]="isLoading"
+      >games stats</button>
     </div>
   </div>
 

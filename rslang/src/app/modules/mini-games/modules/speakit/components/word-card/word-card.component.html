@@ -1,4 +1,10 @@
-<mat-card class="card" (click)="playSound()" [class.wait]="!isNotPlay" [class.play]="isPlay">
+<mat-card
+  class="card"
+  (click)="playSound()"
+  [class.wait]="!isNotPlay"
+  [class.play]="isPlay"
+  [class.learned]="word.learned"
+>
   <img mat-card-image [src]="imgSrc" class="card-img">
   <div class="words">
     <span>{{ word.word }}</span>
