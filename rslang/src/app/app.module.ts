@@ -15,7 +15,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-import { EnglishPuzzleComponent } from './englishPuzzle/englishPuzzle.component';
 
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
@@ -42,7 +41,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     AboutUsComponent,
     LearningModeComponent,
     WordCardComponent,
-    EnglishPuzzleComponent,
   ],
   imports: [
     HttpClientModule,

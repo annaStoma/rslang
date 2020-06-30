@@ -1,1 +1,53 @@
-<p>english-puzzle works!</p>
+<body>
+  <div class="menu">
+      <div class="menu__left">
+          <select name="" id="" class="menu__level" (change)="newLevel($event)">
+              <option value="{{level}}" *ngFor="let level of levels">{{level}}</option>
+          </select>
+          <select name="" id="" class="menu__page" (change)="newPage($event)">
+              <option value="{{page}}" *ngFor="let page of pages">{{page}}</option>
+          </select>
+      </div>
+      <div class="menu__right">
+          <button (click)="voiceExample()" class="menu__voice">voice</button>
+          <button (click)="getCurrentTextTranslate()" class="menu__translate">translate</button>
+          <button class="menu__background">background</button>
+      </div>
+  </div>
+  <p #placeForTranslate class="field-for-translate">{{textTranslate}}</p>
+  <div class="field-for-answer">
+      <div style="background-position-y: 0px;" class="text" [hidden]='!answers[0]'>{{answers[0]}}</div>
+      <div style="background-position-y: 80px;" class="text" [hidden]='!answers[1]'>{{answers[1]}}</div>
+      <div style="background-position-y: 160px;" class="text" [hidden]='!answers[2]'>{{answers[2]}}</div>
+      <div style="background-position-y: 240px;" class="text" [hidden]='!answers[3]'>{{answers[3]}}</div>
+      <div style="background-position-y: 320px;" class="text" [hidden]='!answers[4]'>{{answers[4]}}</div>
+      <div style="background-position-y: 400px;" class="text" [hidden]='!answers[5]'>{{answers[5]}}</div>
+      <div style="background-position-y: 480px;" class="text" [hidden]='!answers[6]'>{{answers[6]}}</div>
+      <div style="background-position-y: 560px;" class="text" [hidden]='!answers[7]'>{{answers[7]}}</div>
+      <div style="background-position-y: 640px;" class="text" [hidden]='!answers[8]'>{{answers[8]}}</div>
+      <div style="background-position-y: 720px;" class="text" [hidden]='!answers[9]'>{{answers[9]}}</div>
+      <div [hidden]="answers && answers.length > 9" 
+          cdkDropListOrientation="horizontal" 
+          cdkDropList
+          #mytodo
+          #todoList="cdkDropList"
+          [cdkDropListConnectedTo]="[doneList]"
+          [cdkDropListData]="currentAnswer"
+          (cdkDropListDropped)="drop($event)"
+          class="field-for-words dropzone">
+          <button (click)="wordToBottomBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)" *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
+      </div>
+  </div>
+  <div cdkDropListOrientation="horizontal" 
+       cdkDropList
+       #doneList="cdkDropList"
+       [cdkDropListConnectedTo]="[todoList]"
+       [cdkDropListData]="currentSplittedTextExample"
+       (cdkDropListDropped)="drop($event)"
+       class="field-for-words dropzone">
+      <button (click)="wordToUpperBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)" *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
+  </div>
+  <button class="check" (click)="abort()">i don't know</button>
+  <button [hidden]="currentSplittedTextExample && currentSplittedTextExample.length !== 0" class="check" (click)="check()">check</button>
+  <button [hidden]="hiddenContinue" class="check" (click)="newLine()">continue</button>
+</body>

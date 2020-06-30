@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './notFound/notFound.component';
-import { EnglishPuzzleComponent } from './englishPuzzle/englishPuzzle.component';
 import { BaseComponent } from './base/base.component';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,7 +14,6 @@ import { AuthGuard } from './shared/guards/auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'englishPuzzle', component: EnglishPuzzleComponent },
   { path: '', component: MainPageComponent, canActivate: [AuthGuard] },
 ];
 
