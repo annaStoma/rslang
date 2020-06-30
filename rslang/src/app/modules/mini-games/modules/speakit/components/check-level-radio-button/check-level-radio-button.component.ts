@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CheckLevelRadioButtonComponent implements OnInit {
   @Input() letter;
   @Input() idx;
+  @Input() isNotPlay;
 
   level = 0;
 

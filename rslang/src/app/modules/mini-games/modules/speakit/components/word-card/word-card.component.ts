@@ -19,6 +19,7 @@ export class WordCardComponent implements OnInit {
 
   @Input() word: Word;
   @Input() isNotPlay: boolean;
+  isPlay = false;
 
   constructor(private config: Config) { }
 
@@ -28,6 +29,7 @@ export class WordCardComponent implements OnInit {
   playSound(): void {
 
     if (this.isNotPlay) {
+      this.isPlay = true;
       this.currentWord.emit(this.word);
       this.imgSrc = this.soundOnImg;
       this.setIsNotPlay.emit(false);
@@ -37,6 +39,13 @@ export class WordCardComponent implements OnInit {
       this.audio.onended = () => {
         this.setIsNotPlay.emit(true);
         this.imgSrc = this.soundOffImg;
+        this.isPlay = false;
+      };
+
+      this.audio.onerror = () => {
+        this.setIsNotPlay.emit(true);
+        this.imgSrc = this.soundOffImg;
+        this.isPlay = false;
       };
     }
   }

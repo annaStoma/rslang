@@ -11,6 +11,14 @@
   padding: 0;
   align-items: center;
 
+  &.wait {
+    cursor: wait;
+  }
+
+  &.play {
+    background-color: $background-color-is-playing;
+  }
+
   & .words {
     display: flex;
     height: 100%;
@@ -28,5 +36,9 @@
     margin: 0 0 0 15px;
     width: 32px;
     height: 32px;
+  }
+
+  &.on {
+
   }
 }

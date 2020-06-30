@@ -1,24 +1,28 @@
 <div class="wrap-game">
-  <div id="words-list" [class.on]="!isNotPlay" class="words-list">
+  <div id="words-list" class="words-list">
     <div class="card-img" [appCardImg]="cardImg"></div>
-    <div class="example-conversation record">
+    <div [class.is-playing]="!isNotPlay" class="example-conversation record">
       <div class="output-word">
-        <input type="text" [value]="currentWord?.word" readonly>
+        <input type="text" [value]="currentWord?.wordTranslate" readonly>
         <span class="output-word__span" id="heard-as"></span>
       </div>
       <span
         [ngClass]="{
-          active: currentWord
+          active: currentWord,
+          on: isPlayExample
         }"
         class="text-example"
         [innerHTML]="currentWord?.textExample"
+        (click)="playAudio('isPlayExample', 'audioExample')"
       ></span>
       <span
         [ngClass]="{
-          'active': currentWord
+          active: currentWord,
+          on: isPlayMeaning
         }"
         class="text-meaning"
         [innerHTML]="currentWord?.textMeaning"
+        (click)="playAudio('isPlayMeaning', 'audioMeaning')"
       ></span>
     </div>
     <div class="level-of-difficulty">
@@ -26,6 +30,7 @@
         *ngFor="let letter of levels; index as i"
         [letter]="letter"
         [idx]="i"
+        [isNotPlay]="isNotPlay"
       ></app-check-level-radio-button>
     </div>
     <div class="word-original" id="word-original">
@@ -38,8 +43,8 @@
       ></app-word-card>
     </div>
     <div class="control-buttons">
-      <button class="control-buttons___item" mat-raised-button color="primary">new game</button>
-      <button class="control-buttons___item" mat-raised-button color="primary">start speak</button>
+      <button class="control-buttons___item" mat-raised-button color="primary" (click)="newGame()">new game</button>
+      <button class="control-buttons___item" mat-raised-button color="primary" (click)="record()">start speak</button>
       <button class="control-buttons___item" mat-raised-button color="primary">show results</button>
       <button class="control-buttons___item" mat-raised-button color="primary">games stats</button>
     </div>

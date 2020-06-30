@@ -1,5 +1,11 @@
 @import "../../constants";
 
+.label-radio.wait {
+  & .mat-button {
+    cursor: wait;
+  }
+}
+
 .radio-input {
   display: none;
 }

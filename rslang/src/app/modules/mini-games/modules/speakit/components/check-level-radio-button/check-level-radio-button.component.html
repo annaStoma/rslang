@@ -1,4 +1,4 @@
-<label class="label-radio">
+<label class="label-radio" [class.wait]="!isNotPlay">
   <input type="radio" name="difficulty" class="radio-input" [value]="idx" [checked]="idx === level" #input>
   <button
     mat-fab
