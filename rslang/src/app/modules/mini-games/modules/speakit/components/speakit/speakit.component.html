@@ -1,5 +1,5 @@
 <div class="wrap-game">
-  <div id="words-list" class="words-list">
+  <div class="words-list">
     <div class="card-img" [appCardImg]="cardImg"></div>
     <div
       [class.is-playing]="!isNotPlay"
@@ -11,7 +11,7 @@
         <input
           type="text"
           [value]="currentWord?.wordTranslate || spokenWord" readonly>
-        <span class="output-word__span" id="heard-as">{{ heardAs }}</span>
+        <span class="output-word__span">{{ heardAs }}</span>
       </div>
       <span
         [ngClass]="{
@@ -40,78 +40,61 @@
         [isNotPlay]="isNotPlay"
       ></app-check-level-radio-button>
     </div>
-    <div class="word-original" id="word-original">
+    <div class="word-original">
       <app-word-card
         *ngFor="let word of words; index as i"
         [word]="word"
-        (currentWord)="setWord($event)"
-        (setIsNotPlay)="setIsNotPlay($event)"
         [isNotPlay]="isNotPlay"
         [speech]="recognition"
+        (currentWord)="setWord($event)"
+        (setIsNotPlay)="setIsNotPlay($event)"
       ></app-word-card>
     </div>
     <div class="control-buttons">
       <button
         class="control-buttons___item"
-        mat-raised-button color="primary"
-        (click)="newGame()"
+        mat-raised-button
+        color="primary"
         [disabled]="isLoading"
+        (click)="newGame()"
       >new game</button>
       <button
-        class="control-buttons___item"
-        mat-raised-button [color]="recognition ? 'warn' : 'primary'"
-        (click)="startStopRecord()"
+        class="control-buttons___item start-stop"
+        mat-raised-button
+        [color]="recognition ? 'warn' : 'primary'"
         [disabled]="isLoading"
-      >{{ recognition ? 'stop speech and restart' : 'start speech' }}</button>
+        (click)="startStopRecord()"
+      >{{ recognition ? 'stop & restart' : 'start speech' }}</button>
       <button
         class="control-buttons___item"
-        mat-raised-button color="primary"
+        mat-raised-button
+        color="primary"
         [disabled]="isLoading"
+        (click)="showResults()"
       >show results</button>
       <button
         class="control-buttons___item"
-        mat-raised-button color="primary"
+        mat-raised-button
+        color="primary"
         [disabled]="isLoading"
       >games stats</button>
     </div>
   </div>
-
-  <div *ngIf="false" class="start-page" id="start-page">
-    <button class="start-game" id="start-game">start game</button>
+  <div
+    *ngIf="startScreen"
+    class="start-page"
+    [class.close]="closeStartScreen"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      class="start-game"
+      (click)="startGame()"
+    >start game</button>
   </div>
-
-  <div class="start-page close results-page" id="results-page">
-    <div class="show-results" id="show-results">
-      <div class="dont-know">
-        <div class="wrap-know-count">
-          <span>Don't know yet: <span id="dont-know-count">0</span></span>
-        </div>
-        <div class="words-container" id="dont-know"></div>
-      </div>
-      <div class="know" id="know">
-        <div class="wrap-know-count">
-          <span>Now i know: <span id="i-know-count">0</span></span>
-        </div>
-        <div class="words-container" id="i-know"></div>
-      </div>
-      <div class="result-buttons">
-        <button id="result-new-game">new game</button>
-        <button id="result-close">close</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="start-page close games" id="games-stats">
-    <div class="show-results stats" id="show-stats">
-      <div class="stats-container" id="stats-container"></div>
-      <button id="stats-close">close</button>
-    </div>
-  </div>
-
-  <div class="start-page close win-page" id="win-page">
-    <div class="show-congratulation">
-      <span>Congratulation!</span>
-      <button id="win-close">new game</button>
-    </div>
-  </div>
+  <app-show-results
+    *ngIf="isShowResults"
+    (hideResult)="hideResults($event)"
+    [words]="words"
+  ></app-show-results>
 </div>

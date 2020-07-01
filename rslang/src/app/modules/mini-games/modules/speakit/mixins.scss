@@ -1,0 +1,18 @@
+@mixin pop-up-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: url(#{$img-path}/start-page.svg) no-repeat center center;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  transition: all .3s ease;
+
+  &.close {
+    transform: scale(0) translateY(-100vh);
+  }
+}

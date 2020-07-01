@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Word } from '../../../../../../shared/interfaces';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
 import { SpeechRecognitionService } from '../../shared/services/speech-recognition.service';
 import { ResultList, WordSpeakit } from '../../shared/interfaces';
+import { ScrollService } from '../../shared/services/scroll.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-speakit',
   templateUrl: './speakit.component.html',
   styleUrls: ['./speakit.component.scss'],
-  providers: [SpeechRecognitionService]
+  providers: [SpeechRecognitionService, ScrollService]
 })
-export class SpeakitComponent implements OnInit {
+export class SpeakitComponent implements OnInit, OnDestroy {
 
   defaultImg = 'english.jpeg';
   words: WordSpeakit[];
@@ -31,17 +33,26 @@ export class SpeakitComponent implements OnInit {
   heardAs = '';
   recordWait = false;
   recordOn = false;
+  startScreen = true;
+  closeStartScreen = false;
+  isShowResults = false;
 
   constructor(private apiService: ApiService,
               private config: Config,
-              private recognitionService: SpeechRecognitionService) {
+              private recognitionService: SpeechRecognitionService,
+              private scroll: ScrollService) {
   }
 
   ngOnInit(): void {
+    this.scroll.off();
     this.apiService.getWords(0, 0).subscribe(data => {
       this.words = data.slice(10).map((w: Word) => ({...w, learned: false}));
       this.isLoading = false;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.resetGame();
   }
 
   setWord(word: WordSpeakit): void {
@@ -163,5 +174,26 @@ export class SpeakitComponent implements OnInit {
     this.cardImg = this.defaultImg;
     this.countLearnedWords = 0;
     this.heardAs = '';
+    this.recordWait = false;
+    this.recordOn = false;
+  }
+
+  startGame(): void {
+    this.scroll.on();
+    this.closeStartScreen = true;
+    timer(350).subscribe(() => {
+      this.startScreen = false;
+    });
+  }
+
+  showResults() {
+    this.isShowResults = true;
+  }
+
+  hideResults(newGame) {
+    this.isShowResults = false;
+    if (newGame) {
+      this.newGame();
+    }
   }
 }
