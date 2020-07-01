@@ -79,6 +79,7 @@ export class EnglishPuzzleComponent implements OnInit {
     this.answers.push(this.currentTextExample);
     this.currentSplittedTextExample = [];
     this.currentAnswer = [];
+    this.setLearnedWords()
   }
 
   check() {
@@ -86,6 +87,7 @@ export class EnglishPuzzleComponent implements OnInit {
       this.answers.push(this.currentTextExample);
       this.rightWords.push(this.currentTextExample);
       this.currentAnswer = [];
+      this.setLearnedWords()
     }
     this.hiddenContinue = false;
   }
@@ -153,8 +155,8 @@ export class EnglishPuzzleComponent implements OnInit {
     });
   }
 
-  sayHello() {
-    this.wordsService.getUserStatistic(this.rightWords, this.wrongWords);
+  setLearnedWords() {
+    this.wordsService.setUserStatistic(this.rightWords, this.wrongWords);
   }
 
   voiceExample() {
