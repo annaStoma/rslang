@@ -1,6 +1,6 @@
 .word {
   font-weight: 700;
-  height: 80px;
+  height: 50px;
   text-align: center;
   padding: 0;
   color: white;
@@ -9,4 +9,7 @@
   font-size: 20px;
   text-shadow: black 1px 1px 0, black -1px -1px 0, black -1px 1px 0,
     black 1px -1px 0;
+  border: 1px solid #673AB7;
+  border-radius: 8px;
+  user-select: none;    
 }

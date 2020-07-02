@@ -1,6 +1,14 @@
 .field-for-words {
   width: 1024px;
-  height: 80px;
+  height: 50px;
   display: flex;
   flex-direction: row;
+}
+
+.field-for-words[hidden] {
+  display: none;
+}
+
+.field-for-words--bottom {
+  margin-top: 15px;
 }
