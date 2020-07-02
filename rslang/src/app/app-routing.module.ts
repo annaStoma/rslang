@@ -1,8 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { NotFoundComponent } from './notFound/notFound.component';
-import { BaseComponent } from './base/base.component';
 import { BrowserModule } from '@angular/platform-browser';
 
 
@@ -20,6 +17,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes), BrowserModule],
   exports: [RouterModule],
-  bootstrap: [BaseComponent],
 })
 export class AppRoutingModule {}

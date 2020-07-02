@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, Input, Output, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { WordsService } from './words.service';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-english-puzzle',
@@ -25,6 +26,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
+  isSmall:boolean = false;
   hiddenContinue = true;
   answers: string[] = [];
   wrongWords: string[] = [];
@@ -74,7 +76,7 @@ export class EnglishPuzzleComponent implements OnInit {
   }
 
   abort() {
-    this.wrongWords.push(this.currentTextExample);
+    this.wrongWords.push(this.currentWord);
     this.hiddenContinue = false;
     this.answers.push(this.currentTextExample);
     this.currentSplittedTextExample = [];
@@ -85,7 +87,7 @@ export class EnglishPuzzleComponent implements OnInit {
   check() {
     if (this.currentAnswer.join(' ') === this.currentTextExample) {
       this.answers.push(this.currentTextExample);
-      this.rightWords.push(this.currentTextExample);
+      this.rightWords.push(this.currentWord);
       this.currentAnswer = [];
       this.setLearnedWords()
     }
@@ -140,10 +142,28 @@ export class EnglishPuzzleComponent implements OnInit {
     this.resetQuestion();
   }
 
+  nextLevel() {
+    const lvl = document.querySelector(".menu__level");
+    const pg = document.querySelector(".menu__page");
+    if (pg["value"] < 60) {
+      pg["value"]++  
+    } else if (lvl["value"] < 6) {
+      pg["value"] = 1;
+      lvl["value"]++;
+    } else {
+      pg["value"] = 1;
+      lvl["value"] = 1;
+    }
+    this.wordsService.level = lvl["value"];
+    this.wordsService.page = pg["value"];
+    this.resetQuestion();
+  }
+
   resetQuestion() {
     this.answers = [];
     this.currentAnswer = [];
     this.currentWordNumber = 0;
+    this.hiddenContinue = true;
     this.wordsService.getWords().subscribe((data: object[]) => {
       this.words =
         this.wordsService.page % 2 !== 0 ? data.slice(10) : data.slice(0, 10);
