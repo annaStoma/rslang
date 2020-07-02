@@ -43,7 +43,7 @@
     </div>
     <div [hidden]="answers && answers.length > 9" cdkDropListOrientation="horizontal" cdkDropList #doneList="cdkDropList" [cdkDropListConnectedTo]="[todoList]"
         [cdkDropListData]="currentSplittedTextExample" (cdkDropListDropped)="drop($event)"
-        class="field-for-words field-for-words--bottom dropzone">
+        class="field-for-words dropzone field-for-words--bottom">
         <button (click)="wordToUpperBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)"
             *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
     </div>
