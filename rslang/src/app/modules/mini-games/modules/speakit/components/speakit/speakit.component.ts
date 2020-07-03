@@ -1,17 +1,19 @@
-import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Word } from '../../../../../../shared/interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
 import { SpeechRecognitionService } from '../../shared/services/speech-recognition.service';
-import { ResultList, WordSpeakit } from '../../shared/interfaces';
+import { ResultList, StatsWords, WordSpeakit } from '../../shared/interfaces';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { timer } from 'rxjs';
+import { Group, Page } from '../../../../../../shared/services/types';
+import { GetWordsService } from '../../shared/services/get-words.service';
+import { UserStatistic } from '../../../../../../shared/interfaces';
 
 @Component({
   selector: 'app-speakit',
   templateUrl: './speakit.component.html',
   styleUrls: ['./speakit.component.scss'],
-  providers: [SpeechRecognitionService, ScrollService]
+  providers: [SpeechRecognitionService, ScrollService, GetWordsService]
 })
 export class SpeakitComponent implements OnInit, OnDestroy {
 
@@ -36,23 +38,42 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   startScreen = true;
   closeStartScreen = false;
   isShowResults = false;
+  group: Group = 0;
+  statistics: StatsWords[];
+  date = Date.now();
+  page: number;
+  isGuessed = false;
 
   constructor(private apiService: ApiService,
               private config: Config,
               private recognitionService: SpeechRecognitionService,
-              private scroll: ScrollService) {
+              private scroll: ScrollService,
+              private getWordsService: GetWordsService) {
   }
 
   ngOnInit(): void {
     this.scroll.off();
-    this.apiService.getWords(0, 0).subscribe(data => {
-      this.words = data.slice(10).map((w: Word) => ({...w, learned: false}));
-      this.isLoading = false;
-    });
+    this.getWords();
   }
 
   ngOnDestroy(): void {
     this.resetGame();
+  }
+
+  getWords(): void {
+    const page = Math.round(Math.random() * 29) as Page;
+    this.page = page;
+    this.apiService.getWords(this.group, page).subscribe(data => {
+      this.words = this.getWordsService.getMix(data);
+      this.isLoading = false;
+    });
+
+    this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
+      this.statistics = JSON.parse(stats.optional.speakit);
+      console.log(this.statistics);
+    }, () => {
+      this.statistics = [];
+    });
   }
 
   setWord(word: WordSpeakit): void {
@@ -79,10 +100,13 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   }
 
   newGame(): void {
+    this.isLoading = true;
+    this.date = Date.now();
     this.resetGame();
+    this.getWords();
   }
 
-  startStopRecord() {
+  startStopRecord(): void {
     this.resetGame();
 
     if (!this.stopListen) {
@@ -91,8 +115,13 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   }
 
   record(): void {
+    if (this.countLearnedWords >= this.cardsCount) {
+      return;
+    }
+
     this.recordWait = true;
     this.recordOn = false;
+    this.isGuessed = false;
     this.recognition = this.recognitionService.listen((result: ResultList) => {
       this.heardAs = '';
       this.spokenWord = '';
@@ -114,6 +143,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
                 this.cardImg = word.image;
                 word.learned = true;
                 this.countLearnedWords++;
+                this.saveStats();
+                this.isGuessed = true;
               }
             }
           });
@@ -136,17 +167,16 @@ export class SpeakitComponent implements OnInit, OnDestroy {
             this.heardAs = tempValue ? `heard as "${tempValue}" (${Math.round(tempKey)})%` : '';
           }
         }
-        if (this.countLearnedWords >= this.cardsCount) {
-          console.log('learned');
-          this.recordWait = false;
-          this.recordOn = false;
-        } else {
+
+        if (!this.isGuessed && this.countLearnedWords < this.cardsCount) {
           this.record();
         }
       }
     }, () => {
-      this.recordWait = false;
-      this.recordOn = true;
+      if (this.countLearnedWords < this.cardsCount) {
+        this.recordWait = false;
+        this.recordOn = true;
+      }
     });
   }
 
@@ -156,9 +186,11 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.audio = null;
     }
 
-    this.words.forEach(word => {
-      word.learned = false;
-    });
+    if (this.words) {
+      this.words.forEach(word => {
+        word.learned = false;
+      });
+    }
 
     if (this.recognition) {
       this.stopListen = true;
@@ -186,14 +218,74 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     });
   }
 
-  showResults() {
+  showResults(): void {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+      this.isNotPlay = true;
+      this.isPlayExample = false;
+      this.isPlayMeaning = false;
+    }
+
+    if (this.recognition) {
+      this.stopListen = true;
+      this.recognition.abort();
+    }
+
     this.isShowResults = true;
   }
 
-  hideResults(newGame) {
+  hideResults(newGame): void {
     this.isShowResults = false;
+
+    if (this.recognition) {
+      this.recognition.start();
+    }
+
     if (newGame) {
       this.newGame();
     }
+  }
+
+  private saveStats() {
+
+    const isData = this.statistics.find(w => w?.date === this.date);
+
+    if (isData) {
+      this.statistics.forEach(s => {
+        if (s.date === this.date) {
+          s.progress = this.countLearnedWords;
+        }
+      });
+    } else {
+      const newStats: StatsWords = {
+        date: this.date,
+        words: this.words.map(w => w.word),
+        group: this.group,
+        page: this.page,
+        progress: this.countLearnedWords,
+      };
+      this.statistics.push(newStats);
+    }
+
+    const updateStats: UserStatistic = {
+      learnedWords: 1,
+      optional: {
+       speakit: JSON.stringify(this.statistics)
+      }
+    };
+
+    this.apiService.updateUserStatistics(updateStats).subscribe(res => {
+      if (this.countLearnedWords >= this.cardsCount) {
+        this.recordWait = false;
+        this.recordOn = false;
+        this.showResults();
+      } else {
+        this.record();
+      }
+    }, () => {
+      console.log('something went wrong');
+    });
+
   }
 }

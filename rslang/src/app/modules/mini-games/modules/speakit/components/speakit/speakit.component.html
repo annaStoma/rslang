@@ -1,3 +1,6 @@
+<div *ngIf="isLoading" class="hover">
+  <mat-spinner class="mat-spinner"></mat-spinner>
+</div>
 <div class="wrap-game">
   <div class="words-list">
     <div class="card-img" [appCardImg]="cardImg"></div>
@@ -55,28 +58,24 @@
         class="control-buttons___item"
         mat-raised-button
         color="primary"
-        [disabled]="isLoading"
         (click)="newGame()"
       >new game</button>
       <button
         class="control-buttons___item start-stop"
         mat-raised-button
         [color]="recognition ? 'warn' : 'primary'"
-        [disabled]="isLoading"
         (click)="startStopRecord()"
       >{{ recognition ? 'stop & restart' : 'start speech' }}</button>
       <button
         class="control-buttons___item"
         mat-raised-button
         color="primary"
-        [disabled]="isLoading"
         (click)="showResults()"
       >show results</button>
       <button
         class="control-buttons___item"
         mat-raised-button
         color="primary"
-        [disabled]="isLoading"
       >games stats</button>
     </div>
   </div>

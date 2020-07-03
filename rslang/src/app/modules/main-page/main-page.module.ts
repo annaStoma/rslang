@@ -17,7 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CardGameComponent } from './components/card-game/card-game.component';
-import { BgImageDirective } from '../../components/directives/bg-image.directive';
+import { BgImageDirective } from '../../shared/directives/bg-image.directive';
 import { StatisticCardComponent } from './components/statistic-card/statistic-card.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { DictionariesComponent } from './components/dictionaries/dictionaries.component';

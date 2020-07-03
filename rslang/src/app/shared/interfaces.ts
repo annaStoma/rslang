@@ -71,7 +71,9 @@ export interface UserWordById {
 
 export interface UserStatistic {
   learnedWords: number;
-  optional: object;
+  optional: {
+    speakit?: string;
+  };
 }
 
 export interface UserSetting {
