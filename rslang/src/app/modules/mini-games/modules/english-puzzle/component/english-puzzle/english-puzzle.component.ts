@@ -84,14 +84,23 @@ export class EnglishPuzzleComponent implements OnInit {
     this.setLearnedWords()
   }
 
-  check() {
+  check(event) {
     if (this.currentAnswer.join(' ') === this.currentTextExample) {
       this.answers.push(this.currentTextExample);
       this.rightWords.push(this.currentWord);
       this.currentAnswer = [];
-      this.setLearnedWords()
+      this.setLearnedWords();
+      this.hiddenContinue = false;
+    } else {
+      document.querySelectorAll(".word").forEach((item)=>{
+        item.classList.add("field-for-words__wrong");
+      })
+      setTimeout(() => {
+        document.querySelectorAll(".word").forEach((item)=>{
+          item.classList.remove("field-for-words__wrong");
+        })
+      }, 500);
     }
-    this.hiddenContinue = false;
   }
 
   newLine() {

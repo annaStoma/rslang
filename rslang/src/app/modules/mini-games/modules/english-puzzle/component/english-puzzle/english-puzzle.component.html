@@ -50,7 +50,7 @@
     <div class="check__wrapper">
         <button [hidden]="!hiddenContinue" class="check" (click)="abort()">i don't know</button>
         <button [hidden]="currentSplittedTextExample && currentSplittedTextExample.length !== 0" class="check"
-            (click)="check()">check</button>
+            (click)="check($event)">check</button>
         <button [hidden]="hiddenContinue" class="check" (click)="newLine()">continue</button>
     </div>
 </body>
