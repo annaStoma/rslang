@@ -1,0 +1,31 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25px;
+  width: 1024px;
+}
+
+.menu__select {
+  width: 55px;
+  height: 35px;
+  margin-right: 8px;
+  border-color: #673AB7;
+  color: #673AB7;
+  border-radius: 8px;
+  border-width: 3px;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+.menu__right button {
+  height: 35px;
+  margin-left: 8px;
+  width: 86px;
+  color: black;
+  border: 3px solid #673AB7;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 8px;
+}

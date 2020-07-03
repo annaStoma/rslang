@@ -1,0 +1,26 @@
+@import "./blocks/field-for-answer.scss";
+@import "./blocks/word.scss";
+@import "./blocks/dropzone.scss";
+@import "./blocks/menu.scss";
+@import "./blocks/text.scss";
+@import "./blocks/check.scss";
+@import "./blocks/result.scss";
+@import "./blocks/field-for-words.scss";
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(100vh - 155px);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 25px;
+}
+
+.block {
+  width: 50px;
+}
+
+.cdk-drop-list-dragging {
+  opacity: 0.7;
+}
