@@ -28,7 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "../rslang/node_modules/normalize.css/normalize.css",
+              "./node_modules/normalize.css/normalize.css",
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.scss"
             ],
