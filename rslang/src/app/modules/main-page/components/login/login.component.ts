@@ -17,6 +17,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class LoginComponent implements OnInit, OnDestroy {
   formLogin: FormGroup;
   stream: Subscription;
+  isLoading = false;
 
   constructor(
     private auth: AuthService,
@@ -69,15 +70,18 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    this.isLoading = true;
     this.formLogin.disable();
     this.stream = this.auth.login(this.formLogin.value).subscribe(
       (res) => {
         this.localData.setUser(res);
         this.userBlockService.setUser(res);
         this.router.navigate(['/']);
+        this.isLoading = false;
       },
       error => {
         this.formLogin.enable();
+        this.isLoading = false;
         this.snackBar.open(error.error, 'Connection error', {
           duration: 5000,
         });

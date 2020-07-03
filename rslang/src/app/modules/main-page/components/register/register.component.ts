@@ -6,6 +6,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 
 import { RegExpString } from '../../../../common/regexp-string';
 import { AuthService } from '../../../../shared/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
@@ -15,21 +16,20 @@ import { AuthService } from '../../../../shared/services/auth.service';
 export class RegisterComponent implements OnInit, OnDestroy {
   @ViewChild('errorTooltip') errorTooltip: MatTooltip;
 
-  DEFAULT_ERROR_MESSAGE = 'Something went wrong';
   formRegister: FormGroup;
   symbols = '+-_@$!%*?&#.,;:[]{}';
   stream: Subscription;
   emailTooltipText = 'E-mail must be format mymail@mydomain.com';
   passwordTooltipText = `Password must be minimum 8 characters and  contain one uppercase, one lowercase letter, one number digit and one special character ${this.symbols}`;
-  errorTooltipText = this.DEFAULT_ERROR_MESSAGE;
   isShowTooltipEmail = false;
   isShowTooltipPassword = false;
-  isShowTooltipError = true;
+  isLoading = false;
 
   constructor(
     private validator: RegExpString,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -50,32 +50,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     if (this.stream) {
       this.stream.unsubscribe();
     }
+    this.snackBar.dismiss();
   }
 
   register() {
+    this.isLoading = true;
     this.formRegister.disable();
-    this.isShowTooltipError = true;
 
     this.stream = this.auth.register(this.formRegister.value).subscribe(
       (user) => {
+        this.isLoading = false;
         this.router.navigate(['/login'], {
           queryParams: {
             registered: true,
           },
         });
       },
-      (err) => {
-        this.isShowTooltipError = false;
+      error => {
+        this.isLoading = false;
         this.formRegister.enable();
-        this.errorTooltipText = err.error;
 
-        timer(0).subscribe(() => {
-          this.errorTooltip.show();
-        });
-
-        timer(5000).subscribe(() => {
-          this.isShowTooltipError = true;
-          this.errorTooltipText = this.DEFAULT_ERROR_MESSAGE;
+        this.snackBar.open(`${error?.error || 'Something went wrong'}`, 'Error', {
+          duration: 5000,
         });
       }
     );

@@ -19,8 +19,7 @@ export class SettingsComponent implements OnInit {
     private apiServices: ApiService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.isSpinnerVisible = true;
@@ -52,18 +51,19 @@ export class SettingsComponent implements OnInit {
         exampleText: settings.exampleText,
         transcription: settings.transcription,
         association: settings.association,
-      }};
+      }
+    };
     this.apiServices.setUserSettings(this.newSettings).subscribe((data) => {
       this.openSnackBar('Настройки изменены', 'Success');
       return data;
     }, error => {
-      this.openSnackBar(error.error, 'Connection error');
+      this.openSnackBar(error.error, 'Error');
     });
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 }

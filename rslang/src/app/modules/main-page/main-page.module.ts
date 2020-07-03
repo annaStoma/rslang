@@ -23,6 +23,7 @@ import { PromoComponent } from './components/promo/promo.component';
 import { DictionariesComponent } from './components/dictionaries/dictionaries.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../../shared/interceptors/token.interceptor';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { TokenInterceptor } from '../../shared/interceptors/token.interceptor';
     MatInputModule,
     MatFormFieldModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatIconModule,
