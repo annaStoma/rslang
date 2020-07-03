@@ -10,12 +10,10 @@ import { MainPageRoutingModule } from './modules/main-page/main-page-routing.mod
 import { MiniGamesRoutingModule } from './modules/mini-games/mini-games.routing.module';
 
 import { AppComponent } from './app.component';
-
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
-
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MiniGamesModule } from './modules/mini-games/mini-games.module';
@@ -29,8 +27,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { DragDropModule } from '@angular/cdk/drag-drop';
-
 
 @NgModule({
   declarations: [
@@ -40,7 +36,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     PromoComponent,
     AboutUsComponent,
     LearningModeComponent,
-    WordCardComponent,
+    WordCardComponent
   ],
   imports: [
     HttpClientModule,
@@ -59,8 +55,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule,
-    DragDropModule,
+    MatSnackBarModule
   ],
   providers: [
     {
