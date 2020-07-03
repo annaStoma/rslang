@@ -8,6 +8,7 @@ import { timer } from 'rxjs';
 import { Group, Page } from '../../../../../../shared/services/types';
 import { GetWordsService } from '../../shared/services/get-words.service';
 import { UserStatistic } from '../../../../../../shared/interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-speakit',
@@ -38,18 +39,21 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   startScreen = true;
   closeStartScreen = false;
   isShowResults = false;
+  statistics: StatsWords[] = null;
+  repairStatistics: StatsWords[] = null;
   group: Group = 0;
-  statistics: StatsWords[];
+  page: Page;
   date = Date.now();
-  page: number;
   isGuessed = false;
+  isShowGameStats = false;
 
   constructor(private apiService: ApiService,
               private config: Config,
               private recognitionService: SpeechRecognitionService,
               private scroll: ScrollService,
-              private getWordsService: GetWordsService) {
-  }
+              private getWordsService: GetWordsService,
+              private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.scroll.off();
@@ -58,6 +62,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.resetGame();
+    this.snackBar.dismiss();
   }
 
   getWords(): void {
@@ -66,11 +71,15 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     this.apiService.getWords(this.group, page).subscribe(data => {
       this.words = this.getWordsService.getMix(data);
       this.isLoading = false;
+    }, error => {
+      this.snackBar.open(error.error, 'Connection error', {
+        duration: 5000,
+      });
+      this.resetGame();
     });
 
     this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
       this.statistics = JSON.parse(stats.optional.speakit);
-      console.log(this.statistics);
     }, () => {
       this.statistics = [];
     });
@@ -119,6 +128,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       return;
     }
 
+    let coincidence = false;
+
     this.recordWait = true;
     this.recordOn = false;
     this.isGuessed = false;
@@ -138,13 +149,21 @@ export class SpeakitComponent implements OnInit, OnDestroy {
               if (word.learned) {
                 isRecognized = false;
               } else {
-                percent = Math.round(result[key] * 100);
-                this.spokenWord = `${word.word} (${percent ? percent : '<5'})%`;
-                this.cardImg = word.image;
-                word.learned = true;
-                this.countLearnedWords++;
-                this.saveStats();
-                this.isGuessed = true;
+                if (coincidence === false) {
+                  coincidence = true;
+                  percent = Math.round(result[key] * 100);
+                  this.spokenWord = `${word.word} (${percent ? percent : '<5'})%`;
+                  this.cardImg = word.image;
+                  word.learned = true;
+                  this.countLearnedWords++;
+                  if (this.repairStatistics) {
+                    this.statistics = this.repairStatistics;
+                    this.repairStatistics = null;
+                    this.date = Date.now();
+                  }
+                  this.saveStats();
+                  this.isGuessed = true;
+                }
               }
             }
           });
@@ -219,19 +238,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   }
 
   showResults(): void {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio = null;
-      this.isNotPlay = true;
-      this.isPlayExample = false;
-      this.isPlayMeaning = false;
-    }
-
-    if (this.recognition) {
-      this.stopListen = true;
-      this.recognition.abort();
-    }
-
+    this.stopActions();
     this.isShowResults = true;
   }
 
@@ -244,6 +251,28 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
     if (newGame) {
       this.newGame();
+    }
+  }
+
+  hideStats(repairGame: StatsWords) {
+    this.isShowGameStats = false;
+
+    if (this.recognition) {
+      this.recognition.start();
+    }
+
+
+    if (repairGame) {
+      this.isLoading = true;
+      this.date = repairGame.date;
+      this.group = repairGame.group as Group;
+      this.page = repairGame.page as Page;
+      this.resetGame();
+      this.apiService.getWords(this.group, this.page).subscribe(data => {
+        this.words = this.getWordsService.filter(repairGame.words, data);
+        this.repairStatistics = this.statistics.filter(s => s.date !== this.date);
+        this.isLoading = false;
+      });
     }
   }
 
@@ -268,14 +297,16 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.statistics.push(newStats);
     }
 
+    this.statistics = this.statistics.slice(-10);
+
     const updateStats: UserStatistic = {
-      learnedWords: 1,
+      learnedWords: 0,
       optional: {
-       speakit: JSON.stringify(this.statistics)
+        speakit: JSON.stringify(this.statistics)
       }
     };
 
-    this.apiService.updateUserStatistics(updateStats).subscribe(res => {
+    this.apiService.updateUserStatistics(updateStats).subscribe(() => {
       if (this.countLearnedWords >= this.cardsCount) {
         this.recordWait = false;
         this.recordOn = false;
@@ -283,9 +314,38 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       } else {
         this.record();
       }
-    }, () => {
-      console.log('something went wrong');
+    }, error => {
+      this.snackBar.open(error.error, 'Connection error', {
+        duration: 5000,
+      });
+      this.resetGame();
     });
 
+  }
+
+  showGameStats(): void {
+    this.scroll.off();
+    this.stopActions();
+    this.isShowGameStats = true;
+  }
+
+  private stopActions(): void {
+    if (this.audio) {
+      this.audio.pause();
+      this.audio = null;
+      this.isNotPlay = true;
+      this.isPlayExample = false;
+      this.isPlayMeaning = false;
+    }
+
+    if (this.recognition) {
+      this.stopListen = true;
+      this.recognition.abort();
+    }
+  }
+
+  changeLevel(level: Group): void {
+    this.group = level;
+    this.newGame();
   }
 }

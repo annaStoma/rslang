@@ -1,10 +1,9 @@
 @import "../../constants";
 @import "../../mixins";
 
-.results-page {
-  @include pop-up-page;
 
-  animation: show-result .3s;
+.results-page {
+  @include pop-up-page(true);
 }
 
 .dont-know-yet, .i-know {
@@ -25,13 +24,7 @@
 }
 
 .show-results {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 5px;
-  padding: 10px;
-  max-width: 500px;
-  width: 100%;
+  @include show-results(500px, 100%);
 
   &.wait {
     & .replay {
@@ -43,14 +36,14 @@
 .wrap-know-count {
   padding: 10px;
   font-weight: 900;
-  color: rgb(100, 100, 100);
+  color: $text-color-middle;
 
   & .dont-know-count {
     border-radius: 5px;
     background-color: coral;
     width: 30px;
     padding: 7px 15px;
-    color: rgb(240, 240, 240);
+    color: $text-color-light-2;
   }
 
   & .i-know-count {
@@ -58,7 +51,7 @@
     background-color: rgb(90, 170, 110);
     width: 30px;
     padding: 7px 15px;
-    color: rgb(240, 240, 240);
+    color: $text-color-light-2;
   }
 }
 
@@ -68,102 +61,7 @@
     cursor: pointer;
 
     &:hover {
-      filter: invert(27%) sepia(33%) saturate(2878%) hue-rotate(446deg) brightness(104%) contrast(97%);
-    }
-  }
-}
-
-.start-page.games {
-
-  & .show-results {
-    max-width: 950px;
-    width: auto;
-    margin: 0 10px;
-
-    & .stats-container {
-      display: flex;
-      flex-direction: column;
-      padding: 10px;
-      font-size: 14px;
-
-      & span {
-        padding: 5px;
-        cursor: pointer;
-      }
-    }
-  }
-}
-
-.show-congratulation {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-  height: 100px;
-  align-items: center;
-  justify-content: center;
-  background-color: aliceblue;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgb(100, 100, 100);
-  color: rgb(100, 100, 100);
-
-  & button {
-    margin: 10px;
-    -webkit-appearance: none;
-    border: 0;
-    background-color: rgb(113, 198, 239);
-    color: rgb(250, 250, 250);
-    border-radius: 5px;
-    padding: 7px 15px;
-    box-shadow: 0 1px 10px 4px rgb(220, 220, 220);
-    font-weight: 900;
-    outline: none;
-    cursor: pointer;
-
-    &:hover {
-      filter: brightness(1.1);
-    }
-
-    &:active {
-      transform: translateY(1px);
-    }
-  }
-}
-
-.games {
-
-  & span {
-
-    &:hover {
-      filter: invert(27%) sepia(33%) saturate(2878%) hue-rotate(446deg) brightness(104%) contrast(97%);
-    }
-  }
-}
-
-.show-results.stats {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  & button {
-    margin: 10px;
-    -webkit-appearance: none;
-    border: 0;
-    background-color: rgb(113, 198, 239);
-    color: rgb(250, 250, 250);
-    border-radius: 5px;
-    padding: 7px 15px;
-    box-shadow: 0 1px 10px 4px rgb(220, 220, 220);
-    font-weight: 900;
-    outline: none;
-    cursor: pointer;
-
-    &:hover {
-      filter: brightness(1.1);
-    }
-
-    &:active {
-      transform: translateY(1px);
+      filter: $filter;
     }
   }
 }
@@ -172,9 +70,4 @@
   & button {
     margin: 7px;
   }
-}
-
-@keyframes show-result {
-  from {transform: scale(0) translateY(-100vh)}
-  to {transform: scale(1) translateY(0)}
 }

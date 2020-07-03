@@ -53,8 +53,12 @@ export class SettingsComponent implements OnInit {
         transcription: settings.transcription,
         association: settings.association,
       }};
-    this.apiServices.setUserSettings(this.newSettings).subscribe((data) => data);
-    this.openSnackBar('Настройки изменены', 'Success');
+    this.apiServices.setUserSettings(this.newSettings).subscribe((data) => {
+      this.openSnackBar('Настройки изменены', 'Success');
+      return data;
+    }, error => {
+      this.openSnackBar(error.error, 'Connection error');
+    });
   }
 
   openSnackBar(message: string, action: string) {

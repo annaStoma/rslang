@@ -40,7 +40,9 @@
         *ngFor="let letter of levels; index as i"
         [letter]="letter"
         [idx]="i"
+        [level]="group"
         [isNotPlay]="isNotPlay"
+        (changeLevel)="changeLevel($event)"
       ></app-check-level-radio-button>
     </div>
     <div class="word-original">
@@ -76,6 +78,7 @@
         class="control-buttons___item"
         mat-raised-button
         color="primary"
+        (click)="showGameStats()"
       >games stats</button>
     </div>
   </div>
@@ -96,4 +99,9 @@
     (hideResult)="hideResults($event)"
     [words]="words"
   ></app-show-results>
+  <app-games-stats
+    (hideStats)="hideStats($event)"
+    *ngIf="isShowGameStats"
+    [statistics]="statistics"
+  ></app-games-stats>
 </div>

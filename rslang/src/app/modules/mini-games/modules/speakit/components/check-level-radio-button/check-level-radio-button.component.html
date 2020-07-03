@@ -3,8 +3,8 @@
   <button
     mat-fab
     class="mat-button"
-    (click)="input.checked = true"
     [color]="input.checked ? 'warn' : 'primary'"
+    (click)="setLevel(idx)"
   >
     <span class="text">{{letter}}</span>
   </button>

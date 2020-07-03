@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { LocalDataService } from '../../../../shared/services/local-data.service';
 import { UserBlockService } from '../../../../shared/services/user-block.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +23,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private localData: LocalDataService,
-    private userBlockService: UserBlockService
-  ) {}
+    private userBlockService: UserBlockService,
+    private snackBar: MatSnackBar
+  ) {
+  }
 
   ngOnInit(): void {
     this.auth.setToken(null);
@@ -42,17 +45,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       ]),
     });
     this.route.queryParams.subscribe((params: Params) => {
-      if (params['registered']) {
-        // need to add material tooltip to the login form TODO
-        // documentation https://material.angular.io/components/tooltip/overview
-        // example: https://stackblitz.com/angular/dnbyppdneqdq?file=src%2Fapp%2Ftooltip-auto-hide-example.ts
-        console.log('welcome');
-      } else if (params['accessDenied']) {
-        //need to add material tooltip to the login form TODO
-        console.log('access denied');
-      } else if (params['sessionFailed']) {
-        //need to add material tooltip to the login form TODO
-        console.log('sing in again');
+      if (params.registered) {
+        this.snackBar.open('Now u can login with your credential', 'Success', {
+          duration: 5000,
+        });
+      } else if (params.accessDenied) {
+        this.snackBar.open('Login first', 'Access Denied', {
+          duration: 5000,
+        });
+      } else if (params.sessionFailed) {
+        this.snackBar.open('Please login again', 'Session expired', {
+          duration: 5000,
+        });
       }
     });
   }
@@ -61,6 +65,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.stream) {
       this.stream.unsubscribe();
     }
+    this.snackBar.dismiss();
   }
 
   login() {
@@ -71,9 +76,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.userBlockService.setUser(res);
         this.router.navigate(['/']);
       },
-      (err) => {
+      error => {
         this.formLogin.enable();
-        //need to add material tooltip to the login form TODO
+        this.snackBar.open(error.error, 'Connection error', {
+          duration: 5000,
+        });
       }
     );
   }

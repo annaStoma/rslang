@@ -11,7 +11,7 @@ import { Config } from '../../../../../../common/config';
 })
 export class ShowResultsComponent implements OnInit, OnDestroy {
 
-  @Output('hideResult') hide = new EventEmitter();
+  @Output() hideResult = new EventEmitter();
   @Input() words: WordSpeakit[];
 
   isHideResult = false;
@@ -38,7 +38,7 @@ export class ShowResultsComponent implements OnInit, OnDestroy {
     this.scroll.on();
     this.isHideResult = true;
     timer(350)
-      .subscribe(() => { this.hide.emit(newGame); });
+      .subscribe(() => { this.hideResult.emit(newGame); });
   }
 
   play(word: WordSpeakit): void {

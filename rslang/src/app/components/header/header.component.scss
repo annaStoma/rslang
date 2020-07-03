@@ -9,13 +9,14 @@
 
     .mat-toolbar-row {
       width: 100%;
-      height: 20%;
+      height: 59px;
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
+      padding: 0;
 
       a {
-        margin: 10px 25px;
+        margin: 10px;
         cursor: pointer;
         font-size: 20px;
         transition: linear .3s;
@@ -29,9 +30,31 @@
     }
 
     button {
-      margin: 10px 25px;
+      margin: 10px 15px;
       justify-content: space-around;
-    }
 
+      @media screen and (max-width: 768px) {
+        margin: 5px;
+
+        .username-text {
+          max-width: 100px;
+        }
+      }
+    }
+  }
+
+  .user-block {
+    display: flex;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    .username-text {
+      max-width: 115px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      font-size: 16px;
+    }
   }
 }

@@ -42,7 +42,7 @@
     height: 32px;
   }
 
-  &.on {
-
+  @media screen and (max-width: 680px) {
+    margin: 5px;
   }
 }

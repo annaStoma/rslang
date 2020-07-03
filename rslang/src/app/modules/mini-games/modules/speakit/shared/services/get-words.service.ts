@@ -17,7 +17,7 @@ export class GetWordsService {
       keys.splice(idx2, 1);
       [words[x], words[y]] = [words[y], words[x]];
     }
-    return words.slice(10).map((w: Word) => ({
+    return words.slice(-10).map((w: Word) => ({
       id: w.id,
       word: w.word,
       image: w.image,
@@ -30,5 +30,10 @@ export class GetWordsService {
       wordTranslate: w.wordTranslate,
       learned: false
     }));
+  }
+
+  filter(neededWords: string[], words: Word[]): WordSpeakit[] {
+    const filteredWords = words.filter(w => neededWords.includes(w.word));
+    return this.getMix(filteredWords);
   }
 }
