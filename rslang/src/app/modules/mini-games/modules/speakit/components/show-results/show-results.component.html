@@ -1,0 +1,40 @@
+<div class="results-page" [class.close]="isHideResult">
+  <div class="show-results" [class.wait]="!isNotPlay">
+    <div class="dont-know">
+      <div class="wrap-know-count">
+        <span>Don't know yet: <span class="dont-know-count">{{ dontKnowWords.length }}</span></span>
+      </div>
+      <div class="words-container dont-know-yet">
+        <span
+          *ngFor="let word of dontKnowWords"
+          class="replay"
+          (click)="play(word)"
+        >{{ word.word }} {{ word.transcription }} {{ word.wordTranslate }}</span>
+      </div>
+    </div>
+    <div class="know">
+      <div class="wrap-know-count">
+        <span>Now i know: <span class="i-know-count">{{ knowWords.length }}</span></span>
+      </div>
+      <div class="words-container i-know">
+        <span
+          *ngFor="let word of knowWords"
+          class="replay"
+          (click)="play(word)"
+        >{{ word.word }} {{ word.transcription }} {{ word.wordTranslate }}</span>
+      </div>
+    </div>
+    <div class="result-buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="newGame()"
+      >new game</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="close()"
+      >close</button>
+    </div>
+  </div>
+</div>

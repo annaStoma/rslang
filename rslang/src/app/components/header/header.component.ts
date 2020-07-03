@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../../shared/interfaces';
 import { UserBlockService } from '../../shared/services/user-block.service';
 import { AuthService } from '../../shared/services/auth.service';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { SettingsComponent } from '../../modules/learning-mode/components/settings/settings.component';
 
 @Component({
@@ -31,11 +31,9 @@ export class HeaderComponent implements OnInit {
   }
 
   openUserSettingDialog(): void {
-    const dialogRef = this.dialog.open(SettingsComponent, {
+    this.dialog.open(SettingsComponent, {
+      panelClass: 'app-dialog-setting',
       width: '320px'
     });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log(result);
-    // });
   }
 }

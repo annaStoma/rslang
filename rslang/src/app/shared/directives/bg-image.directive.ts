@@ -2,12 +2,12 @@ import { Directive, HostBinding, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Directive({
-  selector: '[bgImage]',
+  selector: '[appBgImage]',
 })
 export class BgImageDirective {
   constructor(public sanitizer: DomSanitizer) {}
 
-  @Input('bgImage') backgroundImage: string;
+  @Input('appBgImage') backgroundImage: string;
 
   @HostBinding('style.background-image') get getImageURL() {
     return this.sanitizer.bypassSecurityTrustStyle(

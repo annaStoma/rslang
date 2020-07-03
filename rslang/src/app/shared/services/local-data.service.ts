@@ -5,7 +5,7 @@ import { AuthData, User } from '../interfaces';
 @Injectable({
   providedIn: 'root',
 })
-export class LocalstorageService {
+export class LocalDataService {
   setAuthData(data: AuthData): void {
     localStorage.setItem('token', data.token);
     localStorage.setItem('userId', data.userId);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Config } from '../../common/config';
-import { LocalstorageService } from './localstorage.service';
+import { LocalDataService } from './local-data.service';
 import { Observable } from 'rxjs';
 import {
   AggregatedFilter,
@@ -14,21 +14,22 @@ import {
   UsersWords,
   UserUpdate,
   UserUpdateResponse,
-  UserWordById,
+  UserWordById, Word,
 } from '../interfaces';
 import { userSettings } from '../../models/user.model';
+import { Group, Page } from './types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ApiServices {
+export class ApiService {
   private readonly url: URL;
   private readonly id: string;
 
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalstorageService
+    private localData: LocalDataService
   ) {
     this.url = this.config.url();
     this.id = this.localData.getUserId();
@@ -50,6 +51,15 @@ export class ApiServices {
     this.url.pathname = `/users/${this.id}/words`;
     const url = this.url.toString();
     return this.http.get<Array<UsersWords>>(url);
+  }
+
+  getWords(group: Group, page: Page): Observable<Array<Word>> {
+    this.url.pathname = `/words`;
+    const url = this.url.toString();
+    let params = new HttpParams();
+    params = params.append('group', group.toString());
+    params = params.append('page', page.toString());
+    return this.http.get<Array<Word>>(url, { params });
   }
 
   createUserWordByWordId(

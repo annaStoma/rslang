@@ -9,7 +9,7 @@
         register
       </button>
     </nav>
-    <nav *ngIf="user">
+    <nav *ngIf="user" class="user-block">
       <span class="username-text">Hi, {{ user.name }}</span>
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>account_circle</mat-icon>

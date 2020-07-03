@@ -1,0 +1,21 @@
+<div class="stats-page games" [class.close]="isHideStats">
+  <div class="show-results stats">
+    <div class="stats-container">
+      <span
+        *ngFor="let stat of statistics"
+        class="stats-item"
+        (click)="close(stat)"
+      >
+        <b>{{ stat.date | date:'dd.MM.yyyy, HH:mm:ss:' }} </b>
+        <i>{{ stat.words.join(', ') }}</i> -
+        <b>({{ stat.progress }}/10)</b>
+      </span>
+      <span  *ngIf="!statistics.length" class="stats-item">No games played yet, statistics not available</span>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="close()"
+    >CLOSE</button>
+  </div>
+</div>
