@@ -1,0 +1,17 @@
+.check {
+  margin-top: 15px;
+  margin-left: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  height: 35px;
+  width: 100px;
+  color: black;
+  border: 3px solid #673AB7;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.check__wrapper {
+  display: flex;
+  flex-direction: row;
+}

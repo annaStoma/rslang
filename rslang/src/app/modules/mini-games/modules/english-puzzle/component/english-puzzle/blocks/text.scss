@@ -1,0 +1,27 @@
+.text {
+  height: 50px;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: justify;
+  background-color: #673AB7;
+  display: inline-block;
+  text-align: justify;
+  text-justify: inter-word;
+  text-align-last: justify;
+  line-height: 50px;
+  white-space: nowrap;
+  color: white;
+  font-weight: bold;
+  border-bottom: 2px solid white;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.text:last-child {
+  border-bottom: 2px solid #673AB7;
+}
+
+.text[hidden] {
+  display: none;
+}
