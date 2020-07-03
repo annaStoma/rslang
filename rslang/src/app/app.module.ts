@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './modules/main-page/main-page.module';
 import { MainPageRoutingModule } from './modules/main-page/main-page-routing.module';
@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SettingsModule } from './modules/learning-mode/components/settings/setting.module';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SettingsModule
   ],
   providers: [
     {

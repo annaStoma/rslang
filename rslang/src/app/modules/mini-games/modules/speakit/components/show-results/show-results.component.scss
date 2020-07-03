@@ -1,0 +1,73 @@
+@import "../../constants";
+@import "../../mixins";
+
+
+.results-page {
+  @include pop-up-page(true);
+}
+
+.dont-know-yet, .i-know {
+  display: flex;
+  flex-direction: column;
+
+  & span {
+    position: relative;
+    padding: 10px 10px 10px 50px;
+
+    &::before {
+      content: url(#{$img-path}/sound-result.png);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}
+
+.show-results {
+  @include show-results(500px, 100%);
+
+  &.wait {
+    & .replay {
+      cursor: wait;
+    }
+  }
+}
+
+.wrap-know-count {
+  padding: 10px;
+  font-weight: 900;
+  color: $text-color-middle;
+
+  & .dont-know-count {
+    border-radius: 5px;
+    background-color: coral;
+    width: 30px;
+    padding: 7px 15px;
+    color: $text-color-light-2;
+  }
+
+  & .i-know-count {
+    border-radius: 5px;
+    background-color: rgb(90, 170, 110);
+    width: 30px;
+    padding: 7px 15px;
+    color: $text-color-light-2;
+  }
+}
+
+.words-container {
+
+  & .replay {
+    cursor: pointer;
+
+    &:hover {
+      filter: $filter;
+    }
+  }
+}
+
+.result-buttons {
+  & button {
+    margin: 7px;
+  }
+}

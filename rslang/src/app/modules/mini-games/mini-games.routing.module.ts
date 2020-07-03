@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { MiniGamesComponent } from './mini-games.component';
 import { SpeakitComponent } from './modules/speakit/components/speakit/speakit.component';
 import { AudiocallComponent } from './modules/audiocall/component/audiocall/audiocall.component';
@@ -8,6 +9,7 @@ import { SavannahComponent } from './modules/savannah/component/savannah/savanna
 import { OwnGameComponent } from './modules/own-game/component/own-game/own-game.component';
 import { SprintComponent } from './modules/sprint/component/sprint/sprint.component';
 import { NotFoundPageComponent } from '../../components/not-found-page/not-found-page.component';
+
 import { AuthGuard } from '../../shared/guards/auth.guard';
 
 const routes: Routes = [
@@ -23,6 +25,7 @@ const routes: Routes = [
           import('./modules/speakit/speakit.module').then(
             (module) => module.SpeakitModule
           ),
+        data: { title: 'SpeakIt' }
       },
       {
         path: 'savannah',
@@ -31,6 +34,7 @@ const routes: Routes = [
           import('./modules/savannah/savannah.module').then(
             (module) => module.SavannahModule
           ),
+        data: { title: 'Savannah' }
       },
       {
         path: 'audiocall',
@@ -39,6 +43,7 @@ const routes: Routes = [
           import('./modules/audiocall/audiocall.module').then(
             (module) => module.AudiocallModule
           ),
+        data: { title: 'Audio Call'}
       },
       {
         path: 'english-puzzle',
@@ -47,6 +52,7 @@ const routes: Routes = [
           import('./modules/english-puzzle/english-puzzle.module').then(
             (module) => module.EnglishPuzzleModule
           ),
+        data: { title: 'English Puzzle'}
       },
       {
         path: 'own-game',
@@ -55,6 +61,7 @@ const routes: Routes = [
           import('./modules/own-game/own-game.module').then(
             (module) => module.OwnGameModule
           ),
+        data: { title: 'Own Game'}
       },
       {
         path: 'sprint',
@@ -63,10 +70,12 @@ const routes: Routes = [
           import('./modules/sprint/sprint.module').then(
             (module) => module.SprintModule
           ),
+        data: { title: 'Sprint'}
       },
       {
         path: '**',
         component: NotFoundPageComponent,
+        data: { title: 'Page not found'}
       },
     ],
   },

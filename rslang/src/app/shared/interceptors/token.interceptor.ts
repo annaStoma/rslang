@@ -11,7 +11,7 @@ import {
 } from '@angular/common/http';
 
 import { AuthService } from '../services/auth.service';
-import { LocalstorageService } from '../services/localstorage.service';
+import { LocalDataService } from '../services/local-data.service';
 import { UserBlockService } from '../services/user-block.service';
 
 enum Error {
@@ -24,7 +24,7 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private localData: LocalstorageService,
+    private localData: LocalDataService,
     private userBlockService: UserBlockService
   ) {}
 

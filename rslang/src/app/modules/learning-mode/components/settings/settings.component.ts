@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { userSettings } from '../../../../models/user.model';
-import { ApiServices } from '../../../../shared/services/api.services';
+import { ApiService } from '../../../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-settings',
@@ -12,12 +13,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SettingsComponent implements OnInit {
   myForm: FormGroup;
   newSettings: userSettings;
-  isSpinnerVisible: boolean = false;
+  isSpinnerVisible = false;
 
   constructor(
-    private apiServices: ApiServices,
-    private snackBar: MatSnackBar
-  ) {
+    private apiServices: ApiService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
     this.isSpinnerVisible = true;
     this.apiServices.getUserSettings().subscribe(s => {
       this.myForm = new FormGroup({
@@ -30,13 +34,14 @@ export class SettingsComponent implements OnInit {
         association: new FormControl(s.optional.association, Validators.required),
       });
       this.isSpinnerVisible = false;
+    }, () => {
+      this.isSpinnerVisible = false;
+      this.dialog.closeAll();
     });
   }
 
-  ngOnInit(): void {
-  }
-
-  saveUser(settings) {
+  saveUser() {
+    const settings = this.myForm.value;
     this.newSettings = {
       wordsPerDay: +settings.wordsPerDay,
       optional: {
@@ -46,14 +51,19 @@ export class SettingsComponent implements OnInit {
         exampleText: settings.exampleText,
         transcription: settings.transcription,
         association: settings.association,
-      }};
-    this.apiServices.setUserSettings(this.newSettings).subscribe((data) => data);
-    this.openSnackBar('Настройки изменены', 'Success');
+      }
+    };
+    this.apiServices.setUserSettings(this.newSettings).subscribe((data) => {
+      this.openSnackBar('Настройки изменены', 'Success');
+      return data;
+    }, error => {
+      this.openSnackBar(error.error, 'Error');
+    });
   }
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
-      duration: 2000,
+      duration: 3000,
     });
   }
 }

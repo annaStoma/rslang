@@ -39,7 +39,7 @@ export interface UsersWords {
 }
 
 export interface Word {
-  _id: string;
+  id: string;
   group: number;
   page: number;
   word: string;
@@ -71,7 +71,9 @@ export interface UserWordById {
 
 export interface UserStatistic {
   learnedWords: number;
-  optional: object;
+  optional: {
+    speakit?: string;
+  };
 }
 
 export interface UserSetting {

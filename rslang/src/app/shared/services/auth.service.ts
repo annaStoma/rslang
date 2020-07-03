@@ -10,7 +10,7 @@ import {
   UserCreateResponse,
 } from '../interfaces';
 import { Config } from '../../common/config';
-import { LocalstorageService } from './localstorage.service';
+import { LocalDataService } from './local-data.service';
 import { UserBlockService } from './user-block.service';
 import { Router } from '@angular/router';
 
@@ -24,7 +24,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalstorageService,
+    private localData: LocalDataService,
     private userBlockService: UserBlockService,
     private router: Router
   ) {
@@ -52,7 +52,7 @@ export class AuthService {
     return !!this.token;
   }
 
-  setToken(token) {
+  setToken(token): void {
     this.token = token;
   }
 
@@ -60,7 +60,7 @@ export class AuthService {
     return this.token;
   }
 
-  logout() {
+  logout(): void {
     this.setToken(null);
     this.userBlockService.setUser(null);
     this.localData.deleteUser();

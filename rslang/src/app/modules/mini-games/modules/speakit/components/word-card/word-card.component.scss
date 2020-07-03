@@ -1,0 +1,48 @@
+@import "../../constants";
+
+.card {
+  display: flex;
+  box-shadow: $box-shadow-card;
+  background-color: $background-color-card;
+  cursor: pointer;
+  margin: 10px;
+  width: 190px;
+  height: 70px;
+  padding: 0;
+  align-items: center;
+
+  &.learned {
+    background-color: $background-color-card-learned;
+  }
+
+  &.wait {
+    cursor: wait;
+  }
+
+  &.play {
+    background-color: $background-color-is-playing;
+  }
+
+  & .words {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  &:hover {
+    box-shadow: $box-shadow-card-hover;
+  }
+
+  & .card-img {
+    margin: 0 0 0 15px;
+    width: 32px;
+    height: 32px;
+  }
+
+  @media screen and (max-width: 680px) {
+    margin: 5px;
+  }
+}

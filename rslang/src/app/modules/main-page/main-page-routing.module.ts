@@ -11,10 +11,12 @@ const routes: Routes = [
   {
     path: 'promo',
     component: PromoComponent,
+    data: { title: 'Promo'}
   },
   {
     path: 'about-us',
     component: AboutUsComponent,
+    data: { title: 'About Us'}
   },
   {
     path: 'statistic',
@@ -24,6 +26,7 @@ const routes: Routes = [
       import('../statistics/statistics.module').then(
         (module) => module.StatisticsModule
       ),
+    data: { title: 'Statistic'}
   },
   {
     path: 'setting',
@@ -33,6 +36,7 @@ const routes: Routes = [
       import('../learning-mode/components/settings/setting.module').then(
         (module) => module.SettingsModule
       ),
+     data: { title: 'Setting'}
   },
 ];
 
