@@ -14,3 +14,22 @@
   border-radius: 8px;
   user-select: none;    
 }
+
+@mixin word_1035 {
+  .word {
+    height: 35px;
+    font-size: 13px;
+    border: 2px solid #673AB7;
+  }
+}
+
+@mixin word_705 {
+  .word {
+    height: 7vw;
+    font-size: 2vw;
+    border: 1px solid #673AB7;
+    line-height: 7vw;
+    color: black;
+    text-shadow: none;
+  }
+}

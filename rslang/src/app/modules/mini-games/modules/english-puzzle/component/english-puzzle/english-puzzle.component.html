@@ -5,7 +5,7 @@
         <p *ngFor="let word of rightWords">{{word}}</p>
         <h1 [hidden]="wrongWords.length === 0">Wrong: </h1>
         <p *ngFor="let word of wrongWords">{{word}}</p>
-        <button (click)="nextLevel()">Okay</button>
+        <button class="okay" (click)="nextLevel()">Okay</button>
     </div>
     <div class="menu">
         <div class="menu__left">

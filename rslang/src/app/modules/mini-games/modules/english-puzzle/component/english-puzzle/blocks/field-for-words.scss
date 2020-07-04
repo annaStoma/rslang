@@ -48,3 +48,17 @@
   margin-top: 15px;
   border-bottom: 0;
 }
+
+@mixin field-for-words_1035 {
+  .field-for-words {
+    width: 700px;
+    height: 35px;
+  }
+}
+
+@mixin field-for-words_705 {
+  .field-for-words {
+    width: 95vw;
+    height: 7vw;
+  }
+}

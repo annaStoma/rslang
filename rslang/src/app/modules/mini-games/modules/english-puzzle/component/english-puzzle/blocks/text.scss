@@ -27,3 +27,19 @@
 .text[hidden] {
   display: none;
 }
+
+@mixin text_1035 {
+  .text {
+    height: 35px;
+    line-height: 35px;
+  }
+}
+
+@mixin text_705 {
+  .text {
+    height: 7vw;
+    line-height: 8vw;
+    font-size: 2vw;
+    border-bottom: 1px solid white;
+  }
+}
