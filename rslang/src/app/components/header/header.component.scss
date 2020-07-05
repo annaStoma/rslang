@@ -4,7 +4,7 @@
   .mat-toolbar {
     background: $primary;
     color: $font-color;
-    border-bottom: 5px solid #8e4de4;
+    border-bottom: $border-primary;
 
 
     .mat-toolbar-row {
@@ -16,24 +16,28 @@
       padding: 0;
 
       a {
-        margin: 10px;
+        margin: 10px 35px;
         cursor: pointer;
         font-size: 20px;
         transition: linear .3s;
 
         &:hover {
-          color: black;
-          background-color: #ffd740;
+          color: $font-color-2;
+          background-color: $background-color-header;
+        }
+
+        @media screen and (max-width: 645px) {
+          margin: 10px;
         }
       }
 
     }
 
     button {
-      margin: 10px 15px;
+      margin: 10px 25px;
       justify-content: space-around;
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 645px) {
         margin: 5px;
 
         .username-text {
@@ -48,9 +52,9 @@
     align-items: center;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 645px) {
     .username-text {
-      max-width: 115px;
+      max-width: 110px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;

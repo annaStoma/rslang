@@ -41,5 +41,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Node.js web server at port ${PORT} is running...`);
+  console.log(`Node.js web server at address http://localhost:${PORT} is running...`);
 });

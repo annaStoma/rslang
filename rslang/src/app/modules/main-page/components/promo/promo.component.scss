@@ -19,9 +19,7 @@
   }
 
   .title {
-    margin: 17px 0 0 40px;
-    width: 100%;
-    font-size: 18px;
+    @include title;
   }
 
   .video,
@@ -41,4 +39,6 @@
       margin-bottom: 10px;
     }
   }
+
+  @include size-mobile;
 }

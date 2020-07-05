@@ -11,12 +11,14 @@
 }
 
 .mat-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   color: $text-color-light;
   font-weight: 900;
   width: 30px;
   height: 30px;
   font-size: 16px;
+
+  & .text {
+    position: relative;
+    top: -5px;
+  }
 }
