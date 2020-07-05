@@ -16,7 +16,7 @@ import {
   UserUpdateResponse,
   UserWordById, Word,
 } from '../interfaces';
-import { userSettings } from '../../models/user.model';
+import { UserSettings } from '../../models/user.model';
 import { Group, Page } from './types';
 
 @Injectable({
@@ -128,10 +128,10 @@ export class ApiService {
     return this.http.put<UserStatistic>(url, statistic);
   }
 
-  getUserSettings(): Observable<userSettings> {
+  getUserSettings(): Observable<UserSettings> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.get<userSettings>(url);
+    return this.http.get<UserSettings>(url);
   }
 
   updateUserSettings(setting: UserSetting): Observable<UserSetting> {

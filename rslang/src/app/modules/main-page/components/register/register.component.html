@@ -3,17 +3,18 @@
   <form name="reg" class="form reg-form" [formGroup]="formRegister" (submit)="register()">
     <div class="wrap-user-name">
       <mat-form-field class="register-form">
-        <mat-label for="username-reg" class="label">
+        <mat-label for="firstName" class="label">
           <span class="span-login">Name: </span>
         </mat-label>
         <input
           matInput
-          formControlName="userName"
+          formControlName="name"
           type="text"
-          name="username"
-          id="username-reg"
+          name="firstName"
+          id="firstName"
           placeholder="name"
           class="input"
+          autocomplete="off"
         />
       </mat-form-field>
     </div>

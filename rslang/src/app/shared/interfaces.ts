@@ -5,7 +5,7 @@ export interface Game {
 }
 
 export interface UserCreate {
-  userName?: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -13,7 +13,7 @@ export interface UserCreate {
 export interface UserUpdate extends UserCreate {}
 
 export interface UserCreateResponse {
-  userName?: string;
+  name?: string;
   email: string;
   id: string;
 }
