@@ -4,7 +4,7 @@
   .mat-toolbar {
     background: $primary;
     color: $font-color;
-    border-bottom: 5px solid #8e4de4;
+    border-bottom: $border-primary;
 
 
     .mat-toolbar-row {
@@ -22,8 +22,8 @@
         transition: linear .3s;
 
         &:hover {
-          color: black;
-          background-color: #ffd740;
+          color: $font-color-2;
+          background-color: $background-color-header;
         }
 
         @media screen and (max-width: 645px) {

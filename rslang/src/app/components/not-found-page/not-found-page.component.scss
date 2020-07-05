@@ -1,8 +1,10 @@
+@import "../../constants";
+
 .not-found {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  color: #646464;
+  color: $not-found-text-color;
   flex-direction: column;
   align-items: center;
 
