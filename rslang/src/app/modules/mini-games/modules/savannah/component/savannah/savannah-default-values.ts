@@ -20,7 +20,7 @@ export const MAX_NUMBER = {
 export const AUDIO_NAMES = {
   ERROR: 'error',
   FAILURE: 'failure',
-  SUCCESS: 'succes',
+  SUCCESS: 'success',
   CORRECT: 'correct',
 };
 
