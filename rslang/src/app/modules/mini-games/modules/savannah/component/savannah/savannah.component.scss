@@ -19,6 +19,7 @@
   }
 
   h1 {
+    padding-top: 10px;
     font-size: 2em;
   }
 
@@ -132,9 +133,10 @@
     z-index: -10;
   }
 }
+
 .controls {
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .lives-container {
@@ -177,6 +179,7 @@ justify-content: space-between;
 .native-word-card {
   font-size: 1.5em;
   width: 100px;
+
   @media screen and (max-width: 600px) {
     flex-direction: column;
     padding-left: 10%;
@@ -247,8 +250,11 @@ justify-content: space-between;
   background-color: $card-background-color;
   border-radius: 20px;
   width: $card-size;
+  max-height: 240px;
+  overflow: hidden;
 
   @media screen and (max-width: 600px) {
+    overflow: scroll;
     left: 30vw;
   }
 

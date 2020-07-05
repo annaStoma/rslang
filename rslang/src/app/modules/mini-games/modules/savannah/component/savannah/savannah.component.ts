@@ -36,6 +36,8 @@ export class SavannahComponent implements OnInit {
   lives: number;
   rightWords: number;
   mistakes: number;
+  mistakeWordsArray: string[] = [];
+  rightWordsArray: string[] = [];
   livesArray: Array<number> = SAVANNAH_DEFAULT_VALUES.livesArray;
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
@@ -61,16 +63,16 @@ export class SavannahComponent implements OnInit {
     this.mistakes = SAVANNAH_START_VALUES.mistakes;
     this.rightWords = SAVANNAH_START_VALUES.rightWords;
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
+    this.mistakeWordsArray = [];
+    this.rightWordsArray = [];
   }
 
   newLevel(event) {
-    console.log('NEW LEVEL: ', event.target.value);
     this.pageNumber = event.target.value - 1;
   }
 
   newPage(event) {
     this.wordsLevel = event.target.value - 1;
-    console.log('NEW PAGE: ', event.target.value);
   }
 
   startGame(): void {
@@ -156,6 +158,7 @@ export class SavannahComponent implements OnInit {
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
+    this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
     this.lives--;
     this.livesArray.splice(0, 1);
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
@@ -167,6 +170,7 @@ export class SavannahComponent implements OnInit {
     this.audioPlay(AUDIO_NAMES.CORRECT);
     this.isAnimationEnd = false;
     this.isAnimationBullet = true;
+    this.rightWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
     this.rightWords++;
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
@@ -208,7 +212,7 @@ export class SavannahComponent implements OnInit {
 
   audioPlay(name: string): void {
     if (name && this.isSoundSelected) {
-      const audio = new Audio(`../../../../../../../assets/audio/savannah-${name}.mp3`);
+      const audio = new Audio(`../../../../../../../assets/audio/savannah/savannah-${name}.mp3`);
 
       audio.play();
     }
@@ -219,6 +223,8 @@ export class SavannahComponent implements OnInit {
   }
 
   gameOver(): void {
+    this.pageNumber++;
+    this.wordsLevel++;
     this.isHiddenFinalScreen = false;
     this.isHiddenButton = false;
     this.activeCard = null;
