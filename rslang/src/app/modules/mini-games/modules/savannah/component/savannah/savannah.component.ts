@@ -16,8 +16,19 @@ import { first } from 'rxjs/operators';
   providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
-  constructor(private savannahService: SavannahService) { }
+  constructor(public savannahService: SavannahService) {
+    const levelsNumber = 6;
+    const pagesNumber = 30;
+    for (let i = 0; i < levelsNumber; i++) {
+      this.levels.push(i + 1);
+    }
+    for (let i = 0; i < pagesNumber; i++) {
+      this.pages.push(i + 1);
+    }
+  }
 
+  levels: number[] = [];
+  pages: number[] = [];
   savannahCards: SavannahCard[];
   remainGameCards: SavannahCard[];
   activeCard: SavannahCard;
@@ -35,6 +46,9 @@ export class SavannahComponent implements OnInit {
   isAnimationBullet = SAVANNAH_DEFAULT_VALUES.isAnimationBullet;
   isSoundSelected = SAVANNAH_DEFAULT_VALUES.isSoundSelected;
 
+  pageNumber: number = 0;
+  wordsLevel: number = 0;
+
   title: string[] = 'SAVANAH'.split('').reverse();
 
   ngOnInit(): void { }
@@ -49,10 +63,20 @@ export class SavannahComponent implements OnInit {
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
   }
 
+  newLevel(event) {
+    console.log('NEW LEVEL: ', event.target.value);
+    this.pageNumber = event.target.value - 1;
+  }
+
+  newPage(event) {
+    this.wordsLevel = event.target.value - 1;
+    console.log('NEW PAGE: ', event.target.value);
+  }
+
   startGame(): void {
     this.getDefaultAdditionalGameValues();
     this.savannahService
-      .getWords()
+      .getWords(this.pageNumber, this.wordsLevel)
       .pipe(first()).subscribe((words) => {
         this.savannahCards = words;
         this.remainGameCards = [...this.savannahCards];

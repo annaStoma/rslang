@@ -6,14 +6,17 @@ import { Injectable } from '@angular/core';
 import { SavannahApi } from './savannah-api.model';
 import { SavannahCard } from './savannah-card.model';
 
-enum WordsPageNumber {
-  pageNumber = 2,
-  wordsLevel = 1,
-}
+// enum WordsPageNumber {
+//   pageNumber = 0,
+//   wordsLevel = 0,
+// }
 
 @Injectable()
 export class SavannahService {
   constructor(public http: HttpClient) { }
+
+  pageNumber: number;
+  wordsLevel: number;
 
   mockData: SavannahCard[] = [
     { wordId: '1', foreignWord: 'table', nativeWord: 'стол' },
@@ -24,10 +27,12 @@ export class SavannahService {
     { wordId: '6', foreignWord: 'table6', nativeWord: 'стол6' },
   ];
 
-  getWords(): Observable<SavannahCard[]> {
+  getWords(pageNumber: number, wordsLevel: number): Observable<SavannahCard[]> {
+    console.log('SERVICE_PAGENUMBER:',pageNumber);
+    console.log('SERVICE_LEVEL:',wordsLevel);
     return this.http
       .get(
-        `https:/api-rslang.herokuapp.com/words?page=${WordsPageNumber.pageNumber}&group=${WordsPageNumber.wordsLevel}`
+        `https:/api-rslang.herokuapp.com/words?page=${pageNumber}&group=${wordsLevel}`
       )
       .pipe(
         map((response: SavannahApi[]) => {
