@@ -12,6 +12,11 @@ export enum CARD_NUMBER {
   FOURTH = 3,
 }
 
+export const MAX_NUMBER = {
+  LEVEL: 6,
+  PAGE: 30,
+}
+
 export const AUDIO_NAMES = {
   ERROR: 'error',
   FAILURE: 'failure',

@@ -1,4 +1,4 @@
-import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
+import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, MAX_NUMBER, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import { SavannahCard } from './savannah-card.model';
@@ -17,12 +17,10 @@ import { first } from 'rxjs/operators';
 })
 export class SavannahComponent implements OnInit {
   constructor(public savannahService: SavannahService) {
-    const levelsNumber = 6;
-    const pagesNumber = 30;
-    for (let i = 0; i < levelsNumber; i++) {
+    for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
-    for (let i = 0; i < pagesNumber; i++) {
+    for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
       this.pages.push(i + 1);
     }
   }
@@ -78,7 +76,7 @@ export class SavannahComponent implements OnInit {
   startGame(): void {
     this.getDefaultAdditionalGameValues();
     this.savannahService
-      .getWords(this.pageNumber, this.wordsLevel)
+      .getWords(this.wordsLevel, this.pageNumber)
       .pipe(first()).subscribe((words) => {
         this.savannahCards = words;
         this.remainGameCards = [...this.savannahCards];
@@ -222,9 +220,20 @@ export class SavannahComponent implements OnInit {
     this.isSoundSelected = !this.isSoundSelected;
   }
 
+  nextLevel(): void {
+    if (this.pageNumber < MAX_NUMBER.PAGE) {
+      this.pageNumber++;
+    } else if (this.wordsLevel < MAX_NUMBER.LEVEL) {
+      this.pageNumber = 1;
+      this.wordsLevel++;
+    } else {
+      this.wordsLevel = 1;
+      this.pageNumber = 1;
+    }
+  }
+
   gameOver(): void {
-    this.pageNumber++;
-    this.wordsLevel++;
+    this.nextLevel();
     this.isHiddenFinalScreen = false;
     this.isHiddenButton = false;
     this.activeCard = null;

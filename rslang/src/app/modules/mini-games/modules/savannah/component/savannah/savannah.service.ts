@@ -22,10 +22,10 @@ export class SavannahService {
     { wordId: '6', foreignWord: 'house', nativeWord: 'дом' },
   ];
 
-  getWords(pageNumber: number, wordsLevel: number): Observable<SavannahCard[]> {
+  getWords(wordsLevel: number, pageNumber: number): Observable<SavannahCard[]> {
     return this.http
       .get(
-        `https:/api-rslang.herokuapp.com/words?page=${pageNumber}&group=${wordsLevel}`
+        `https:/api-rslang.herokuapp.com/words?page=${wordsLevel}&group=${pageNumber}`
       )
       .pipe(
         map((response: SavannahApi[]) => {
