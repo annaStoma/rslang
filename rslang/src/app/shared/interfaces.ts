@@ -35,7 +35,9 @@ export interface AuthData {
 
 export interface UsersWords {
   difficulty: string;
-  optional: object;
+  optional: {
+    learned: boolean;
+  };
 }
 
 export interface Word {
@@ -57,17 +59,13 @@ export interface Word {
 }
 
 export interface AggregatedWord extends Word {
-  userWord?: UserWordById;
+  userWord?: UsersWords;
 }
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;
   totalCount: Array<{ count: number }>;
 }
 
-export interface UserWordById {
-  difficulty: string;
-  optional?: object;
-}
 
 export interface UserStatistic {
   learnedWords: number;
@@ -85,16 +83,6 @@ export interface UserData {
   learningWords: string[];
   hardWords: string[];
   deletedWords: string[];
-}
-
-export interface AggregatedFilter {
-  $and?: Array<AggregatedFilterItem>;
-  $or?: Array<AggregatedFilterItem>;
-  userWord: null | true | false;
-}
-
-interface AggregatedFilterItem {
-  [key: string]: string | [];
 }
 
 export interface User {
@@ -123,4 +111,78 @@ export interface PeriodicElement {
   position: number;
   weight: number;
   symbol: string;
+}
+
+export type AggregatedFilter = {
+  $and: AggregatedFilter[],
+  $or?: never,
+  $nor?: never,
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty'?: never,
+  userWord?: never,
+  word?: never,
+} | {
+  $and?: never,
+  $or: AggregatedFilter[],
+  $nor?: never,
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty'?: never,
+  userWord?: never,
+  word?: never,
+} | {
+  $and?: never,
+  $or?: never,
+  $nor: AggregatedFilter[],
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty'?: never,
+  userWord?: never,
+  word?: never,
+} | {
+  $and?: never,
+  $or?: never,
+  $nor?: never,
+  'userWord.optional.learned': boolean,
+  'userWord.difficulty'?: never,
+  userWord?: never,
+  word?: never,
+} | {
+  $and?: never,
+  $or?: never,
+  $nor?: never,
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty': difficulty | query | TypeRegExp,
+  userWord?: never,
+  word?: never,
+} | {
+  $and?: never,
+  $or?: never,
+  $nor?: never,
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty'?: never,
+  userWord: null | { $exists: true },
+  word?: never,
+} | {
+  $and?: never,
+  $or?: never,
+  $nor?: never,
+  'userWord.optional.learned'?: never,
+  'userWord.difficulty'?: never,
+  userWord?: never,
+  word: string | query | TypeRegExp,
+};
+
+type difficulty = 'easy' | 'hard' | 'middle';
+
+type query = {
+  $not: any,
+  $in: Array<string | RegExp>,
+  $nin: Array<string | RegExp>,
+  $ne: string,
+  $exists: boolean,
+  optional: string,
+};
+
+interface TypeRegExp {
+  $regex: RegExp | string;
+  $options?: string;
 }

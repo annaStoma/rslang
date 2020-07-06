@@ -14,7 +14,7 @@ import {
   UsersWords,
   UserUpdate,
   UserUpdateResponse,
-  UserWordById, Word,
+  Word,
 } from '../interfaces';
 import { UserSettings } from '../../models/user.model';
 import { Group, Page } from './types';
@@ -64,26 +64,26 @@ export class ApiService {
 
   createUserWordByWordId(
     wordId: string,
-    word: UserWordById
-  ): Observable<UserWordById> {
+    word: UsersWords
+  ): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.post<UserWordById>(url, word);
+    return this.http.post<UsersWords>(url, word);
   }
 
-  getUserWordByWordId(wordId: string): Observable<UserWordById> {
+  getUserWordByWordId(wordId: string): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.get<UserWordById>(url);
+    return this.http.get<UsersWords>(url);
   }
 
   updateUserWordByWordId(
     wordId: string,
-    word: UserWordById
-  ): Observable<UserWordById> {
+    word: UsersWords
+  ): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.put<UserWordById>(url, word);
+    return this.http.put<UsersWords>(url, word);
   }
 
   deleteUserWordByWordId(wordId: string): Observable<void> {
@@ -94,14 +94,21 @@ export class ApiService {
 
   getUserAggregatedWords(
     filter?: AggregatedFilter,
+    wordsPerPage?: number | false,
     group?: number
   ): Observable<Array<AggregatedWordResponse>> {
     this.url.pathname = `/users/${this.id}/aggregatedWords/`;
     const url = this.url.toString();
     let params = new HttpParams();
+
+    if (wordsPerPage) {
+      params = params.append('wordsPerPage', wordsPerPage.toString());
+    }
+
     if (group) {
       params = params.append('group', group.toString());
     }
+
     if (filter) {
       params = params.append('filter', JSON.stringify(filter));
     }
