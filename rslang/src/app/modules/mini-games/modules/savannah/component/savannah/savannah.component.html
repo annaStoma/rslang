@@ -1,6 +1,6 @@
 <div class="savannah-game-wrapper">
   <div class="start-screen">
-    <img class="start-screen-image" src="../../../../../../../assets/images/savannah/savannah-start-page.jpg" alt="">
+    <img class="start-screen-image" src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
       <h1>SAVANNAH</h1>
       <div class="game-name">
@@ -31,15 +31,14 @@
   </div>
 
   <div class="game-container" *ngIf="savannahCards && activeCard">
-    <img class="main-screen-image" src="../../../../../../../assets/images/savannah/savannah-background-page.jpg"
-      alt="">
+    <img class="main-screen-image" src="../../../../../../../assets/images/savannah/background-page.jpg" alt="">
     <div class="controls">
       <div class="sound-toggler-container" (click)="selectSound()">
-        <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah/savannah-voice-button.png"
+        <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah/voice-button.png"
           [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
       <div class="lives-container">
-        <img class="lives" *ngFor="let live of livesArray"
-          src="../../../../../../../assets/images/savannah/savannah-lives.png" alt="">
+        <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah/lives.png"
+          alt="">
       </div>
     </div>
 
@@ -57,7 +56,7 @@
         {{ card.nativeWord }}</div>
     </div>
     <div class="diamand-container">
-      <img class="diamand-image" src="../../../../../../../assets/images/savannah/savannah-diamond.png" alt="">
+      <img class="diamand-image" src="../../../../../../../assets/images/savannah/diamond.png" alt="">
     </div>
   </div>
 

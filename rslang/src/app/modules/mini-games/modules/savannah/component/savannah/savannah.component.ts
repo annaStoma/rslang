@@ -65,11 +65,11 @@ export class SavannahComponent implements OnInit {
     this.rightWordsArray = [];
   }
 
-  newLevel(event) {
+  newLevel(event): void {
     this.pageNumber = event.target.value - 1;
   }
 
-  newPage(event) {
+  newPage(event): void {
     this.wordsLevel = event.target.value - 1;
   }
 
@@ -210,7 +210,7 @@ export class SavannahComponent implements OnInit {
 
   audioPlay(name: string): void {
     if (name && this.isSoundSelected) {
-      const audio = new Audio(`../../../../../../../assets/audio/savannah/savannah-${name}.mp3`);
+      const audio = new Audio(`../../../../../../../assets/audio/savannah/${name}.mp3`);
 
       audio.play();
     }
