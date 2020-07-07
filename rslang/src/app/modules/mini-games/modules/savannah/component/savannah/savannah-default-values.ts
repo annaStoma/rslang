@@ -25,10 +25,9 @@ export const AUDIO_NAMES = {
 };
 
 export const SAVANNAH_DEFAULT_VALUES = {
-  livesArray: [1, 1, 1, 1, 1],
   isHiddenDescription: false,
-  isHiddenLoader: true,
   isHiddenButton: false,
+  isHiddenLoader: true,
   isHiddenFinalScreen: true,
   isAnimationStart: true,
   isAnimationEnd: true,
@@ -40,9 +39,10 @@ export const SAVANNAH_START_VALUES = {
   isHiddenDescription: true,
   isHiddenButton: true,
   isHiddenLoader: false,
+  isAnimationStart: true,
+  isHiddenFinalScreen: true,
   lives: 5,
   mistakes: 0,
   rightWords: 0,
-  isHiddenFinalScreen: true,
   livesArray: [1, 1, 1, 1, 1],
 }

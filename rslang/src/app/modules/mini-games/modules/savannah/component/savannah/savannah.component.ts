@@ -37,7 +37,7 @@ export class SavannahComponent implements OnInit {
   mistakes: number;
   mistakeWordsArray: string[] = [];
   rightWordsArray: string[] = [];
-  livesArray: Array<number> = SAVANNAH_DEFAULT_VALUES.livesArray;
+  livesArray: Array<number>;
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
   isHiddenButton = SAVANNAH_DEFAULT_VALUES.isHiddenButton;
@@ -59,6 +59,7 @@ export class SavannahComponent implements OnInit {
     this.isHiddenButton = SAVANNAH_START_VALUES.isHiddenButton;
     this.isHiddenLoader = SAVANNAH_START_VALUES.isHiddenLoader;
     this.lives = SAVANNAH_START_VALUES.lives;
+    this.livesArray = SAVANNAH_START_VALUES.livesArray;
     this.mistakes = SAVANNAH_START_VALUES.mistakes;
     this.rightWords = SAVANNAH_START_VALUES.rightWords;
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
@@ -66,11 +67,11 @@ export class SavannahComponent implements OnInit {
     this.rightWordsArray = [];
   }
 
-  newLevel(event): void {
+  newLevel(event: { target: { value: number; }; }): void {
     this.pageNumber = event.target.value - 1;
   }
 
-  newPage(event): void {
+  newPage(event: { target: { value: number; }; }): void {
     this.wordsLevel = event.target.value - 1;
   }
 
@@ -92,7 +93,7 @@ export class SavannahComponent implements OnInit {
       this.savannahCards
     );
     this.randomCards.push(this.activeCard);
-    console.log('RANDOM_CARDS: ', this.randomCards);
+  //  console.log('RANDOM_CARDS: ', this.randomCards);
   }
 
 
@@ -106,6 +107,7 @@ export class SavannahComponent implements OnInit {
     );
 
     this.activeCard = this.remainGameCards[activeCardIndex];
+    this.soundForeignWord();
     this.fallingBlock = setTimeout(() => {
       this.ifGuessTheWord();
     }, 5000);
@@ -203,7 +205,7 @@ export class SavannahComponent implements OnInit {
     );
 
     this.setActiveCard();
-    this.soundForeignWord();
+    // this.soundForeignWord();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
       this.savannahCards
     );
