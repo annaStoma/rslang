@@ -17,7 +17,7 @@ import { first } from 'rxjs/operators';
   providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
-  constructor(public savannahService: SavannahService) {
+  constructor(private savannahService: SavannahService, private urlConfig: Config) {
     for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
@@ -186,10 +186,9 @@ export class SavannahComponent implements OnInit {
 
   soundForeignWord(): void {
     const audio = new Audio();
-    // const audio
-    // audio.src = `${Config.dataUrl()}${this.activeCard.audioUrl}`;
-      audio.src = `https://nexgenua.github.io/rslang-data/${this.activeCard.audioUrl}`;
-      audio.play();
+
+    audio.src = `${this.urlConfig.dataUrl()}${this.activeCard.audioUrl}`;
+    audio.play();
   }
 
   getNextRandomCards(): void {
