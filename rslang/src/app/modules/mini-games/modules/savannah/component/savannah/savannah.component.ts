@@ -252,6 +252,10 @@ export class SavannahComponent implements OnInit {
       : this.audioPlay(AUDIO_NAMES.FAILURE);
   }
 
+  ngOnDestroy(): void {
+    clearTimeout(this.fallingBlock);
+  }
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (this.activeCard) {
