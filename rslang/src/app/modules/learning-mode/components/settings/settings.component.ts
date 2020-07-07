@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { userSettings } from '../../../../models/user.model';
+import { UserSettings } from '../../../../models/user.model';
 import { ApiService } from '../../../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class SettingsComponent implements OnInit {
   myForm: FormGroup;
-  newSettings: userSettings;
+  newSettings: UserSettings;
   isSpinnerVisible = false;
 
   constructor(

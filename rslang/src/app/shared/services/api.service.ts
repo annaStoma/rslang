@@ -14,9 +14,9 @@ import {
   UsersWords,
   UserUpdate,
   UserUpdateResponse,
-  UserWordById, Word,
+  Word,
 } from '../interfaces';
-import { userSettings } from '../../models/user.model';
+import { UserSettings } from '../../models/user.model';
 import { Group, Page } from './types';
 
 @Injectable({
@@ -24,15 +24,13 @@ import { Group, Page } from './types';
 })
 export class ApiService {
   private readonly url: URL;
-  private readonly id: string;
+  private id: string;
 
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalDataService
   ) {
     this.url = this.config.url();
-    this.id = this.localData.getUserId();
   }
 
   updateUser(user: UserUpdate): Observable<UserUpdateResponse> {
@@ -59,31 +57,31 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append('group', group.toString());
     params = params.append('page', page.toString());
-    return this.http.get<Array<Word>>(url, { params });
+    return this.http.get<Array<Word>>(url, {params});
   }
 
   createUserWordByWordId(
     wordId: string,
-    word: UserWordById
-  ): Observable<UserWordById> {
+    word: UsersWords
+  ): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.post<UserWordById>(url, word);
+    return this.http.post<UsersWords>(url, word);
   }
 
-  getUserWordByWordId(wordId: string): Observable<UserWordById> {
+  getUserWordByWordId(wordId: string): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.get<UserWordById>(url);
+    return this.http.get<UsersWords>(url);
   }
 
   updateUserWordByWordId(
     wordId: string,
-    word: UserWordById
-  ): Observable<UserWordById> {
+    word: UsersWords
+  ): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
-    return this.http.put<UserWordById>(url, word);
+    return this.http.put<UsersWords>(url, word);
   }
 
   deleteUserWordByWordId(wordId: string): Observable<void> {
@@ -94,14 +92,21 @@ export class ApiService {
 
   getUserAggregatedWords(
     filter?: AggregatedFilter,
+    wordsPerPage?: number | false,
     group?: number
   ): Observable<Array<AggregatedWordResponse>> {
     this.url.pathname = `/users/${this.id}/aggregatedWords/`;
     const url = this.url.toString();
     let params = new HttpParams();
+
+    if (wordsPerPage) {
+      params = params.append('wordsPerPage', wordsPerPage.toString());
+    }
+
     if (group) {
       params = params.append('group', group.toString());
     }
+
     if (filter) {
       params = params.append('filter', JSON.stringify(filter));
     }
@@ -128,10 +133,10 @@ export class ApiService {
     return this.http.put<UserStatistic>(url, statistic);
   }
 
-  getUserSettings(): Observable<userSettings> {
+  getUserSettings(): Observable<UserSettings> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.get<userSettings>(url);
+    return this.http.get<UserSettings>(url);
   }
 
   updateUserSettings(setting: UserSetting): Observable<UserSetting> {
@@ -155,6 +160,10 @@ export class ApiService {
   setUserSettings(settings: UserSetting): Observable<UserSetting> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.put<UserSetting>(url , settings);
+    return this.http.put<UserSetting>(url, settings);
+  }
+
+  setUserId(id: string): void {
+    this.id = id;
   }
 }

@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { AuthService } from './shared/services/auth.service';
 import { LocalDataService } from './shared/services/local-data.service';
 import { UserBlockService } from './shared/services/user-block.service';
+import { ApiService } from './shared/services/api.service';
 
 @Component({
   selector: 'app-root',
@@ -19,20 +20,31 @@ export class AppComponent implements OnInit {
     private userBlockService: UserBlockService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    private apiService: ApiService,
   ) {
   }
 
   ngOnInit(): void {
     const token = this.localData.getToken();
+    const refreshToken = this.localData.getRefreshToken();
     const user = this.localData.getUser();
+    const userId = this.localData.getUserId();
 
     if (token) {
       this.auth.setToken(token);
     }
 
+    if (refreshToken) {
+      this.auth.setRefreshToken(refreshToken);
+    }
+
     if (user) {
       this.userBlockService.setUser(user);
+    }
+
+    if (userId) {
+      this.apiService.setUserId(userId);
     }
 
     this.router.events.pipe(
