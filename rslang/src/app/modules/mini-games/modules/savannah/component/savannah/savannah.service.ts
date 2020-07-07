@@ -29,11 +29,13 @@ export class SavannahService {
       )
       .pipe(
         map((response: SavannahApi[]) => {
+          console.log('RESPONSE', response);
           const wordsArray: SavannahCard[] = response.map((el) => {
             return {
               wordId: el.id,
               foreignWord: el.word,
               nativeWord: el.wordTranslate,
+              audioUrl: el.audio,
             };
           });
 

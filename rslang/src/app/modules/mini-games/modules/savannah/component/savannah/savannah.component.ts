@@ -1,6 +1,7 @@
 import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, MAX_NUMBER, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
+import { Config } from '../../../../../../common/config'
 import { SavannahCard } from './savannah-card.model';
 import { SavannahService } from './savannah.service';
 import { first } from 'rxjs/operators';
@@ -173,14 +174,22 @@ export class SavannahComponent implements OnInit {
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
-  soundForeignWord(): void {
-    const msg = new SpeechSynthesisUtterance();
-    const foreignWordText = this.activeCard.foreignWord;
+  // soundForeignWord(): void {
+  //   const msg = new SpeechSynthesisUtterance();
+  //   const foreignWordText = this.activeCard.foreignWord;
 
-    if (this.isSoundSelected) {
-      msg.text = foreignWordText;
-      speechSynthesis.speak(msg);
-    }
+  //   if (this.isSoundSelected) {
+  //     msg.text = foreignWordText;
+  //     speechSynthesis.speak(msg);
+  //   }
+  // }
+
+  soundForeignWord(): void {
+    const audio = new Audio();
+    // const audio
+    // audio.src = `${Config.dataUrl()}${this.activeCard.audioUrl}`;
+      audio.src = `https://nexgenua.github.io/rslang-data/${this.activeCard.audioUrl}`;
+      audio.play();
   }
 
   getNextRandomCards(): void {
