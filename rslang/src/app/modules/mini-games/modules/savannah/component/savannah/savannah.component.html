@@ -1,6 +1,6 @@
 <div class="savannah-game-wrapper">
   <div class="start-screen">
-    <img class="start-screen-image" src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
+    <img class="start-screen-image"  src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
       <h1>SAVANNAH</h1>
       <div class="game-name">
@@ -25,7 +25,7 @@
           <div class="loader"></div>
         </div>
       </div>
-      <p>Use keys 1, 2, 3, and 4 to give a quick answer</p>
+
     </div>
     <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
   </div>
@@ -52,12 +52,14 @@
     </div>
 
     <div class="native-words-container">
-      <div *ngFor="let card of randomCards" class="native-word-card" (click)="checkResult(card.wordId)">
+      <div *ngFor="let card of randomCards; index as i" class="native-word-card" (click)="checkResult(card.wordId)">
+        {{ i+1 }}.
         {{ card.nativeWord }}</div>
     </div>
     <div class="diamand-container">
       <img class="diamand-image" src="../../../../../../../assets/images/savannah/diamond.png" alt="">
     </div>
+    <p class="game-additional-text">Use keys 1, 2, 3, and 4 to give a quick answer</p>
   </div>
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">

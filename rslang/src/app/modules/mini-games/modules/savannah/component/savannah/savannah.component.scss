@@ -7,11 +7,12 @@
 .start-screen {
   background-repeat: no-repeat;
   background-size: 100%;
-  color: $font-color;
+  color: $primary;
 
   .start-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 0.3;
     position: absolute;
     left: 0;
     top: 0;
@@ -25,6 +26,7 @@
 
   .start-screen-text {
     margin-top: 10vh;
+    font-size: 1.5em;
   }
 
   .start-button {
@@ -93,6 +95,7 @@
   .main-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 1;
     position: absolute;
     left: 0;
     top: 0;
@@ -144,7 +147,7 @@
 
 .native-word-card {
   font-size: 1.5em;
-  width: 100px;
+  // width: 100px;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
@@ -208,6 +211,10 @@
   .diamand-image {
     height: 100px;
   }
+}
+
+.game-additional-text {
+  margin-top: 10px;
 }
 
 .final-screen {

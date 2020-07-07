@@ -92,6 +92,7 @@ export class SavannahComponent implements OnInit {
       this.savannahCards
     );
     this.randomCards.push(this.activeCard);
+    console.log('RANDOM_CARDS: ', this.randomCards);
   }
 
 
@@ -218,7 +219,8 @@ export class SavannahComponent implements OnInit {
 
   audioPlay(name: string): void {
     if (name && this.isSoundSelected) {
-      const audio = new Audio(`../../../../../../../assets/audio/savannah/${name}.mp3`);
+      const audioSrc = '../../../../../../../assets/audio/savannah/';
+      const audio = new Audio(`${audioSrc}${name}.mp3`);
 
       audio.play();
     }
