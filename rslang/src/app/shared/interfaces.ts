@@ -17,6 +17,16 @@ export interface UserCreateResponse {
   email: string;
   id: string;
 }
+export interface RefreshTokenResponse {
+  token: string;
+  refreshToken: string;
+}
+
+export interface TokenPayload {
+  id: string;
+  iat: number;
+  exp: number;
+}
 
 export interface UserUpdateResponse extends UserCreateResponse {}
 
@@ -26,11 +36,13 @@ export interface LoginResponse {
   userId: string;
   name: string;
   email: string;
+  refreshToken: string;
 }
 
 export interface AuthData {
   token: string | null;
   userId: string | null;
+  refreshToken: string | null;
 }
 
 export interface UsersWords {
@@ -60,6 +72,7 @@ export interface Word {
 
 export interface AggregatedWord extends Word {
   userWord?: UsersWords;
+  _id: string;
 }
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;

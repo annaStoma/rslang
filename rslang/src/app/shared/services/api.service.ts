@@ -24,15 +24,13 @@ import { Group, Page } from './types';
 })
 export class ApiService {
   private readonly url: URL;
-  private readonly id: string;
+  private id: string;
 
   constructor(
     private http: HttpClient,
     private config: Config,
-    private localData: LocalDataService
   ) {
     this.url = this.config.url();
-    this.id = this.localData.getUserId();
   }
 
   updateUser(user: UserUpdate): Observable<UserUpdateResponse> {
@@ -59,7 +57,7 @@ export class ApiService {
     let params = new HttpParams();
     params = params.append('group', group.toString());
     params = params.append('page', page.toString());
-    return this.http.get<Array<Word>>(url, { params });
+    return this.http.get<Array<Word>>(url, {params});
   }
 
   createUserWordByWordId(
@@ -162,6 +160,10 @@ export class ApiService {
   setUserSettings(settings: UserSetting): Observable<UserSetting> {
     this.url.pathname = `/users/${this.id}/settings`;
     const url = this.url.toString();
-    return this.http.put<UserSetting>(url , settings);
+    return this.http.put<UserSetting>(url, settings);
+  }
+
+  setUserId(id: string): void {
+    this.id = id;
   }
 }
