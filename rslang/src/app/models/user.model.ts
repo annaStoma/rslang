@@ -7,7 +7,7 @@ export interface User {
 
 export interface UserResponse {
   id: string;
-  userName: string;
+  name: string;
   email: string;
 }
 
@@ -16,7 +16,7 @@ export interface SignInData {
   password: string;
 }
 
-export interface userSettings {
+export interface UserSettings {
   wordsPerDay: number;
   optional: {
     maxWords: number;

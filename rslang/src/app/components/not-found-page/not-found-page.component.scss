@@ -1,0 +1,32 @@
+@import "../../constants";
+
+.not-found {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  color: $not-found-text-color;
+  flex-direction: column;
+  align-items: center;
+
+  .not-found__image {
+    background-image: url(/assets/not-found.gif);
+    background-size: 300px 300px;
+    width: 300px;
+    height: 240px;
+  }
+
+  .not-found__h2 {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 65px;
+    font-weight: 900;
+    margin: 0 0 0 20px;
+  }
+
+  .not-found__message {
+    font-size: 28px;
+    margin: 0 10px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+}

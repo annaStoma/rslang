@@ -5,7 +5,7 @@ import { SpeechRecognitionService } from '../../shared/services/speech-recogniti
 import { ResultList, StatsWords, WordSpeakit } from '../../shared/interfaces';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { timer } from 'rxjs';
-import { Group, Page } from '../../../../../../shared/services/types';
+import { Group, Page } from '../../../../../../shared/types';
 import { GetWordsService } from '../../shared/services/get-words.service';
 import { UserStatistic } from '../../../../../../shared/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -61,6 +61,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.scroll.on();
     this.resetGame();
     this.snackBar.dismiss();
   }
@@ -72,6 +73,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.words = this.getWordsService.getMix(data);
       this.isLoading = false;
     }, error => {
+      this.isLoading = false;
       this.snackBar.open(error.error, 'Connection error', {
         duration: 5000,
       });
@@ -81,6 +83,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
       this.statistics = JSON.parse(stats.optional.speakit);
     }, () => {
+      this.isLoading = false;
       this.statistics = [];
     });
   }

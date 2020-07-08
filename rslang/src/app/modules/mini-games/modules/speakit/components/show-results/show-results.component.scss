@@ -25,11 +25,17 @@
 
 .show-results {
   @include show-results(500px, 100%);
+  margin: 10px;
 
   &.wait {
     & .replay {
       cursor: wait;
     }
+  }
+
+  & .results-container {
+    max-height: calc(100vh - 130px);
+    overflow: auto;
   }
 }
 

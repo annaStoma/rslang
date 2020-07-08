@@ -5,7 +5,7 @@ export interface Game {
 }
 
 export interface UserCreate {
-  userName?: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -13,9 +13,19 @@ export interface UserCreate {
 export interface UserUpdate extends UserCreate {}
 
 export interface UserCreateResponse {
-  userName?: string;
+  name?: string;
   email: string;
   id: string;
+}
+export interface RefreshTokenResponse {
+  token: string;
+  refreshToken: string;
+}
+
+export interface TokenPayload {
+  id: string;
+  iat: number;
+  exp: number;
 }
 
 export interface UserUpdateResponse extends UserCreateResponse {}
@@ -26,16 +36,20 @@ export interface LoginResponse {
   userId: string;
   name: string;
   email: string;
+  refreshToken: string;
 }
 
 export interface AuthData {
   token: string | null;
   userId: string | null;
+  refreshToken: string | null;
 }
 
 export interface UsersWords {
   difficulty: string;
-  optional: object;
+  optional: {
+    learned: boolean;
+  };
 }
 
 export interface Word {
@@ -57,17 +71,14 @@ export interface Word {
 }
 
 export interface AggregatedWord extends Word {
-  userWord?: UserWordById;
+  userWord?: UsersWords;
+  _id: string;
 }
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;
   totalCount: Array<{ count: number }>;
 }
 
-export interface UserWordById {
-  difficulty: string;
-  optional?: object;
-}
 
 export interface UserStatistic {
   learnedWords: number;
@@ -85,16 +96,6 @@ export interface UserData {
   learningWords: string[];
   hardWords: string[];
   deletedWords: string[];
-}
-
-export interface AggregatedFilter {
-  $and?: Array<AggregatedFilterItem>;
-  $or?: Array<AggregatedFilterItem>;
-  userWord: null | true | false;
-}
-
-interface AggregatedFilterItem {
-  [key: string]: string | [];
 }
 
 export interface User {
@@ -123,4 +124,9 @@ export interface PeriodicElement {
   position: number;
   weight: number;
   symbol: string;
+}
+
+export interface TypeRegExp {
+  $regex: RegExp | string;
+  $options?: string;
 }

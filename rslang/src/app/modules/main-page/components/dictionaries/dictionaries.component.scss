@@ -10,12 +10,19 @@
   box-shadow: 0 5px 7px 2px $shadow;
   align-items: center;
   background: $card-background-color;
+
+  @include size-mobile;
 }
 
 .dictionaries-list {
   display: flex;
   justify-content: space-around;
   margin-bottom: 65px;
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+    margin-bottom: 35px;
+  }
 }
 
 .learn-btn {
@@ -23,12 +30,14 @@
   height: 10%;
   margin-bottom: 65px;
   background: $accent;
+
+  @media screen and (max-width: 500px) {
+    margin-bottom: 25px;
+  }
 }
 
 .title {
-  margin: 17px 0 0 40px;
-  width: 100%;
-  font-size: 18px;
+  @include title;
 }
 
 .hard,
