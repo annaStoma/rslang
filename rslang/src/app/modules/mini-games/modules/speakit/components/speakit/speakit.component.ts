@@ -5,7 +5,7 @@ import { SpeechRecognitionService } from '../../shared/services/speech-recogniti
 import { ResultList, StatsWords, WordSpeakit } from '../../shared/interfaces';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { timer } from 'rxjs';
-import { Group, Page } from '../../../../../../shared/services/types';
+import { Group, Page } from '../../../../../../shared/types';
 import { GetWordsService } from '../../shared/services/get-words.service';
 import { UserStatistic } from '../../../../../../shared/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';

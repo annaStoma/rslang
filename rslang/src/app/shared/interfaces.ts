@@ -126,76 +126,7 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-export type AggregatedFilter = {
-  $and: AggregatedFilter[],
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or: AggregatedFilter[],
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor: AggregatedFilter[],
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned': boolean,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty': difficulty | query | TypeRegExp,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord: null | { $exists: true },
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word: string | query | TypeRegExp,
-};
-
-type difficulty = 'easy' | 'hard' | 'middle';
-
-type query = {
-  $not: any,
-  $in: Array<string | RegExp>,
-  $nin: Array<string | RegExp>,
-  $ne: string,
-  $exists: boolean,
-  optional: string,
-};
-
-interface TypeRegExp {
+export interface TypeRegExp {
   $regex: RegExp | string;
   $options?: string;
 }
