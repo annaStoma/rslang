@@ -70,6 +70,39 @@ export interface Word {
   wordsPerExampleSentence: number;
 }
 
+export interface SprintWord {
+  id?: string;
+  group?: number;
+  page?: number;
+  word?: string;
+  image?: string;
+  audio?: string;
+  audioMeaning?: string;
+  audioExample?: string;
+  textMeaning?: string;
+  textExample?: string;
+  transcription?: string;
+  textExampleTranslate?: string;
+  textMeaningTranslate?: string;
+  wordTranslate?: string;
+  wordsPerExampleSentence?: number;
+}
+
+export interface SprintTranslateItem {
+  word: string
+  wordTranslate: string;
+  index?: number;
+  isDisabled?: boolean;
+  audio?: string;
+}
+
+export interface SprintResult {
+  historyOfAnswers?: boolean[],
+  countOfCorrect?: number,
+  countCorrectInRow?:number,
+  totalScore?: number,
+}
+
 export interface AggregatedWord extends Word {
   userWord?: UsersWords;
   _id: string;
