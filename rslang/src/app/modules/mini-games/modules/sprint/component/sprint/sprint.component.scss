@@ -129,4 +129,21 @@
       margin: 0 10px;
     }
   }
+
+  @media (max-width: 500px) {
+    .counters {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin: 15px;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+    }
+
+    .card{
+      width: 80%;
+      height: 45%;
+    }
+  }
 }

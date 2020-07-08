@@ -11,7 +11,7 @@
   </div>
   <div *ngIf="!this.gameTimeOut && !this.gameOver" class="counters">
     <span class="total-score">Total score: {{this.resultOfGame.totalScore}}</span>
-    <span class="timer">Timer : {{this.timeLeft}}</span>
+    <span class="timer">Timer : {{this.timeLeft}} sec</span>
   </div>
   <mat-card *ngIf="!this.gameTimeOut && !this.gameOver" class="card">
     <div class="scoreOfAnswer">
