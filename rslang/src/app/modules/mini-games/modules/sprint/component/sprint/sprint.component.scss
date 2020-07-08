@@ -1,0 +1,132 @@
+@import "./sprint.loader.scss";
+
+.sprint-wrap{
+  width: 100%;
+  height: 85.2vh;
+  display:flex;
+  background: url('../../../../../../../assets/images/sprint/bg.jpg');
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .loader{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #00000061;
+  }
+
+  .gameTimeOut{
+    width: 30%;
+    background: #673ab761;
+    color: #ffffff;
+    border-radius: 10px;
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 26px 43px 112px 16px rgba(0,0,0,0.75);
+
+    p {
+      margin: 20px
+    }
+
+    button {
+      margin: 20px;
+      background: #673ab7;
+      font-size: 30px;
+      transition: linear .3s;
+      padding: 10px;
+      border-radius: 10px;
+
+      &:hover {
+        color: black;
+        background: #ffd740;
+        transform: rotateX(360deg);
+      }
+    }
+  }
+
+  .counters {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+    margin: 20px;
+
+    .total-score {
+      color: #fff;
+      font-size: 24px;
+    }
+
+    .timer {
+      color: #fff;
+      font-size: 24px;
+    }
+  }
+
+
+  .card {
+    width: 40%;
+    height: 40%;
+    background: #ffffff87;
+    border: 2px solid #a7bcf1;
+    border-radius: 5px;
+    text-align: center;
+
+
+    .snackBar {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      transition: linear .3s;
+      font-weight: bold;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .audio {
+      color:#fff;
+      transition: linear .3s;
+
+
+      &:hover{
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  .scoreOfAnswer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: #0e860ebf;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+
+    p {
+      margin: 0px;
+    }
+  }
+
+  .adButtons{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+
+    .buttons {
+      margin: 0 10px;
+    }
+  }
+}

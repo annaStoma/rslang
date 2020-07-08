@@ -53,21 +53,36 @@ export interface UsersWords {
 }
 
 export interface Word {
-  id: string;
-  group: number;
-  page: number;
-  word: string;
-  image: string;
-  audio: string;
-  audioMeaning: string;
-  audioExample: string;
-  textMeaning: string;
-  textExample: string;
-  transcription: string;
-  textExampleTranslate: string;
-  textMeaningTranslate: string;
+  id?: string;
+  group?: number;
+  page?: number;
+  word?: string;
+  image?: string;
+  audio?: string;
+  audioMeaning?: string;
+  audioExample?: string;
+  textMeaning?: string;
+  textExample?: string;
+  transcription?: string;
+  textExampleTranslate?: string;
+  textMeaningTranslate?: string;
+  wordTranslate?: string;
+  wordsPerExampleSentence?: number;
+}
+
+export interface GameTranslateItem {
+  word: string
   wordTranslate: string;
-  wordsPerExampleSentence: number;
+  index?: number;
+  isDisabled?: boolean;
+  audio?: string;
+}
+
+export interface SprintResult {
+  historyOfAnswers?: boolean[],
+  countOfCorrect?: number,
+  countCorrectInRow?:number,
+  totalScore?: number,
 }
 
 export interface AggregatedWord extends Word {

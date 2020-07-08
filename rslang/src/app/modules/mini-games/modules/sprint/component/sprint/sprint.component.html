@@ -1,1 +1,57 @@
-<p>sprint works!</p>
+<div class="sprint-wrap">
+  <div *ngIf="!this.isLoad" class="loader">
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <div *ngIf="this.gameTimeOut || this.gameOver" class="gameTimeOut">
+    <p *ngIf="this.gameTimeOut">Time is over</p>
+    <p *ngIf="this.gameOver">Game Over</p>
+    <p>Game score: {{this.resultOfGame.totalScore}}</p>
+    <button mat-stroked-button (click)="refresh()">Play again</button>
+  </div>
+  <div *ngIf="!this.gameTimeOut && !this.gameOver" class="counters">
+    <span class="total-score">Total score: {{this.resultOfGame.totalScore}}</span>
+    <span class="timer">Timer : {{this.timeLeft}}</span>
+  </div>
+  <mat-card *ngIf="!this.gameTimeOut && !this.gameOver" class="card">
+    <div class="scoreOfAnswer">
+      <p *ngIf="this.inRowUnFour">+ {{this.scoreBeforeFour}}pts in Total score</p>
+      <p *ngIf="!this.inRowUnFour">+ {{this.scoreUnFour}}pts in Total score</p>
+    </div>
+    <mat-slider
+      class="words-slider"
+      color="primary"
+      [max]="countOfCards"
+      [min]="1"
+      [step]="step"
+      [thumbLabel]="thumbLabel"
+      [tickInterval]="getSliderTickInterval()"
+      [value]="sliderValue"
+      (change)="changeSlide($event.value)">
+    </mat-slider>
+    <app-word-card
+        [gameItem]="currentGameItem"
+        (emitAnswer)="checkAnswer($event)"
+    ></app-word-card>
+    <div class="adButtons">
+      <button mat-mini-fab color="primary" (click)="this.playSound()">
+        <mat-icon class="audio">volume_up</mat-icon>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu" id="mat-menu" >Change level</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item ngClass="level-A" (click)="this.changeLevel($event)">Level A</button>
+        <button mat-menu-item ngClass="level-B" (click)="this.changeLevel($event)">Level B</button>
+        <button mat-menu-item ngClass="level-C" (click)="this.changeLevel($event)">Level C</button>
+        <button mat-menu-item ngClass="level-D" (click)="this.changeLevel($event)">Level D</button>
+        <button mat-menu-item ngClass="level-E" (click)="this.changeLevel($event)">Level E</button>
+        <button mat-menu-item ngClass="level-F" (click)="this.changeLevel($event)">Level F</button>
+      </mat-menu>
+    </div>
+    <button mat-mini-fab color="accent" class="snackBar" (click)="openSnackBar()">
+      !
+    </button>
+
+  </mat-card>
+
+</div>
+
