@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GameTranslateItem, Word } from '../../../../../../shared/interfaces';
+import { SprintTranslateItem, SprintWord } from '../../../../../../shared/interfaces';
 
 
 @Component({
@@ -8,14 +8,14 @@ import { GameTranslateItem, Word } from '../../../../../../shared/interfaces';
   styleUrls: ['./word-card.component.scss']
 })
 export class WordCardComponent implements OnInit {
-  @Output() currentWord = new EventEmitter<Word>();
+  @Output() currentWord = new EventEmitter<SprintWord>();
   @Output() setIsNotPlay = new EventEmitter<boolean>();
   @Output() emitAnswer: EventEmitter<object> = new EventEmitter<object>();
 
 
 
-  @Input() gameItem: GameTranslateItem;
-  @Input() word: Word;
+  @Input() gameItem: SprintTranslateItem;
+  @Input() word: SprintWord;
   @Input() isNotPlay: boolean;
 
   constructor() {

@@ -53,6 +53,24 @@ export interface UsersWords {
 }
 
 export interface Word {
+  id: string;
+  group: number;
+  page: number;
+  word: string;
+  image: string;
+  audio: string;
+  audioMeaning: string;
+  audioExample: string;
+  textMeaning: string;
+  textExample: string;
+  transcription: string;
+  textExampleTranslate: string;
+  textMeaningTranslate: string;
+  wordTranslate: string;
+  wordsPerExampleSentence: number;
+}
+
+export interface SprintWord {
   id?: string;
   group?: number;
   page?: number;
@@ -70,7 +88,7 @@ export interface Word {
   wordsPerExampleSentence?: number;
 }
 
-export interface GameTranslateItem {
+export interface SprintTranslateItem {
   word: string
   wordTranslate: string;
   index?: number;

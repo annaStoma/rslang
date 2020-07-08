@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, } from '@angular/material/snack-bar';
-import { GameTranslateItem, SprintResult, Word } from '../../../../../../shared/interfaces';
+import { SprintTranslateItem, SprintResult, Word, SprintWord } from '../../../../../../shared/interfaces';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
 
@@ -19,10 +19,9 @@ export class SprintComponent implements OnInit {
     totalScore: 0,
   };
 
-  public currentCard: Word = {};
-  public currentGameItem: GameTranslateItem;
-  public listOfCards: Word[] = [];
-  public listOfGameTranslateItems: GameTranslateItem [] = [];
+  public currentGameItem: SprintTranslateItem;
+  public listOfCards: SprintWord[] = [];
+  public listOfGameTranslateItems: SprintTranslateItem [] = [];
   public correctTranslates: any = {};
   public currentGroupWords: any = 0;
   public selectedGroup: any = 0;
@@ -155,7 +154,7 @@ export class SprintComponent implements OnInit {
     return 0;
   }
 
-  openSnackBar() {
+  openSnackBar(): void {
     this._snackBar.open('You can select an answer option using the "KeyLeft"(false) or "KeyRight"(true) key', 'End now', {
       duration: this.durationInSeconds * 1000,
       horizontalPosition: this.horizontalPosition,
