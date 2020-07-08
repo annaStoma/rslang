@@ -2,10 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Config } from '../../common/config';
-import { LocalDataService } from './local-data.service';
 import { Observable } from 'rxjs';
 import {
-  AggregatedFilter,
   AggregatedWord,
   AggregatedWordResponse,
   UserData,
@@ -17,7 +15,7 @@ import {
   Word,
 } from '../interfaces';
 import { UserSettings } from '../../models/user.model';
-import { Group, Page } from './types';
+import { AggregatedFilter, Group, Page } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -92,7 +90,7 @@ export class ApiService {
 
   getUserAggregatedWords(
     filter?: AggregatedFilter,
-    wordsPerPage?: number | false,
+    wordsPerPage?: number | null,
     group?: number
   ): Observable<Array<AggregatedWordResponse>> {
     this.url.pathname = `/users/${this.id}/aggregatedWords/`;

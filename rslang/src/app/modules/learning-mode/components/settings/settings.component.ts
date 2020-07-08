@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserSettings } from '../../../../models/user.model';
 import { ApiService } from '../../../../shared/services/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,19 +14,27 @@ export class SettingsComponent implements OnInit {
   myForm: FormGroup;
   newSettings: UserSettings;
   isSpinnerVisible = false;
+  wordsPerDay: number;
 
   constructor(
     private apiServices: ApiService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
     this.isSpinnerVisible = true;
     this.apiServices.getUserSettings().subscribe(s => {
+      this.wordsPerDay = s.wordsPerDay;
       this.myForm = new FormGroup({
-        wordsPerDay: new FormControl(s.wordsPerDay, Validators.required),
-        maxWords: new FormControl(s.optional.maxWords, Validators.required),
+        wordsPerDay: new FormControl(this.wordsPerDay, [
+          Validators.required,
+          Validators.min(1)
+        ]),
+        maxWords: new FormControl(s.optional.maxWords, [
+          Validators.required,
+          (control: AbstractControl) => Validators.min(this.wordsPerDay)(control)
+        ]),
         translation: new FormControl(s.optional.translation, Validators.required),
         explantation: new FormControl(s.optional.explantation, Validators.required),
         exampleText: new FormControl(s.optional.exampleText, Validators.required),
@@ -65,5 +73,11 @@ export class SettingsComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 3000,
     });
+  }
+
+  setMinValueMaxWords(): void {
+    this.wordsPerDay = this.myForm.get('wordsPerDay').value;
+    this.myForm.get('maxWords').setValidators([Validators.min(this.wordsPerDay)]);
+    this.myForm.get('maxWords').setValue(this.myForm.get('maxWords').value);
   }
 }
