@@ -2,9 +2,10 @@
 
 .sprint-wrap{
   width: 100%;
-  height: 85.2vh;
+  height: 90vh;
   display:flex;
   background: url('../../../../../../../assets/images/sprint/bg.jpg');
+  background-size: cover ;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -144,6 +145,11 @@
     .card{
       width: 80%;
       height: 45%;
+    }
+
+    .gameTimeOut {
+      width: 80%;
+      line-height: 35px;
     }
   }
 }
