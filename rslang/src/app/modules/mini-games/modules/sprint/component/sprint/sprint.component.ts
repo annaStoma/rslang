@@ -67,10 +67,11 @@ export class SprintComponent implements OnInit {
     this.apiService.getWords(this.selectedGroup, 0).subscribe(data => {
       this.listOfCards = data.slice(0, this.countOfCards);
       this.listOfCards.forEach((card, index) => {
+        const isRandom: boolean = Math.random() < 0.5;
         this.listOfGameTranslateItems.push({
           word: card.word,
           index: index,
-          wordTranslate: this.listOfCards[this.getRandomCount()].wordTranslate,
+          wordTranslate: this.listOfCards[this.getRandomCount(isRandom, index)].wordTranslate,
           isDisabled: false,
           audio: card.audio
         });
@@ -173,19 +174,23 @@ export class SprintComponent implements OnInit {
     this.currentGameItem = this.listOfGameTranslateItems[value - 1];
   }
 
-  private getRandomCount(): any {
-    const min: number = 0;
-    const max: number = Math.floor(this.countOfCards - 1);
-    while(this.randomNumbers.length < this.countOfCards) {
-      var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      if(this.randomNumbers.indexOf(randomNumber) > -1) continue;
-      this.randomNumbers[this.randomNumbers.length] = randomNumber;
-      this.counterListOfCards = this.randomNumbers[this.randomNumbers.length - 1];
+  private getRandomCount(isRandom, index): any {
+    if(isRandom){
+      const min: number = 0;
+      const max: number = Math.floor(this.countOfCards - 1);
+      while(this.randomNumbers.length < this.countOfCards) {
+        var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        if(this.randomNumbers.indexOf(randomNumber) > -1) continue;
+        this.randomNumbers[this.randomNumbers.length] = randomNumber;
+        this.counterListOfCards = this.randomNumbers[this.randomNumbers.length - 1];
 
-      return this.counterListOfCards
+        return this.counterListOfCards
+      }}
+    else {
+      this.randomNumbers[this.randomNumbers.length] = index;
+      return index;
     }
   }
-
 
   refresh(): void {
     window.location.reload();
