@@ -1,3 +1,6 @@
+import { optional } from './types';
+import { SpeakitStatsWords } from '../modules/mini-games/modules/speakit/shared/interfaces';
+
 export interface Game {
   name: string;
   url: string;
@@ -17,6 +20,7 @@ export interface UserCreateResponse {
   email: string;
   id: string;
 }
+
 export interface RefreshTokenResponse {
   token: string;
   refreshToken: string;
@@ -70,10 +74,44 @@ export interface Word {
   wordsPerExampleSentence: number;
 }
 
+export interface SprintWord {
+  id?: string;
+  group?: number;
+  page?: number;
+  word?: string;
+  image?: string;
+  audio?: string;
+  audioMeaning?: string;
+  audioExample?: string;
+  textMeaning?: string;
+  textExample?: string;
+  transcription?: string;
+  textExampleTranslate?: string;
+  textMeaningTranslate?: string;
+  wordTranslate?: string;
+  wordsPerExampleSentence?: number;
+}
+
+export interface SprintTranslateItem {
+  word: string
+  wordTranslate: string;
+  index?: number;
+  isDisabled?: boolean;
+  audio?: string;
+}
+
+export interface SprintResult {
+  historyOfAnswers?: boolean[],
+  countOfCorrect?: number,
+  countCorrectInRow?:number,
+  totalScore?: number,
+}
+
 export interface AggregatedWord extends Word {
   userWord?: UsersWords;
   _id: string;
 }
+
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;
   totalCount: Array<{ count: number }>;
@@ -126,76 +164,34 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-export type AggregatedFilter = {
-  $and: AggregatedFilter[],
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or: AggregatedFilter[],
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor: AggregatedFilter[],
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned': boolean,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty': difficulty | query | TypeRegExp,
-  userWord?: never,
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord: null | { $exists: true },
-  word?: never,
-} | {
-  $and?: never,
-  $or?: never,
-  $nor?: never,
-  'userWord.optional.learned'?: never,
-  'userWord.difficulty'?: never,
-  userWord?: never,
-  word: string | query | TypeRegExp,
-};
-
-type difficulty = 'easy' | 'hard' | 'middle';
-
-type query = {
-  $not: any,
-  $in: Array<string | RegExp>,
-  $nin: Array<string | RegExp>,
-  $ne: string,
-  $exists: boolean,
-  optional: string,
-};
-
-interface TypeRegExp {
+export interface TypeRegExp {
   $regex: RegExp | string;
   $options?: string;
+}
+
+export interface StatsMiniGames {
+  optional: optional;
+}
+
+export interface StatsMiniGamesResponse {
+  optional: {
+    speakit?: StatsSpeakitGameItem;
+    audiocall?: StatsMiniGamesItem;
+    'english-puzzle'?: StatsMiniGamesItem;
+    sprint?: StatsMiniGamesItem;
+    savannah?: StatsMiniGamesItem;
+    'own-game'?: StatsMiniGamesItem;
+  };
+}
+
+export interface StatsMiniGamesItem {
+  words?: object[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
+}
+
+export interface StatsSpeakitGameItem {
+  words?: SpeakitStatsWords[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
 }

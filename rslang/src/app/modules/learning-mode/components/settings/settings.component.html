@@ -13,13 +13,17 @@
         <mat-label>Сколько слов в день вы хотите изучать?</mat-label>
         <label>
           <input matInput
+            (input)="setMinValueMaxWords()"
+            type="number"
+            min="1"
+            max="3600"
             placeholder="введите количестов слов ..."
             value="wordsPerDay"
             class="form-control"
             name="wordsPerDay"
             formControlName="wordsPerDay"/>
         </label>
-        <mat-error *ngIf="myForm.controls['wordsPerDay'].invalid && myForm.controls['wordsPerDay'].touched">Значение не
+        <mat-error *ngIf="myForm.get('wordsPerDay').invalid">Значение не
           может быть меньше, чем 1
         </mat-error>
       </mat-form-field>
@@ -30,19 +34,22 @@
         <mat-label>Максимальное количество слов</mat-label>
         <label>
           <input matInput
+            type="number"
+            [min]="wordsPerDay"
+            max="3600"
             placeholder="введите количестов слов ..."
             value="wordsPerDay"
             class="form-control"
             name="maxWords"
             formControlName="maxWords"/>
         </label>
-        <mat-error *ngIf="myForm.controls['maxWords'].invalid && myForm.controls['maxWords'].touched">
+        <mat-error *ngIf="myForm.get('maxWords').invalid">
           Максимальное количество слов не может быть меньше, чем количество изучаемых слов в день
         </mat-error>
       </mat-form-field>
     </div>
 
-    <div class="form-group">
+    <div class="form-group translate">
       <mat-checkbox color="primary"  class="form-control" name="phone" formControlName="translation">Показывать перевод
       </mat-checkbox>
     </div>

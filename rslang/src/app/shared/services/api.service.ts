@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Config } from '../../common/config';
-import { LocalDataService } from './local-data.service';
 import { Observable } from 'rxjs';
 import {
-  AggregatedFilter,
   AggregatedWord,
-  AggregatedWordResponse,
+  AggregatedWordResponse, StatsMiniGames, StatsMiniGamesResponse,
   UserData,
   UserSetting,
   UserStatistic,
@@ -17,7 +15,7 @@ import {
   Word,
 } from '../interfaces';
 import { UserSettings } from '../../models/user.model';
-import { Group, Page } from './types';
+import { AggregatedFilter, Group, Page } from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -92,7 +90,7 @@ export class ApiService {
 
   getUserAggregatedWords(
     filter?: AggregatedFilter,
-    wordsPerPage?: number | false,
+    wordsPerPage?: number | null,
     group?: number
   ): Observable<Array<AggregatedWordResponse>> {
     this.url.pathname = `/users/${this.id}/aggregatedWords/`;
@@ -121,16 +119,16 @@ export class ApiService {
     return this.http.get<AggregatedWord>(url);
   }
 
-  getUserStatistics(): Observable<UserStatistic> {
+  getUserStatistics(): Observable<StatsMiniGamesResponse> {
     this.url.pathname = `/users/${this.id}/statistics`;
     const url = this.url.toString();
-    return this.http.get<UserStatistic>(url);
+    return this.http.get<StatsMiniGamesResponse>(url);
   }
 
-  updateUserStatistics(statistic: UserStatistic): Observable<UserStatistic> {
+  updateUserStatistics<T extends StatsMiniGames>(statistic: T): Observable<T> {
     this.url.pathname = `/users/${this.id}/statistics`;
     const url = this.url.toString();
-    return this.http.put<UserStatistic>(url, statistic);
+    return this.http.put<T>(url, statistic);
   }
 
   getUserSettings(): Observable<UserSettings> {

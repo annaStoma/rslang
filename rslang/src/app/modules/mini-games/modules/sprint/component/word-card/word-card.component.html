@@ -1,0 +1,10 @@
+<mat-card class="card">
+  <div class="words">
+    <span>{{ gameItem?.word }}</span>
+    <span>{{ gameItem?.wordTranslate }}</span>
+  </div>
+</mat-card>
+<mat-card-actions *ngIf="!gameItem?.isDisabled">
+  <button mat-raised-button color="warn" class="false-answer" (click)="checkAnswer(false)" (keyup.ArrowLeft)="checkAnswer(false)">Incorrect</button>
+  <button mat-raised-button style="background: green; color: #fff" class="true-answer" (click)="checkAnswer(true)" (keyup.ArrowRight)="checkAnswer(true)">Correct</button>
+</mat-card-actions>
