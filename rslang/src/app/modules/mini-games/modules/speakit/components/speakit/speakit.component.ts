@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
 import { SpeechRecognitionService } from '../../shared/services/speech-recognition.service';
-import { ResultList, StatsWords, WordSpeakit } from '../../shared/interfaces';
+import { ResultList, SpeakitStatsWords, WordSpeakit } from '../../shared/interfaces';
 import { ScrollService } from '../../shared/services/scroll.service';
 import { timer } from 'rxjs';
 import { Group, Page } from '../../../../../../shared/types';
 import { GetWordsService } from '../../shared/services/get-words.service';
-import { UserStatistic } from '../../../../../../shared/interfaces';
+import { StatsMiniGames, StatsMiniGamesResponse } from '../../../../../../shared/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -39,8 +39,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   startScreen = true;
   closeStartScreen = false;
   isShowResults = false;
-  statistics: StatsWords[] = null;
-  repairStatistics: StatsWords[] = null;
+  statistics: SpeakitStatsWords[] = null;
+  repairStatistics: SpeakitStatsWords[] = null;
   group: Group = 0;
   page: Page;
   date = Date.now();
@@ -80,8 +80,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.resetGame();
     });
 
-    this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
-      this.statistics = JSON.parse(stats.optional.speakit);
+    this.apiService.getUserStatistics().subscribe((stats: StatsMiniGamesResponse) => {
+      this.statistics = stats.optional?.speakit?.words || [];
     }, () => {
       this.isLoading = false;
       this.statistics = [];
@@ -257,7 +257,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     }
   }
 
-  hideStats(repairGame: StatsWords) {
+  hideStats(repairGame: SpeakitStatsWords) {
     this.isShowGameStats = false;
 
     if (this.recognition) {
@@ -290,7 +290,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-      const newStats: StatsWords = {
+      const newStats: SpeakitStatsWords = {
         date: this.date,
         words: this.words.map(w => w.word),
         group: this.group,
@@ -302,10 +302,13 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
     this.statistics = this.statistics.slice(-10);
 
-    const updateStats: UserStatistic = {
-      learnedWords: 0,
+    const updateStats: StatsMiniGames = {
       optional: {
-        speakit: JSON.stringify(this.statistics)
+        speakit: {
+          words: this.statistics,
+          errorRatePercent: 0,
+          totalGamesCompleted: 0
+        }
       }
     };
 
