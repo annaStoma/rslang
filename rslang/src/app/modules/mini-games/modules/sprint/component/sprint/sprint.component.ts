@@ -11,14 +11,12 @@ import { Config } from '../../../../../../common/config';
 })
 export class SprintComponent implements OnInit {
   public countOfCards: number = 10;
-
   public resultOfGame: SprintResult = {
     historyOfAnswers: [],
     countOfCorrect: 0,
     countCorrectInRow: 0,
     totalScore: 0,
   };
-
   public currentGameItem: SprintTranslateItem;
   public listOfCards: SprintWord[] = [];
   public listOfGameTranslateItems: SprintTranslateItem [] = [];
