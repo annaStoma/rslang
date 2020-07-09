@@ -3,6 +3,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { SprintTranslateItem, SprintResult, Word, SprintWord } from '../../../../../../shared/interfaces';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
+import { Page } from '../../../../../../shared/types';
 
 @Component({
   selector: 'app-sprint',
@@ -51,6 +52,7 @@ export class SprintComponent implements OnInit {
   isLoad: boolean = false;
   randomNumbers = []
   counterListOfCards: number = 0;
+  page: Page;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -62,7 +64,9 @@ export class SprintComponent implements OnInit {
   ngOnInit(): void {
     this.selectedGroup = localStorage.getItem('levelGroup');
     if(this.selectedGroup == null) this.selectedGroup = 0;
-    this.apiService.getWords(this.selectedGroup, 0).subscribe(data => {
+    const page = Math.round(Math.random() * 29) as Page;
+    this.page = page;
+    this.apiService.getWords(this.selectedGroup, page).subscribe(data => {
       this.listOfCards = data.slice(0, this.countOfCards);
       this.listOfCards.forEach((card, index) => {
         const isRandom: boolean = Math.random() < 0.5;
