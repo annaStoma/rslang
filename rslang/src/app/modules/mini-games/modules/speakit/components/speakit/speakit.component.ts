@@ -80,12 +80,12 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.resetGame();
     });
 
-    this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
-      this.statistics = JSON.parse(stats.optional.speakit);
-    }, () => {
-      this.isLoading = false;
-      this.statistics = [];
-    });
+    // this.apiService.getUserStatistics().subscribe((stats: UserStatistic) => {
+    //   this.statistics = JSON.parse(stats.optional.speakit);
+    // }, () => {
+    //   this.isLoading = false;
+    //   this.statistics = [];
+    // });
   }
 
   setWord(word: WordSpeakit): void {
@@ -309,20 +309,20 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.apiService.updateUserStatistics(updateStats).subscribe(() => {
-      if (this.countLearnedWords >= this.cardsCount) {
-        this.recordWait = false;
-        this.recordOn = false;
-        this.showResults();
-      } else {
-        this.record();
-      }
-    }, error => {
-      this.snackBar.open(error.error, 'Connection error', {
-        duration: 5000,
-      });
-      this.resetGame();
-    });
+    // this.apiService.updateUserStatistics(updateStats).subscribe(() => {
+    //   if (this.countLearnedWords >= this.cardsCount) {
+    //     this.recordWait = false;
+    //     this.recordOn = false;
+    //     this.showResults();
+    //   } else {
+    //     this.record();
+    //   }
+    // }, error => {
+    //   this.snackBar.open(error.error, 'Connection error', {
+    //     duration: 5000,
+    //   });
+    //   this.resetGame();
+    // });
 
   }
 

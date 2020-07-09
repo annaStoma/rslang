@@ -1,3 +1,5 @@
+import { optional } from './types';
+
 export interface Game {
   name: string;
   url: string;
@@ -10,13 +12,15 @@ export interface UserCreate {
   password: string;
 }
 
-export interface UserUpdate extends UserCreate {}
+export interface UserUpdate extends UserCreate {
+}
 
 export interface UserCreateResponse {
   name?: string;
   email: string;
   id: string;
 }
+
 export interface RefreshTokenResponse {
   token: string;
   refreshToken: string;
@@ -28,7 +32,8 @@ export interface TokenPayload {
   exp: number;
 }
 
-export interface UserUpdateResponse extends UserCreateResponse {}
+export interface UserUpdateResponse extends UserCreateResponse {
+}
 
 export interface LoginResponse {
   message: string;
@@ -74,6 +79,7 @@ export interface AggregatedWord extends Word {
   userWord?: UsersWords;
   _id: string;
 }
+
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;
   totalCount: Array<{ count: number }>;
@@ -129,4 +135,25 @@ export interface PeriodicElement {
 export interface TypeRegExp {
   $regex: RegExp | string;
   $options?: string;
+}
+
+export interface StatsMiniGames {
+  optional: optional;
+}
+
+export interface StatsMiniGamesResponse {
+  optional: {
+    speakit?: StatsMiniGamesItem;
+    audiocall?: StatsMiniGamesItem;
+    'english-puzzle'?: StatsMiniGamesItem;
+    sprint?: StatsMiniGamesItem;
+    savannah?: StatsMiniGamesItem;
+    'own-game'?: StatsMiniGamesItem;
+  };
+}
+
+export interface StatsMiniGamesItem {
+  words?: object[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
 }
