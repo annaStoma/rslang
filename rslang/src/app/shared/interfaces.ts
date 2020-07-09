@@ -1,6 +1,5 @@
 import { optional } from './types';
 import { SpeakitStatsWords } from '../modules/mini-games/modules/speakit/shared/interfaces';
-import { SprintStatsWords } from '../modules/mini-games/modules/sprint/component/interfaces';
 
 export interface Game {
   name: string;
@@ -198,7 +197,6 @@ export interface StatsSpeakitGameItem {
 }
 
 export interface StatsSprintGameItem {
-  words?: SprintStatsWords[];
   totalGamesCompleted: number;
   errorRatePercent: number;
 }
