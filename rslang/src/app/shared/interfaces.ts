@@ -13,8 +13,7 @@ export interface UserCreate {
   password: string;
 }
 
-export interface UserUpdate extends UserCreate {
-}
+export interface UserUpdate extends UserCreate {}
 
 export interface UserCreateResponse {
   name?: string;
@@ -33,8 +32,7 @@ export interface TokenPayload {
   exp: number;
 }
 
-export interface UserUpdateResponse extends UserCreateResponse {
-}
+export interface UserUpdateResponse extends UserCreateResponse {}
 
 export interface LoginResponse {
   message: string;
