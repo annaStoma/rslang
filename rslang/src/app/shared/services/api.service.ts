@@ -5,7 +5,7 @@ import { Config } from '../../common/config';
 import { Observable } from 'rxjs';
 import {
   AggregatedWord,
-  AggregatedWordResponse,
+  AggregatedWordResponse, StatsMiniGames, StatsMiniGamesResponse,
   UserData,
   UserSetting,
   UserStatistic,
@@ -119,16 +119,16 @@ export class ApiService {
     return this.http.get<AggregatedWord>(url);
   }
 
-  getUserStatistics(): Observable<UserStatistic> {
+  getUserStatistics(): Observable<StatsMiniGamesResponse> {
     this.url.pathname = `/users/${this.id}/statistics`;
     const url = this.url.toString();
-    return this.http.get<UserStatistic>(url);
+    return this.http.get<StatsMiniGamesResponse>(url);
   }
 
-  updateUserStatistics(statistic: UserStatistic): Observable<UserStatistic> {
+  updateUserStatistics<T extends StatsMiniGames>(statistic: T): Observable<T> {
     this.url.pathname = `/users/${this.id}/statistics`;
     const url = this.url.toString();
-    return this.http.put<UserStatistic>(url, statistic);
+    return this.http.put<T>(url, statistic);
   }
 
   getUserSettings(): Observable<UserSettings> {
