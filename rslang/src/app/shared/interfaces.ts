@@ -195,3 +195,8 @@ export interface StatsSpeakitGameItem {
   totalGamesCompleted: number;
   errorRatePercent: number;
 }
+
+export interface StatsSprintGameItem {
+  totalGamesCompleted: number;
+  errorRatePercent: number;
+}
