@@ -42,14 +42,9 @@ export class EnglishPuzzleComponent implements OnInit {
   level = 0;
   textTranslate = '';
   ngOnInit() {
-    this.wordsService.getWords().subscribe((data: object[]) => {
-      this.words = data;
-      this.currentTextExample = this.getCurrentTextExample();
-      this.currentWord = this.words[this.currentWordNumber]['word'];
-      this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
-      this.currentSplittedTextExample = this.currentTextExample.split(' ');
-      return this.words;
-    });
+    this.wordsService.page = 1;
+    this.wordsService.level = 1;
+    this.resetQuestion();
   }
 
   setStyleOfTextExample(text) {
@@ -81,7 +76,6 @@ export class EnglishPuzzleComponent implements OnInit {
     this.answers.push(this.currentTextExample);
     this.currentSplittedTextExample = [];
     this.currentAnswer = [];
-    this.setLearnedWords()
   }
 
   check(event) {
@@ -89,7 +83,6 @@ export class EnglishPuzzleComponent implements OnInit {
       this.answers.push(this.currentTextExample);
       this.rightWords.push(this.currentWord);
       this.currentAnswer = [];
-      this.setLearnedWords();
       this.hiddenContinue = false;
     } else {
       document.querySelectorAll(".word").forEach((item)=>{
@@ -165,6 +158,9 @@ export class EnglishPuzzleComponent implements OnInit {
     }
     this.wordsService.level = lvl["value"];
     this.wordsService.page = pg["value"];
+    this.setStatistic(this.rightWords.length, this.wrongWords.length);
+    this.wrongWords = [];
+    this.rightWords = [];
     this.resetQuestion();
   }
 
@@ -184,8 +180,8 @@ export class EnglishPuzzleComponent implements OnInit {
     });
   }
 
-  setLearnedWords() {
-    this.wordsService.setUserStatistic(this.rightWords, this.wrongWords);
+  setStatistic(rightWordsCount, wrongWordsCount) {
+    this.wordsService.setUserStatistic(rightWordsCount, wrongWordsCount);
   }
 
   voiceExample() {

@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../../../../../shared/services/api.service';
+import { Config } from '../../../../../../common/config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WordsService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiService: ApiService) { }
   page = 1;
   level = 1;
   getWords() {
@@ -16,9 +18,33 @@ export class WordsService {
     );
   }
 
-  token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlYzk5M2RmNGNhOWQ2MDAxNzg3NDBhZSIsImlhdCI6MTU5MDI2OTE1OCwiZXhwIjoxNTkwMjgzNTU4fQ.XHKmdY_jk1R7PUbgCZfqH8TxH6XQ0USwPBSKNHMdF6I';
 
-  setUserStatistic = async (learningWords = [], hardWords = []) => {
+  setUserStatistic(rightWordsCount, wrongWordsCount) {
+    let oldStatistic;
+    let commonRating;
+    this.apiService.getUserStatistics().subscribe(res => {
+      oldStatistic = res.optional ? res.optional["english-puzzle"] : { errorRatePercent : 0, totalGamesCompleted: 0 };
+      commonRating = (wrongWordsCount / (rightWordsCount + wrongWordsCount)) + (oldStatistic.errorRatePercent / 100);
+      commonRating = oldStatistic.totalGamesCompleted > 0 ? commonRating / 2 : commonRating;
+      this.apiService.updateUserStatistics({
+        optional: {
+          "english-puzzle": {
+            errorRatePercent: commonRating * 100,
+            totalGamesCompleted: oldStatistic.totalGamesCompleted + 1,
+          }
+        }
+      }).subscribe(res => {
+      }, error => {
+        console.log(error)
+      });
+    });
+
+
+
+    console.log('hello');
+  }
+
+  /*setUserStatistic = async (learningWords = [], hardWords = []) => {
     let response = await fetch(`https://api-rslang.herokuapp.com/users/${localStorage.getItem("userId")}/user-data`, {
       method: 'GET',
       headers: {
@@ -42,5 +68,5 @@ export class WordsService {
       },
       body: JSON.stringify(updateData)
     });
-  };
+  };*/
 }
