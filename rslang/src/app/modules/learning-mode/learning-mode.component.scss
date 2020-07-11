@@ -1,0 +1,22 @@
+@import "./src/app/constants";
+
+::ng-deep .owl-carousel .owl-item img{
+  width: 50%;
+  //height: 200px;
+}
+
+::ng-deep .owl-carousel .owl-item {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-counter{
+}
+.wrapper{
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 86vh;
+}

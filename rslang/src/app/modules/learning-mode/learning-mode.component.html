@@ -1,1 +1,38 @@
-<p>learning-mode works!</p>
+<div class="wrapper">
+  <mat-spinner *ngIf="isSpinnerVisible"></mat-spinner>
+  <owl-carousel-o [options]="this.customOptions" #owlCar>
+    <ng-container *ngFor="let slide of wordsToLearn">
+      <ng-template class="slide" carouselSlide>
+        <app-word-card
+          [id]="slide._id"
+          [word]="slide.word"
+          [group]="slide.group"
+          [page]="slide.page"
+          [image]="slide.image"
+          [audio]="slide.audio"
+          [audioMeaning]="slide.audioMeaning"
+          [audioExample]="slide.audioExample"
+          [textMeaning]="slide.textMeaning"
+          [textExample]="slide.textExample"
+          [transcription]="slide.transcription"
+          [textExampleTranslate]="slide.textExampleTranslate"
+          [textMeaningTranslate]="slide.textMeaningTranslate"
+          [wordTranslate]="slide.wordTranslate"
+          [wordsPerExampleSentence]="slide.wordsPerExampleSentence"
+          (next)="owlCar.next()"
+          (delete)="deleteSlide($event)"
+          (hard)="addToHard($event)"
+          [isShowAssociation] = "association"
+          [isShowExampleText]="exampleText"
+          [isShowTranscription]="transcription"
+          [isShowExplanation]="explanation"
+          [isShowTranslation]="translation"
+          [isShowTextExampleTranslate]="textExampleTranslate"
+          [isShowTextMeaningTranslate]="textMeaningTranslate"
+          [isAutoPlay]="autoPlay"
+        ></app-word-card>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+  <div class="cards-counter" *ngIf="wordsToLearn"> {{ wordsToLearn.length }} cards</div>
+</div>

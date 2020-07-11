@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { MainPageModule } from './modules/main-page/main-page.module';
 import { MainPageRoutingModule } from './modules/main-page/main-page-routing.module';
@@ -29,6 +29,11 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SettingsModule } from './modules/learning-mode/components/settings/setting.module';
+import { VocabularyComponent } from './components/vocabulary/vocabulary.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -39,6 +44,7 @@ import { SettingsModule } from './modules/learning-mode/components/settings/sett
     AboutUsComponent,
     LearningModeComponent,
     WordCardComponent,
+    VocabularyComponent,
     NotFoundPageComponent,
   ],
   imports: [
@@ -59,7 +65,12 @@ import { SettingsModule } from './modules/learning-mode/components/settings/sett
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatButtonToggleModule,
     SettingsModule,
+    CarouselModule,
+    FormsModule,
   ],
   providers: [
     {
