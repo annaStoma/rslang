@@ -1,1 +1,63 @@
-<p>audoicall works!</p>
+<div class="savannah-game-wrapper">
+  <div class="start-screen">
+    <img class="start-screen-image" src="../../../../../../../assets/images//savannah-start-page.jpg" alt="">
+
+    <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
+      <div class="close-button"></div>
+      <h1>SAVANNAH</h1>
+      <div class="game-name">
+        <div class="game-name-letter" *ngFor="let letter of title">{{letter}}</div>
+      </div>
+      <p class="start-screen-text">The Savannah training helps you build your vocabulary.</p>
+    </div>
+    <div class="loader-container" [ngClass]="{hidden:isHiddenLoader}">
+      <div class="spinner-loader">
+        <div class="spinner-inner spinner-one"></div>
+        <div class="spinner-inner spinner-two"></div>
+        <div class="spinner-inner spinner-three"></div>
+        <div class="preloader">
+          <div class="loader"></div>
+        </div>
+      </div>
+
+      <p>Use keys 1, 2, 3, and 4 to give a quick answer</p>
+    </div>
+    <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
+  </div>
+
+  <div class="game-container" *ngIf="audioCallCards && activeCard">
+    <img class="main-scree-image" src="../../../../../../../assets/images/savannah-background-page.jpg" alt="">
+    <div class="close-button"></div>
+    <div class="sound-toggler-container" (click)="selectSound()">
+      <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah-voice-button.png"
+        [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
+    <div class="lives-container">
+      <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah-lives.png"
+        alt="">
+    </div>
+
+    <div class="active-card-container">
+      <div class="active-card" [ngClass]="{activeCardFall:isAnimationEnd}">
+        {{ activeCard.foreignWord }}
+        <div class="bullet" [ngClass]="{bulletActive:isAnimationBullet}"></div>
+      </div>
+
+    </div>
+
+    <div class="native-words-container">
+      <div *ngFor="let card of randomCards" class="native-word-card" (click)="checkResult(card.wordId)">
+        {{ card.nativeWord }}</div>
+    </div>
+    <div class="diamand-container">
+      <img class="diamand-image" src="../../../../../../../assets/images/savannah-diamond.png" alt="">
+    </div>
+  </div>
+
+  <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
+    <h2>GAME OVER!!!</h2>
+    <p>Mistakes: {{ mistakes }}</p>
+    <p>Right words: {{ rightWords }}</p>
+  </div>
+
+
+</div>
