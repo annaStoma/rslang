@@ -43,30 +43,4 @@ export class WordsService {
 
     console.log('hello');
   }
-
-  /*setUserStatistic = async (learningWords = [], hardWords = []) => {
-    let response = await fetch(`https://api-rslang.herokuapp.com/users/${localStorage.getItem("userId")}/user-data`, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    });
-
-    let updateData = await response.json();
-
-    updateData.learningWords = learningWords;
-    updateData.hardWords = hardWords;
-
-    response = await fetch(`https://api-rslang.herokuapp.com/users/${localStorage.getItem("userId")}/user-data`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updateData)
-    });
-  };*/
 }
