@@ -10,8 +10,8 @@
   width: 55px;
   height: 35px;
   margin-right: 8px;
-  border-color: #673AB7;
-  color: #673AB7;
+  border-color: $primary;
+  color: $primary;
   border-radius: 8px;
   border-width: 3px;
   text-align: center;
@@ -23,10 +23,10 @@
   margin-left: 8px;
   width: 86px;
   height: 35px;
-  color: black;
-  border: 3px solid #673AB7;
+  color: $alternative-font-color;
+  border: 3px solid $primary;
   cursor: pointer;
-  background-color: white;
+  background-color: $background;
   border-radius: 8px;
 }
 
@@ -40,7 +40,7 @@
   }
 
   .menu__right button {
-    border: 2px solid #673AB7;
+    border: 2px solid $primary;
   }
 }
 
@@ -58,7 +58,7 @@
   }
 
   .menu__right button {
-    border: 1px solid #673AB7;
+    border: 1px solid $primary;
     width: 65px;
     height: 17px;
     margin-left: 2px;

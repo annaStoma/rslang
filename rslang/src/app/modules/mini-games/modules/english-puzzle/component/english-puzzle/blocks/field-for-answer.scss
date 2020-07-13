@@ -1,7 +1,7 @@
 .field-for-answer {
   height: 506px;
   width: 1030px;
-  border: 3px solid #673AB7;
+  border: 3px solid $primary;
   border-radius: 8px;
 }
 
@@ -17,7 +17,7 @@
   .field-for-answer {
     width: 700px;
     height: 356px;
-    border: 2px solid #673AB7;
+    border: 2px solid $primary;
   }
 
   .field-for-answer--small {
@@ -29,7 +29,7 @@
   .field-for-answer {
     width: 95vw;
     height: calc(70vw + 6px);
-    border: 2px solid #673AB7;
+    border: 2px solid $primary;
   }
 
   .field-for-answer--small {
