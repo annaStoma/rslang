@@ -16,7 +16,7 @@ export interface ResultList {
   [key: string]: number;
 }
 
-export interface StatsWords {
+export interface SpeakitStatsWords {
   date: number;
   words: string[];
   group: number;

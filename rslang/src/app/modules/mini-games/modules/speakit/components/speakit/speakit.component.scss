@@ -155,6 +155,10 @@
   flex-direction: column;
   padding-top: 5px;
 
+  & input {
+    width: 300px;
+  }
+
   & .output-word__span {
     height: 20px;
     text-align: center;
@@ -206,13 +210,14 @@
       }
     }
 
-    @media screen and (max-width: 416px) {
-      width: 190px;
+    @media screen and (max-width: 400px) {
+      width: 95vw;
       padding: 0 5px;
 
       & .control-buttons___item {
         margin-right: 0;
-        width: 190px;
+        width: 95vw;
+        height: 55px;
 
         &:nth-child(odd) {
           margin-right: 0;

@@ -1,4 +1,4 @@
-import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
+import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, MAX_NUMBER, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
 import { SavannahCard } from './savannah-card.model';
@@ -16,8 +16,17 @@ import { first } from 'rxjs/operators';
   providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
-  constructor(private savannahService: SavannahService) { }
+  constructor(public savannahService: SavannahService) {
+    for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
+      this.levels.push(i + 1);
+    }
+    for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
+      this.pages.push(i + 1);
+    }
+  }
 
+  levels: number[] = [];
+  pages: number[] = [];
   savannahCards: SavannahCard[];
   remainGameCards: SavannahCard[];
   activeCard: SavannahCard;
@@ -25,6 +34,8 @@ export class SavannahComponent implements OnInit {
   lives: number;
   rightWords: number;
   mistakes: number;
+  mistakeWordsArray: string[] = [];
+  rightWordsArray: string[] = [];
   livesArray: Array<number> = SAVANNAH_DEFAULT_VALUES.livesArray;
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
@@ -34,6 +45,9 @@ export class SavannahComponent implements OnInit {
   isAnimationEnd = SAVANNAH_DEFAULT_VALUES.isAnimationEnd;
   isAnimationBullet = SAVANNAH_DEFAULT_VALUES.isAnimationBullet;
   isSoundSelected = SAVANNAH_DEFAULT_VALUES.isSoundSelected;
+
+  pageNumber: number = 0;
+  wordsLevel: number = 0;
 
   title: string[] = 'SAVANAH'.split('').reverse();
 
@@ -47,12 +61,22 @@ export class SavannahComponent implements OnInit {
     this.mistakes = SAVANNAH_START_VALUES.mistakes;
     this.rightWords = SAVANNAH_START_VALUES.rightWords;
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
+    this.mistakeWordsArray = [];
+    this.rightWordsArray = [];
+  }
+
+  newLevel(event): void {
+    this.pageNumber = event.target.value - 1;
+  }
+
+  newPage(event): void {
+    this.wordsLevel = event.target.value - 1;
   }
 
   startGame(): void {
     this.getDefaultAdditionalGameValues();
     this.savannahService
-      .getWords()
+      .getWords(this.wordsLevel, this.pageNumber)
       .pipe(first()).subscribe((words) => {
         this.savannahCards = words;
         this.remainGameCards = [...this.savannahCards];
@@ -132,6 +156,7 @@ export class SavannahComponent implements OnInit {
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
+    this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
     this.lives--;
     this.livesArray.splice(0, 1);
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
@@ -143,6 +168,7 @@ export class SavannahComponent implements OnInit {
     this.audioPlay(AUDIO_NAMES.CORRECT);
     this.isAnimationEnd = false;
     this.isAnimationBullet = true;
+    this.rightWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
     this.rightWords++;
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
@@ -184,7 +210,7 @@ export class SavannahComponent implements OnInit {
 
   audioPlay(name: string): void {
     if (name && this.isSoundSelected) {
-      const audio = new Audio(`../../../../../../../assets/audio/savannah-${name}.mp3`);
+      const audio = new Audio(`../../../../../../../assets/audio/savannah/${name}.mp3`);
 
       audio.play();
     }
@@ -194,7 +220,20 @@ export class SavannahComponent implements OnInit {
     this.isSoundSelected = !this.isSoundSelected;
   }
 
+  nextLevel(): void {
+    if (this.pageNumber < MAX_NUMBER.PAGE) {
+      this.pageNumber++;
+    } else if (this.wordsLevel < MAX_NUMBER.LEVEL) {
+      this.pageNumber = 1;
+      this.wordsLevel++;
+    } else {
+      this.wordsLevel = 1;
+      this.pageNumber = 1;
+    }
+  }
+
   gameOver(): void {
+    this.nextLevel();
     this.isHiddenFinalScreen = false;
     this.isHiddenButton = false;
     this.activeCard = null;

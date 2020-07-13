@@ -14,6 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PromoComponent } from './components/promo/promo.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { MiniGamesModule } from './modules/mini-games/mini-games.module';
@@ -37,7 +38,8 @@ import { SettingsModule } from './modules/learning-mode/components/settings/sett
     PromoComponent,
     AboutUsComponent,
     LearningModeComponent,
-    WordCardComponent
+    WordCardComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -57,7 +59,7 @@ import { SettingsModule } from './modules/learning-mode/components/settings/sett
     MatButtonModule,
     MatDialogModule,
     MatSnackBarModule,
-    SettingsModule
+    SettingsModule,
   ],
   providers: [
     {

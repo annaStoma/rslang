@@ -19,6 +19,7 @@
   }
 
   h1 {
+    padding-top: 10px;
     font-size: 2em;
   }
 
@@ -27,44 +28,31 @@
   }
 
   .start-button {
-    margin-top: 40vh;
-    margin-bottom: 30vh;
+    position: absolute;
+    top: 420px;
+    left: 45vw;
+    border-radius: 6px;
+    height: 40px;
+    background-color: $primary;
+    color: $font-color;
   }
 }
 
+.select-level {
+  width: 100px;
+  height: 35px;
+  margin-right: 8px;
+  border-color: $primary;
+  color: $primary;
+  border-radius: 8px;
+  border-width: 3px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
 .hidden {
   display: none;
-}
-
-.close-button {
-  position: absolute;
-  right: 32px;
-  top: 32px;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-}
-
-.close-button:hover {
-  opacity: 1;
-}
-
-.close-button:before,
-.close-button:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 2px;
-  background-color: $shadow;
-}
-
-.close-button:before {
-  transform: rotate(45deg);
-}
-
-.close-button:after {
-  transform: rotate(-45deg);
 }
 
 .sound-toggler-container {
@@ -94,7 +82,6 @@
 }
 
 .game-container {
-  height: 100vh;
   margin-top: 0;
   margin-left: 0;
   top: 0;
@@ -103,7 +90,7 @@
   background-repeat: no-repeat;
   color: $primary;
 
-  .main-scree-image {
+  .main-screen-image {
     height: 100%;
     width: 100%;
     position: absolute;
@@ -111,6 +98,11 @@
     top: 0;
     z-index: -10;
   }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 
 .lives-container {
@@ -143,14 +135,23 @@
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    padding-left: 10%;
-    padding-bottom: 20px;
+    padding-top: 10vh;
+    padding-left: 25vw;
+    padding-bottom: 50px;
     font-size: 1.5em;
   }
+}
 
-  .native-word-card {
+.native-word-card {
+  font-size: 1.5em;
+  width: 100px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    padding-left: 10%;
+    padding-top: 20px;
+    padding-bottom: 30px;
     font-size: 1.5em;
-    width: 100px;
   }
 }
 
@@ -197,7 +198,7 @@
 
 .diamand-container {
   position: relative;
-  top: 100px;
+  top: 30px;
   left: 0%;
 
   @media screen and (max-width: 600px) {
@@ -216,4 +217,15 @@
   background-color: $card-background-color;
   border-radius: 20px;
   width: $card-size;
+  max-height: 240px;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    overflow: scroll;
+    left: 30vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    left: 15vw;
+  }
 }

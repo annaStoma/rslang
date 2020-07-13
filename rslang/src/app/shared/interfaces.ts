@@ -1,3 +1,6 @@
+import { optional } from './types';
+import { SpeakitStatsWords } from '../modules/mini-games/modules/speakit/shared/interfaces';
+
 export interface Game {
   name: string;
   url: string;
@@ -5,7 +8,7 @@ export interface Game {
 }
 
 export interface UserCreate {
-  userName?: string;
+  name?: string;
   email: string;
   password: string;
 }
@@ -13,9 +16,20 @@ export interface UserCreate {
 export interface UserUpdate extends UserCreate {}
 
 export interface UserCreateResponse {
-  userName?: string;
+  name?: string;
   email: string;
   id: string;
+}
+
+export interface RefreshTokenResponse {
+  token: string;
+  refreshToken: string;
+}
+
+export interface TokenPayload {
+  id: string;
+  iat: number;
+  exp: number;
 }
 
 export interface UserUpdateResponse extends UserCreateResponse {}
@@ -26,16 +40,20 @@ export interface LoginResponse {
   userId: string;
   name: string;
   email: string;
+  refreshToken: string;
 }
 
 export interface AuthData {
   token: string | null;
   userId: string | null;
+  refreshToken: string | null;
 }
 
 export interface UsersWords {
   difficulty: string;
-  optional: object;
+  optional: {
+    learned: boolean;
+  };
 }
 
 export interface Word {
@@ -56,18 +74,49 @@ export interface Word {
   wordsPerExampleSentence: number;
 }
 
-export interface AggregatedWord extends Word {
-  userWord?: UserWordById;
+export interface SprintWord {
+  id?: string;
+  group?: number;
+  page?: number;
+  word?: string;
+  image?: string;
+  audio?: string;
+  audioMeaning?: string;
+  audioExample?: string;
+  textMeaning?: string;
+  textExample?: string;
+  transcription?: string;
+  textExampleTranslate?: string;
+  textMeaningTranslate?: string;
+  wordTranslate?: string;
+  wordsPerExampleSentence?: number;
 }
+
+export interface SprintTranslateItem {
+  word: string
+  wordTranslate: string;
+  index?: number;
+  isDisabled?: boolean;
+  audio?: string;
+}
+
+export interface SprintResult {
+  historyOfAnswers?: boolean[],
+  countOfCorrect?: number,
+  countCorrectInRow?:number,
+  totalScore?: number,
+}
+
+export interface AggregatedWord extends Word {
+  userWord?: UsersWords;
+  _id: string;
+}
+
 export interface AggregatedWordResponse {
   paginatedResults: Array<AggregatedWord>;
   totalCount: Array<{ count: number }>;
 }
 
-export interface UserWordById {
-  difficulty: string;
-  optional?: object;
-}
 
 export interface UserStatistic {
   learnedWords: number;
@@ -85,16 +134,6 @@ export interface UserData {
   learningWords: string[];
   hardWords: string[];
   deletedWords: string[];
-}
-
-export interface AggregatedFilter {
-  $and?: Array<AggregatedFilterItem>;
-  $or?: Array<AggregatedFilterItem>;
-  userWord: null | true | false;
-}
-
-interface AggregatedFilterItem {
-  [key: string]: string | [];
 }
 
 export interface User {
@@ -123,4 +162,41 @@ export interface PeriodicElement {
   position: number;
   weight: number;
   symbol: string;
+}
+
+export interface TypeRegExp {
+  $regex: RegExp | string;
+  $options?: string;
+}
+
+export interface StatsMiniGames {
+  optional: optional;
+}
+
+export interface StatsMiniGamesResponse {
+  optional: {
+    speakit?: StatsSpeakitGameItem;
+    audiocall?: StatsMiniGamesItem;
+    'english-puzzle'?: StatsMiniGamesItem;
+    sprint?: StatsMiniGamesItem;
+    savannah?: StatsMiniGamesItem;
+    'own-game'?: StatsMiniGamesItem;
+  };
+}
+
+export interface StatsMiniGamesItem {
+  words?: object[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
+}
+
+export interface StatsSpeakitGameItem {
+  words?: SpeakitStatsWords[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
+}
+
+export interface StatsSprintGameItem {
+  totalGamesCompleted: number;
+  errorRatePercent: number;
 }

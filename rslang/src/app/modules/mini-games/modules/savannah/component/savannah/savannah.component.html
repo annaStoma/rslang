@@ -1,12 +1,18 @@
 <div class="savannah-game-wrapper">
   <div class="start-screen">
-    <img class="start-screen-image" src="../../../../../../../assets/images//savannah-start-page.jpg" alt="">
-
+    <img class="start-screen-image" src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
-      <div class="close-button"></div>
       <h1>SAVANNAH</h1>
       <div class="game-name">
         <div class="game-name-letter" *ngFor="let letter of title">{{letter}}</div>
+      </div>
+      <div class="level-menu">
+        <select class="select-level" (change)="newLevel($event)">
+          <option #level value="{{level}}" *ngFor="let level of levels">LEVEL: {{level}}</option>
+        </select>
+        <select class="select-level" (change)="newPage($event)">
+          <option #page value="{{page}}" *ngFor="let page of pages">PAGE: {{page}}</option>
+        </select>
       </div>
       <p class="start-screen-text">The Savannah training helps you build your vocabulary.</p>
     </div>
@@ -19,22 +25,23 @@
           <div class="loader"></div>
         </div>
       </div>
-
       <p>Use keys 1, 2, 3, and 4 to give a quick answer</p>
     </div>
     <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
   </div>
 
   <div class="game-container" *ngIf="savannahCards && activeCard">
-    <img class="main-scree-image" src="../../../../../../../assets/images/savannah-background-page.jpg" alt="">
-    <div class="close-button"></div>
-    <div class="sound-toggler-container" (click)="selectSound()">
-      <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah-voice-button.png"
-        [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
-    <div class="lives-container">
-      <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah-lives.png"
-        alt="">
+    <img class="main-screen-image" src="../../../../../../../assets/images/savannah/background-page.jpg" alt="">
+    <div class="controls">
+      <div class="sound-toggler-container" (click)="selectSound()">
+        <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah/voice-button.png"
+          [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
+      <div class="lives-container">
+        <img class="lives" *ngFor="let live of livesArray" src="../../../../../../../assets/images/savannah/lives.png"
+          alt="">
+      </div>
     </div>
+
 
     <div class="active-card-container">
       <div class="active-card" [ngClass]="{activeCardFall:isAnimationEnd}">
@@ -49,14 +56,16 @@
         {{ card.nativeWord }}</div>
     </div>
     <div class="diamand-container">
-      <img class="diamand-image" src="../../../../../../../assets/images/savannah-diamond.png" alt="">
+      <img class="diamand-image" src="../../../../../../../assets/images/savannah/diamond.png" alt="">
     </div>
   </div>
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
     <p>Mistakes: {{ mistakes }}</p>
+    <p *ngFor="let mistakeWord of mistakeWordsArray">{{mistakeWord}}</p>
     <p>Right words: {{ rightWords }}</p>
+    <p *ngFor="let rightWord of rightWordsArray">{{rightWord}}</p>
   </div>
 
 
