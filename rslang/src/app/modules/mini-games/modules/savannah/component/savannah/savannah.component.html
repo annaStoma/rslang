@@ -1,6 +1,7 @@
 <div class="savannah-game-wrapper">
   <div class="start-screen">
-    <img class="start-screen-image"  src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
+    <img class="start-screen-image" *ngIf="!isHiddenStartScreen"
+      src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
       <h1>SAVANNAH</h1>
       <div class="game-name">
@@ -13,9 +14,6 @@
         <select class="select-level" (change)="newPage($event)">
           <option #page value="{{page}}" *ngFor="let page of pages">PAGE: {{page}}</option>
         </select>
-        <!-- <select class="select-level" (change)="newPage($event)">
-          <option #page value="{{page}}" *ngFor="let live of livesArray">Lives: {{live}}</option>
-        </select> -->
       </div>
       <p class="start-screen-text">The Savannah training helps you build your vocabulary.</p>
     </div>
@@ -45,7 +43,6 @@
       </div>
     </div>
 
-
     <div class="active-card-container">
       <div class="active-card" [ngClass]="{activeCardFall:isAnimationEnd}">
         {{ activeCard.foreignWord }}
@@ -72,6 +69,5 @@
     <p>Right words: {{ rightWords }}</p>
     <p *ngFor="let rightWord of rightWordsArray">{{rightWord}}</p>
   </div>
-
 
 </div>

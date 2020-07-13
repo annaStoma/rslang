@@ -30,7 +30,6 @@ export class SavannahService {
       )
       .pipe(
         map((response: SavannahApi[]) => {
-          console.log('RESPONSE', response);
           const wordsArray: SavannahCard[] = response.map((el) => {
             return {
               wordId: el.id,

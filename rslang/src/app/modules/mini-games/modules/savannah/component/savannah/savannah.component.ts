@@ -7,9 +7,6 @@ import { SavannahCard } from './savannah-card.model';
 import { SavannahService } from './savannah.service';
 import { first } from 'rxjs/operators';
 
-// import { SavannahStatsWords } from './svannah-statistics.model';
-
-
 @Component({
   selector: 'app-savannah',
   templateUrl: './savannah.component.html',
@@ -46,14 +43,12 @@ export class SavannahComponent implements OnInit {
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
   isHiddenButton = SAVANNAH_DEFAULT_VALUES.isHiddenButton;
+  isHiddenStartScreen = SAVANNAH_DEFAULT_VALUES.isHiddenStartScreen;
   isHiddenFinalScreen = SAVANNAH_DEFAULT_VALUES.isHiddenFinalScreen;
   isAnimationStart = SAVANNAH_DEFAULT_VALUES.isAnimationStart;
   isAnimationEnd = SAVANNAH_DEFAULT_VALUES.isAnimationEnd;
   isAnimationBullet = SAVANNAH_DEFAULT_VALUES.isAnimationBullet;
   isSoundSelected = SAVANNAH_DEFAULT_VALUES.isSoundSelected;
-
-  // statistics: SavannahStatsWords[] = null;
-  // repairStatistics: SavannahStatsWords[] = null;
 
   pageNumber: number = 0;
   wordsLevel: number = 0;
@@ -75,13 +70,6 @@ export class SavannahComponent implements OnInit {
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
     this.isAnimationStart = SAVANNAH_START_VALUES.isAnimationStart;
     this.lives = SAVANNAH_START_VALUES.lives;
-    // this.livesArray = SAVANNAH_START_VALUES.livesArray;
-
-    // this.livesArray.push(1);
-    // this.livesArray.push(1);
-    // this.livesArray.push(1);
-    // this.livesArray.push(1);
-    // this.livesArray.push(1);
     this.fullLivesArray();
     this.mistakeWordsArray = [];
     this.rightWordsArray = [];
@@ -101,12 +89,6 @@ export class SavannahComponent implements OnInit {
     this.wordsLevel = event.target.value - 1;
   }
 
-  // startGame(): void {
-  //  const ABC =  this.apiService.getUserWords();
-  //  console.log('ABC', ABC);
-  // }
-
-
   startGame(): void {
     this.getDefaultAdditionalGameValues();
     this.getUserStatistic();
@@ -121,12 +103,12 @@ export class SavannahComponent implements OnInit {
 
   getForeignWord(): void {
     this.isHiddenLoader = true;
+    this.isHiddenStartScreen = true;
     this.setActiveCard();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
       this.savannahCards
     );
     this.randomCards.push(this.activeCard);
-    //  console.log('RANDOM_CARDS: ', this.randomCards);
   }
 
 
@@ -140,7 +122,10 @@ export class SavannahComponent implements OnInit {
     );
 
     this.activeCard = this.remainGameCards[activeCardIndex];
-    this.soundForeignWord();
+    if (this.isSoundSelected) {
+      this.soundForeignWord();
+    }
+
     this.fallingBlock = setTimeout(() => {
       this.ifGuessTheWord();
     }, 5000);
@@ -211,16 +196,6 @@ export class SavannahComponent implements OnInit {
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
-  // soundForeignWord(): void {
-  //   const msg = new SpeechSynthesisUtterance();
-  //   const foreignWordText = this.activeCard.foreignWord;
-
-  //   if (this.isSoundSelected) {
-  //     msg.text = foreignWordText;
-  //     speechSynthesis.speak(msg);
-  //   }
-  // }
-
   soundForeignWord(): void {
     const audio = new Audio();
 
@@ -239,7 +214,6 @@ export class SavannahComponent implements OnInit {
     );
 
     this.setActiveCard();
-    // this.soundForeignWord();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
       this.savannahCards
     );
@@ -281,44 +255,31 @@ export class SavannahComponent implements OnInit {
   gameOver(): void {
     this.nextLevel();
     this.isHiddenFinalScreen = false;
+    this.isHiddenStartScreen = false;
     this.isHiddenButton = false;
     this.activeCard = null;
     this.livesArray.length > 0
       ? this.audioPlay(AUDIO_NAMES.SUCCESS)
       : this.audioPlay(AUDIO_NAMES.FAILURE);
 
-    // this.apiService.updateUserStatistics({
-    //   optional: {
-    //     savannah: {
-    //       words: [{}, {}],
-    //       errorRatePercent: 0,
-    //       totalGamesCompleted: 0
-    //     }
-    //   }
-    // }).subscribe(res => {
-    //   console.log(res.optional.savannah)
-    // }, error => {
-    //   console.log(error)
-    // });
-this.setUserStatistic();
+    this.setUserStatistic();
   }
 
-getUserStatistic(): void {
-  this.apiService.getUserStatistics().subscribe((stats) => {
-    this.totalErrorPercent = stats.optional.savannah.errorRatePercent;
-    this.totalGamesNumber = stats.optional.savannah.totalGamesCompleted;
-  });
-}
+  getUserStatistic(): void {
+    this.apiService.getUserStatistics().subscribe((stats) => {
+      this.totalErrorPercent = stats.optional.savannah.errorRatePercent;
+      this.totalGamesNumber = stats.optional.savannah.totalGamesCompleted;
+    });
+  }
 
   setUserStatistic(): void {
-  this.totalGamesNumber++;
-  let countErrorsFromPercent: number = ((this.totalErrorPercent) * (this.currentCheckedWordsNumber * this.totalGamesNumber)) / 100;
+    this.totalGamesNumber++;
+    let countErrorsFromPercent: number = ((this.totalErrorPercent) * (this.currentCheckedWordsNumber * this.totalGamesNumber)) / 100;
     countErrorsFromPercent += this.mistakesNumber;
     this.totalErrorPercent = (countErrorsFromPercent * 100) / (this.currentCheckedWordsNumber * this.totalGamesNumber);
     this.apiService.updateUserStatistics({
       optional: {
         savannah: {
-          // words: [{}, {}],
           errorRatePercent: this.totalErrorPercent,
           totalGamesCompleted: this.totalGamesNumber,
         }

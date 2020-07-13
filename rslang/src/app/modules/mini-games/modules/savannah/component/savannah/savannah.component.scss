@@ -95,7 +95,7 @@
   .main-screen-image {
     height: 100%;
     width: 100%;
-    opacity: 1;
+    opacity: 0.6;
     position: absolute;
     left: 0;
     top: 0;
@@ -167,7 +167,7 @@
 
 .native-word-card:hover {
   background-color: $shadow;
-  height: 25px;
+  height: 20px;
   border-radius: 5px;
 }
 
