@@ -33,10 +33,7 @@ export class WordsService {
             totalGamesCompleted: oldStatistic.totalGamesCompleted + 1,
           }
         }
-      }).subscribe(res => {
-      }, error => {
-        console.log(error)
-      });
+      })
     });
 
 
