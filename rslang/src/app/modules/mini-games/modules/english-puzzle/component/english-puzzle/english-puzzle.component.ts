@@ -27,6 +27,7 @@ export class EnglishPuzzleComponent implements OnInit {
   }
 
   isSmall:boolean = false;
+  startPageIsHidden: boolean = false;
   hiddenContinue = true;
   answers: string[] = [];
   wrongWords: string[] = [];
@@ -68,6 +69,10 @@ export class EnglishPuzzleComponent implements OnInit {
         event.currentIndex
       );
     }
+  }
+
+  removeStartPage() {
+    this.startPageIsHidden = true;
   }
 
   abort() : void {

@@ -1,5 +1,8 @@
 
 <body>
+    <div [style.left]="startPageIsHidden ? '-100%' : '0%'" class="start-page__wrapper">
+        <div class="start-page" (click)="removeStartPage()">start</div>
+    </div>
     <div [hidden]="answers !== undefined && !(answers.length > 9)" class="result">
         <h1 [hidden]="rightWords.length === 0">Right: </h1>
         <p *ngFor="let word of rightWords">{{word}}</p>
