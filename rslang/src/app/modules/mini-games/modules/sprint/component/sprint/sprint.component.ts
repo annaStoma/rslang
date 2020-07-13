@@ -178,7 +178,6 @@ export class SprintComponent implements OnInit {
   }
 
   sendStatistic() : void {
-    debugger;
     this.globalCountOfGames++;
     let countErrorsFromPercent: number = ((this.globalPercentOfErrors) * (this.countOfCards * this.globalCountOfGames)) / 100;
     countErrorsFromPercent += this.falseAnswer;
@@ -246,6 +245,7 @@ export class SprintComponent implements OnInit {
     localStorage.setItem('levelGroup', this.currentGroupWords);
     window.location.reload();
   }
+
 }
 
 

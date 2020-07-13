@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, HostListener } from '@angular/core';
 import { SprintTranslateItem, SprintWord } from '../../../../../../shared/interfaces';
 
 
@@ -17,7 +17,14 @@ export class WordCardComponent implements OnInit {
   @Input() gameItem: SprintTranslateItem;
   @Input() word: SprintWord;
   @Input() isNotPlay: boolean;
-
+  @HostListener('document:keydown.arrowLeft', ['$event'])
+  checkAnswerFalse(event: KeyboardEvent) {
+    this.checkAnswer(false);
+  }
+  @HostListener('document:keydown.arrowRight', ['$event'])
+  checkAnswerTrue(event: KeyboardEvent) {
+    this.checkAnswer(true);
+  }
   constructor() {
   }
 
