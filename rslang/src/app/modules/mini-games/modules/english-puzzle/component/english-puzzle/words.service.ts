@@ -35,9 +35,5 @@ export class WordsService {
         }
       })
     });
-
-
-
-    console.log('hello');
   }
 }
