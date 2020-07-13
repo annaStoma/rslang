@@ -47,13 +47,13 @@ export class EnglishPuzzleComponent implements OnInit {
     this.resetQuestion();
   }
 
-  setStyleOfTextExample(text) {
+  setStyleOfTextExample(text) : Object {
     return {
       'width': (text.length / this.numberOfLetters * 100) + '%',
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) : void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -70,7 +70,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  abort() {
+  abort() : void {
     this.wrongWords.push(this.currentWord);
     this.hiddenContinue = false;
     this.answers.push(this.currentTextExample);
@@ -78,7 +78,7 @@ export class EnglishPuzzleComponent implements OnInit {
     this.currentAnswer = [];
   }
 
-  check(event) {
+  check(event) : void {
     if (this.currentAnswer.join(' ') === this.currentTextExample) {
       this.answers.push(this.currentTextExample);
       this.rightWords.push(this.currentWord);
@@ -96,7 +96,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  newLine() {
+  createNewLine() : void {
     this.hiddenContinue = true;
     this.currentWordNumber++;
     this.currentTextExample = this.getCurrentTextExample();
@@ -118,7 +118,7 @@ export class EnglishPuzzleComponent implements OnInit {
     ];
   }
 
-  wordToBottomBlock(text) {
+  wordToBottomBlock(text) : void {
     const index = this.currentAnswer.indexOf(text);
     if (index !== -1) {
       this.currentAnswer.splice(index, 1);
@@ -126,7 +126,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  wordToUpperBlock(text) {
+  wordToUpperBlock(text) : void {
     const index = this.currentSplittedTextExample.indexOf(text);
     if (index !== -1) {
       this.currentSplittedTextExample.splice(index, 1);
@@ -134,17 +134,17 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  newLevel(evt) {
+  createNewLevel(evt) : void {
     this.wordsService.level = evt.target.value;
     this.resetQuestion();
   }
 
-  newPage(evt) {
+  createNewPage(evt) : void {
     this.wordsService.page = evt.target.value;
     this.resetQuestion();
   }
 
-  nextLevel() {
+  createNextLevel() : void {
     const lvl = document.querySelector(".menu__level");
     const pg = document.querySelector(".menu__page");
     if (pg["value"] < 60) {
@@ -164,7 +164,7 @@ export class EnglishPuzzleComponent implements OnInit {
     this.resetQuestion();
   }
 
-  resetQuestion() {
+  resetQuestion() : void {
     this.answers = [];
     this.currentAnswer = [];
     this.currentWordNumber = 0;
@@ -180,11 +180,11 @@ export class EnglishPuzzleComponent implements OnInit {
     });
   }
 
-  setStatistic(rightWordsCount, wrongWordsCount) {
+  setStatistic(rightWordsCount, wrongWordsCount) : void {
     this.wordsService.setUserStatistic(rightWordsCount, wrongWordsCount);
   }
 
-  voiceExample() {
+  voiceExample() : void {
     const message = new SpeechSynthesisUtterance();
     message.lang = "en";
     message.text = this.currentTextExample;
