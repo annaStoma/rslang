@@ -13,6 +13,9 @@
         <select class="select-level" (change)="newPage($event)">
           <option #page value="{{page}}" *ngFor="let page of pages">PAGE: {{page}}</option>
         </select>
+        <!-- <select class="select-level" (change)="newPage($event)">
+          <option #page value="{{page}}" *ngFor="let live of livesArray">Lives: {{live}}</option>
+        </select> -->
       </div>
       <p class="start-screen-text">The Savannah training helps you build your vocabulary.</p>
     </div>

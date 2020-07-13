@@ -1,10 +1,14 @@
 import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, MAX_NUMBER, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
+import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config'
 import { SavannahCard } from './savannah-card.model';
 import { SavannahService } from './savannah.service';
 import { first } from 'rxjs/operators';
+
+// import { SavannahStatsWords } from './svannah-statistics.model';
+
 
 @Component({
   selector: 'app-savannah',
@@ -17,8 +21,8 @@ import { first } from 'rxjs/operators';
   providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
-  constructor(private savannahService: SavannahService, private urlConfig: Config) {
-    for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
+  constructor(private savannahService: SavannahService, private urlConfig: Config, private apiService: ApiService,) {
+    for (let i = 1; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
     for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
@@ -34,10 +38,11 @@ export class SavannahComponent implements OnInit {
   randomCards: SavannahCard[];
   lives: number;
   rightWords: number;
-  mistakes: number;
+  mistakesNumber: number;
+  currentCheckedWordsNumber: number;
   mistakeWordsArray: string[] = [];
   rightWordsArray: string[] = [];
-  livesArray: Array<number>;
+  livesArray: Array<number> = [];
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
   isHiddenButton = SAVANNAH_DEFAULT_VALUES.isHiddenButton;
@@ -47,8 +52,14 @@ export class SavannahComponent implements OnInit {
   isAnimationBullet = SAVANNAH_DEFAULT_VALUES.isAnimationBullet;
   isSoundSelected = SAVANNAH_DEFAULT_VALUES.isSoundSelected;
 
+  // statistics: SavannahStatsWords[] = null;
+  // repairStatistics: SavannahStatsWords[] = null;
+
   pageNumber: number = 0;
   wordsLevel: number = 0;
+
+  totalErrorPercent: number;
+  totalGamesNumber: number;
 
   title: string[] = 'SAVANAH'.split('').reverse();
 
@@ -58,13 +69,28 @@ export class SavannahComponent implements OnInit {
     this.isHiddenDescription = SAVANNAH_START_VALUES.isHiddenDescription;
     this.isHiddenButton = SAVANNAH_START_VALUES.isHiddenButton;
     this.isHiddenLoader = SAVANNAH_START_VALUES.isHiddenLoader;
-    this.lives = SAVANNAH_START_VALUES.lives;
-    this.livesArray = SAVANNAH_START_VALUES.livesArray;
-    this.mistakes = SAVANNAH_START_VALUES.mistakes;
+    this.mistakesNumber = SAVANNAH_START_VALUES.mistakesNumber;
+    this.currentCheckedWordsNumber = SAVANNAH_START_VALUES.currentCheckedWordsNumber;
     this.rightWords = SAVANNAH_START_VALUES.rightWords;
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
+    this.isAnimationStart = SAVANNAH_START_VALUES.isAnimationStart;
+    this.lives = SAVANNAH_START_VALUES.lives;
+    // this.livesArray = SAVANNAH_START_VALUES.livesArray;
+
+    // this.livesArray.push(1);
+    // this.livesArray.push(1);
+    // this.livesArray.push(1);
+    // this.livesArray.push(1);
+    // this.livesArray.push(1);
+    this.fullLivesArray();
     this.mistakeWordsArray = [];
     this.rightWordsArray = [];
+  }
+
+  fullLivesArray(): void {
+    for (let i = 1; i <= this.lives; i++) {
+      this.livesArray.push(i);
+    }
   }
 
   newLevel(event: { target: { value: number; }; }): void {
@@ -75,8 +101,15 @@ export class SavannahComponent implements OnInit {
     this.wordsLevel = event.target.value - 1;
   }
 
+  // startGame(): void {
+  //  const ABC =  this.apiService.getUserWords();
+  //  console.log('ABC', ABC);
+  // }
+
+
   startGame(): void {
     this.getDefaultAdditionalGameValues();
+    this.getUserStatistic();
     this.savannahService
       .getWords(this.wordsLevel, this.pageNumber)
       .pipe(first()).subscribe((words) => {
@@ -93,7 +126,7 @@ export class SavannahComponent implements OnInit {
       this.savannahCards
     );
     this.randomCards.push(this.activeCard);
-  //  console.log('RANDOM_CARDS: ', this.randomCards);
+    //  console.log('RANDOM_CARDS: ', this.randomCards);
   }
 
 
@@ -145,6 +178,7 @@ export class SavannahComponent implements OnInit {
   checkResult(wordId: string): void {
     clearTimeout(this.fallingBlock);
     this.correctWordSelected = true;
+    this.currentCheckedWordsNumber++;
     wordId === this.activeCard.wordId
       ? this.guessTheWord()
       : this.notGuessTheWord();
@@ -165,7 +199,7 @@ export class SavannahComponent implements OnInit {
     this.livesArray.splice(0, 1);
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
     this.isAnimationEnd = false;
-    this.mistakes++;
+    this.mistakesNumber++;
   }
 
   guessTheWord(): void {
@@ -252,6 +286,49 @@ export class SavannahComponent implements OnInit {
     this.livesArray.length > 0
       ? this.audioPlay(AUDIO_NAMES.SUCCESS)
       : this.audioPlay(AUDIO_NAMES.FAILURE);
+
+    // this.apiService.updateUserStatistics({
+    //   optional: {
+    //     savannah: {
+    //       words: [{}, {}],
+    //       errorRatePercent: 0,
+    //       totalGamesCompleted: 0
+    //     }
+    //   }
+    // }).subscribe(res => {
+    //   console.log(res.optional.savannah)
+    // }, error => {
+    //   console.log(error)
+    // });
+this.setUserStatistic();
+  }
+
+getUserStatistic(): void {
+  this.apiService.getUserStatistics().subscribe((stats) => {
+    this.totalErrorPercent = stats.optional.savannah.errorRatePercent;
+    this.totalGamesNumber = stats.optional.savannah.totalGamesCompleted;
+  });
+}
+
+  setUserStatistic(): void {
+  this.totalGamesNumber++;
+  let countErrorsFromPercent: number = ((this.totalErrorPercent) * (this.currentCheckedWordsNumber * this.totalGamesNumber)) / 100;
+    countErrorsFromPercent += this.mistakesNumber;
+    this.totalErrorPercent = (countErrorsFromPercent * 100) / (this.currentCheckedWordsNumber * this.totalGamesNumber);
+    this.apiService.updateUserStatistics({
+      optional: {
+        savannah: {
+          // words: [{}, {}],
+          errorRatePercent: this.totalErrorPercent,
+          totalGamesCompleted: this.totalGamesNumber,
+        }
+      }
+    }).subscribe(res => {
+      console.log(res.optional.savannah)
+    }, error => {
+      console.log(error)
+    });
+
   }
 
   ngOnDestroy(): void {

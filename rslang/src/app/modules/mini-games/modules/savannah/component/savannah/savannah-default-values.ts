@@ -42,7 +42,8 @@ export const SAVANNAH_START_VALUES = {
   isAnimationStart: true,
   isHiddenFinalScreen: true,
   lives: 5,
-  mistakes: 0,
+  mistakesNumber: 0,
+  currentCheckedWordsNumber: 0,
   rightWords: 0,
   livesArray: [1, 1, 1, 1, 1],
 }

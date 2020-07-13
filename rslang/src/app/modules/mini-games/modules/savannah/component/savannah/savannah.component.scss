@@ -128,6 +128,10 @@
   .active-card {
     position: absolute;
     font-size: 2em;
+    font-weight: bold;
+    // background-color: $shadow;
+    // height: 25px;
+    // border-radius: 5px;
   }
 }
 
@@ -147,15 +151,24 @@
 
 .native-word-card {
   font-size: 1.5em;
+  font-weight: bold;
   // width: 100px;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    padding-left: 10%;
+    // padding-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 20px;
     padding-bottom: 30px;
     font-size: 1.5em;
   }
+}
+
+.native-word-card:hover {
+  background-color: $shadow;
+  height: 25px;
+  border-radius: 5px;
 }
 
 .activeCardFall {
@@ -218,9 +231,12 @@
 }
 
 .final-screen {
-  position: absolute;
-  top: 90px;
-  left: 40vw;
+  // position: absolute;
+  // top: 90px;
+  // left: 40vw;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: $card-background-color;
   border-radius: 20px;
   width: $card-size;
