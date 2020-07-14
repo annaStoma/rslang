@@ -1,9 +1,10 @@
-export enum KEY_CODE {
-  NUMBER_ONE = 1,
-  NUMBER_TWO = 2,
-  NUMBER_THREE = 3,
-  NUMBER_FOUR = 4,
-  NUMBER_FIVE = 5,
+export const KEY_CODE = {
+  NUMBER_ONE: 1,
+  NUMBER_TWO: 2,
+  NUMBER_THREE: 3,
+  NUMBER_FOUR: 4,
+  NUMBER_FIVE: 5,
+  ENTER: 'Enter',
 }
 
 export enum CARD_NUMBER {

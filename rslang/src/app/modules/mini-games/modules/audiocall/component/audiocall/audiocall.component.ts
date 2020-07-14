@@ -26,7 +26,7 @@ export class AudiocallComponent implements OnInit {
 
   levels: number[] = [];
   pages: number[] = [];
-  savannahCards: AudioCallCard[];
+  audioCallCards: AudioCallCard[];
   remainGameCards: AudioCallCard[];
   activeCard: AudioCallCard;
   randomCards: AudioCallCard[];
@@ -34,8 +34,8 @@ export class AudiocallComponent implements OnInit {
   rightWords: number;
   mistakesNumber: number;
   currentCheckedWordsNumber: number;
-  mistakeWordsArray: string[] = [];
-  rightWordsArray: string[] = [];
+  mistakeWordsArray: AudioCallCard[] = [];
+  rightWordsArray: AudioCallCard[] = [];
   livesArray: Array<number> = [];
   activeImagePath: string;
 
@@ -65,17 +65,17 @@ export class AudiocallComponent implements OnInit {
     this.currentCheckedWordsNumber = AUDIOCALL_START_VALUES.currentCheckedWordsNumber;
     this.rightWords = AUDIOCALL_START_VALUES.rightWords;
     this.isHiddenFinalScreen = AUDIOCALL_START_VALUES.isHiddenFinalScreen;
-    this.lives = AUDIOCALL_START_VALUES.lives;
-    this.fullLivesArray();
+    // this.lives = AUDIOCALL_START_VALUES.lives;
+    // this.fullLivesArray();
     this.mistakeWordsArray = [];
     this.rightWordsArray = [];
   }
 
-  fullLivesArray(): void {
-    for (let i = 1; i <= this.lives; i++) {
-      this.livesArray.push(i);
-    }
-  }
+  // fullLivesArray(): void {
+  //   for (let i = 1; i <= this.lives; i++) {
+  //     this.livesArray.push(i);
+  //   }
+  // }
 
   newLevel(event: { target: { value: number; }; }): void {
     this.pageNumber = event.target.value - 1;
@@ -91,8 +91,8 @@ export class AudiocallComponent implements OnInit {
     this.audioCallService
       .getWords(this.wordsLevel, this.pageNumber)
       .pipe(first()).subscribe((words) => {
-        this.savannahCards = words;
-        this.remainGameCards = [...this.savannahCards];
+        this.audioCallCards = words;
+        this.remainGameCards = [...this.audioCallCards];
         this.getForeignWord();
       });
   }
@@ -102,7 +102,7 @@ export class AudiocallComponent implements OnInit {
     this.isHiddenStartScreen = true;
     this.setActiveCard();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
-      this.savannahCards
+      this.audioCallCards
     );
     this.randomCards.push(this.activeCard);
   }
@@ -116,7 +116,7 @@ export class AudiocallComponent implements OnInit {
     );
 
     this.activeCard = this.remainGameCards[activeCardIndex];
-    this.soundForeignWord();
+    this.soundForeignWord(this.activeCard.audioUrl);
   }
 
   removeElementFromArray(array: AudioCallCard[], value: AudioCallCard) {
@@ -165,7 +165,7 @@ export class AudiocallComponent implements OnInit {
   }
 
   setNextWord(): void {
-    this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
+    this.rightWords === this.audioCallCards.length ? this.gameOver() : this.getNextRandomCards();
     this.isNextWordButton = false;
     this.isSkipButton = true;
     this.activeImagePath = '';
@@ -176,15 +176,16 @@ export class AudiocallComponent implements OnInit {
   }
 
   skipActiveWord(): void {
-    this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
+    this.notGuessTheWord();
+    this.remainGameCards.length === 1 ? this.gameOver() : this.getNextRandomCards();
     this.activeImagePath = '';
   }
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
-    this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
-    this.lives--;
-    this.livesArray.splice(0, 1);
+    this.mistakeWordsArray.push(this.activeCard);
+    // this.lives--;
+    // this.livesArray.splice(0, 1);
     this.mistakesNumber++;
   }
 
@@ -194,30 +195,30 @@ export class AudiocallComponent implements OnInit {
     // this.isAnimationEnd = false;
     this.isNextWordButton = true;
     this.isSkipButton = false;
-    this.rightWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
+    this.rightWordsArray.push(this.activeCard);
     this.rightWords++;
     // this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
-  soundForeignWord(): void {
+  soundForeignWord(url: string): void {
     const audio = new Audio();
 
-    audio.src = `${this.urlConfig.dataUrl()}${this.activeCard.audioUrl}`;
-    console.log('audioURL: ', audio.src);
+    audio.src = `${this.urlConfig.dataUrl()}${url}`;
+    // console.log('audioURL: ', audio.src);
     audio.play();
     // this. getActiveCardImage();
   }
 
-  playWord(word: string): void {
-    console.log("WORD: ", word);
-    const card = this.savannahCards.find(el => el.foreignWord === word.split(':')[0].trim() );
+  //   playWord(word: AudioCallCard): void {
+  //     console.log("WORD: ", word);
+  //     // const card = word.audioUrl;
 
-    const audio = new Audio();
+  //     const audio = new Audio();
 
-    audio.src = `${this.urlConfig.dataUrl()}${card.audioUrl}`;
-    audio.play();
-
-  }
+  //     audio.src = `${this.urlConfig.dataUrl()}${word.audioUrl}`;
+  //     audio.play();
+  // // this.soundForeignWord()
+  //   }
 
   getActiveCardImage(): void {
     // const image = new Image();
@@ -237,7 +238,7 @@ export class AudiocallComponent implements OnInit {
 
     this.setActiveCard();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
-      this.savannahCards
+      this.audioCallCards
     );
     this.randomCards.splice(randomActiveNativeWordPosition, 0, this.activeCard);
   }
@@ -325,6 +326,9 @@ export class AudiocallComponent implements OnInit {
           break;
         case KEY_CODE.NUMBER_FIVE.toString():
           this.checkResult(this.randomCards[CARD_NUMBER.FIVES].wordId);
+          break;
+        case KEY_CODE.ENTER.toString():
+          (this.isSkipButton && !this.isNextWordButton) ? this.skipActiveWord() : this.setNextWord();
           break;
       }
     }

@@ -20,7 +20,7 @@
     <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
   </div>
 
-  <div class="game-container" *ngIf="savannahCards && activeCard">
+  <div class="game-container" *ngIf="audioCallCards && activeCard">
     <img class="main-screen-image" src="../../../../../../../assets/images/audiocall/main-background-image.jpg" alt="">
 
     <div [ngClass]="{slideLeft:isGameContainerAnimation}">
@@ -29,7 +29,7 @@
       </div>
 
       <div class="controls">
-        <div class="sound-toggler-container" (click)="soundForeignWord()">
+        <div class="sound-toggler-container" (click)="soundForeignWord(activeCard.audioUrl)">
           <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah/voice-button.png"
             [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
       </div>
@@ -41,18 +41,20 @@
       </div>
       <button class="not-know-word" (click)="skipActiveWord()" [ngClass]="{hidden:!isSkipButton}">DONT KNOW</button>
       <button class="next-word" (click)="setNextWord()" [ngClass]="{hidden:!isNextWordButton}">NEXT</button>
-      <p class="game-additional-text">Use keys 1, 2, 3, 4 and 5 to give a quick answer</p>
+      <p class="game-additional-text">Use keys 1, 2, 3, 4, 5 and ENTER to give a quick answer</p>
     </div>
   </div>
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
-    <!-- <p>Mistakes: {{ mistakes }}</p> -->
+    <p>You should learn: {{ mistakesNumber }}</p>
     <div *ngFor="let mistakeWord of mistakeWordsArray">
-      <div (click)="playWord(mistakeWord)">voice</div>
-      {{mistakeWord}}</div>
-    <p>Right words: {{ rightWords }}</p>
-    <p *ngFor="let rightWord of rightWordsArray">{{rightWord}}</p>
+      <div (click)="soundForeignWord(mistakeWord.audioUrl)">voice</div>
+      {{mistakeWord.foreignWord}} : {{mistakeWord.nativeWord}}</div>
+    <p>You have learn: {{ rightWords }}</p>
+    <div *ngFor="let rightWord of rightWordsArray">
+      <div (click)="soundForeignWord(rightWord.audioUrl)">voice</div>
+      {{rightWord.foreignWord}} : {{ rightWord.nativeWord}}</div>
   </div>
 
 </div>

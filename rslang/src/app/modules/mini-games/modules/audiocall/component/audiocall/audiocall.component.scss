@@ -80,7 +80,7 @@
   .main-screen-image {
     height: 100%;
     width: 100%;
-    opacity: 0.6;
+    opacity: 0.4;
     position: absolute;
     left: 0;
     top: 0;
@@ -164,8 +164,8 @@
   animation-name: slideLeft;
   -webkit-animation-name: slideLeft;
 
-  animation-duration: 2s;
-  -webkit-animation-duration: 2s;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
 
   animation-timing-function: ease-in-out;
   -webkit-animation-timing-function: ease-in-out;
@@ -175,24 +175,24 @@
 
 @keyframes slideLeft {
   0% {
-    transform: translateX(150%);
+    transform: translateX(100%);
   }
 
-  50% {
-    transform: translateX(-8%);
-  }
+  // 50% {
+  //   transform: translateX(-8%);
+  // }
 
-  65% {
-    transform: translateX(4%);
-  }
+  // 65% {
+  //   transform: translateX(4%);
+  // }
 
-  80% {
-    transform: translateX(-4%);
-  }
+  // 80% {
+  //   transform: translateX(-4%);
+  // }
 
-  95% {
-    transform: translateX(2%);
-  }
+  // 95% {
+  //   transform: translateX(2%);
+  // }
 
   100% {
     transform: translateX(0%);
@@ -204,21 +204,21 @@
     -webkit-transform: translateX(150%);
   }
 
-  50% {
-    -webkit-transform: translateX(-8%);
-  }
+  // 50% {
+  //   -webkit-transform: translateX(-8%);
+  // }
 
-  65% {
-    -webkit-transform: translateX(4%);
-  }
+  // 65% {
+  //   -webkit-transform: translateX(4%);
+  // }
 
-  80% {
-    -webkit-transform: translateX(-4%);
-  }
+  // 80% {
+  //   -webkit-transform: translateX(-4%);
+  // }
 
-  95% {
-    -webkit-transform: translateX(2%);
-  }
+  // 95% {
+  //   -webkit-transform: translateX(2%);
+  // }
 
   100% {
     -webkit-transform: translateX(0%);
@@ -263,10 +263,10 @@
   border-radius: 20px;
   width: $card-size;
   max-height: 240px;
-  overflow: hidden;
+  overflow: scroll;
 
   @media screen and (max-width: 600px) {
-    overflow: scroll;
+    // overflow: scroll;
     left: 30vw;
   }
 
