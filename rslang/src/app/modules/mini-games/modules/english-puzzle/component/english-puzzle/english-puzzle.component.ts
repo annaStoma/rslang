@@ -107,7 +107,7 @@ export class EnglishPuzzleComponent implements OnInit {
     this.currentTextExample = this.getCurrentTextExample();
     this.currentWord = this.words[this.currentWordNumber]['word'];
     this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
-    this.currentSplittedTextExample = this.shuffle(this.currentTextExample.split(' '));
+    this.currentSplittedTextExample = this.shuffleArray(this.currentTextExample.split(' '));
   }
 
   getCurrentTextExample(): string {
@@ -180,12 +180,12 @@ export class EnglishPuzzleComponent implements OnInit {
       this.currentTextExample = this.getCurrentTextExample();
       this.currentWord = this.words[this.currentWordNumber]['word'];
       this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
-      this.currentSplittedTextExample = this.shuffle(this.currentTextExample.split(' '));
+      this.currentSplittedTextExample = this.shuffleArray(this.currentTextExample.split(' '));
       return this.words;
     });
   }
 
-  shuffle(arr) {
+  shuffleArray(arr : string[]) : string[] {
     var j, x, i;
     for (i = arr.length - 1; i > 0; i--) {
       j = Math.floor(Math.random() * (i + 1));
