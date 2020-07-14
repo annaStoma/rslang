@@ -5,13 +5,15 @@
         <div class="start-page" (click)="removeStartPage()">start</div>
     </div>
     <div [hidden]="answers !== undefined && !(answers.length > 9)" class="result">
-        <h1 [hidden]="rightWords.length === 0">Right: </h1>
-        <div class="result__word" *ngFor="let word of rightWords">{{word}}
-        <p class="result__voice" (click)="voiceWord($event)"></p>
-        </div>
-        <h1 [hidden]="wrongWords.length === 0">Wrong: </h1>
-        <div class="result__word" *ngFor="let word of wrongWords">{{word}}
-        <p class="result__voice" (click)="voiceWord($event)"></p>
+        <div class="result__container">
+            <h1 [hidden]="rightWords.length === 0">Right: </h1>
+            <div class="result__word" *ngFor="let word of rightWords">{{word}}
+                <p class="result__voice" (click)="voiceWord($event)"></p>
+            </div>
+            <h1 [hidden]="wrongWords.length === 0">Wrong: </h1>
+            <div class="result__word" *ngFor="let word of wrongWords">{{word}}
+                <p class="result__voice" (click)="voiceWord($event)"></p>
+            </div>
         </div>
         <button class="okay" (click)="createNextLevel()">Okay</button>
     </div>
