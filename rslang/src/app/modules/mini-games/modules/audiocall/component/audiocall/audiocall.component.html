@@ -12,7 +12,7 @@
           <option #page value="{{page}}" *ngFor="let page of pages">PAGE: {{page}}</option>
         </select>
       </div>
-      <p class="start-screen-text">You shoild choose right word after pronunciation.</p>
+      <p class="start-screen-text">You should choose right word after pronunciation.</p>
     </div>
     <div class="loader-container" [ngClass]="{hidden:isHiddenLoader}">
       <div class="loader"></div>
@@ -24,14 +24,17 @@
     <img class="main-screen-image" src="../../../../../../../assets/images/audiocall/main-background-image.jpg" alt="">
 
     <div [ngClass]="{slideLeft:isGameContainerAnimation}">
-      <div class="active-card-container">
+      <div class="active-card-container" [ngClass]="{hidden:isActiveCardHidden}">
+        <img class="audio-speaker" (click)="soundForeignWord(activeCard.audioUrl)"
+          src="../../../../../../../assets/images/audiocall/audio-speaker.png" alt="">
         <img [src]="activeImagePath" class="active-card-image" />
+        <div class="active-card-word">{{ activeCard.foreignWord }}</div>
       </div>
 
       <div class="controls">
-        <div class="sound-toggler-container" (click)="soundForeignWord(activeCard.audioUrl)">
-          <img class="sound-toggler-button" src="../../../../../../../assets/images/savannah/voice-button.png"
-            [ngClass]="{crossed:!isSoundSelected}" alt=""></div>
+        <div class="sound-button-container" (click)="soundForeignWord(activeCard.audioUrl)">
+          <img class="sound-button" src="../../../../../../../assets/images/audiocall/speaker.png"
+            [ngClass]="{hidden:!isActiveCardHidden}" alt=""></div>
       </div>
 
       <div class="native-words-container">
@@ -39,7 +42,7 @@
           {{ i+1 }}.
           {{ card.nativeWord }}</div>
       </div>
-      <button class="not-know-word" (click)="skipActiveWord()" [ngClass]="{hidden:!isSkipButton}">DONT KNOW</button>
+      <button class="not-know-word" (click)="skipActiveWord()" [ngClass]="{hidden:!isSkipButton}">DON'T KNOW</button>
       <button class="next-word" (click)="setNextWord()" [ngClass]="{hidden:!isNextWordButton}">NEXT</button>
       <p class="game-additional-text">Use keys 1, 2, 3, 4, 5 and ENTER to give a quick answer</p>
     </div>
@@ -47,19 +50,19 @@
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
+    <p class="final-screen-text">You learned: {{ rightWords }}</p>
+    <div class="final-text-cards" *ngFor="let rightWord of rightWordsArray">
+      <div (click)="soundForeignWord(rightWord.audioUrl)">
+        <img class="word-audio" src="../../../../../../../assets/images/audiocall/word-audio.png" alt="">
+      </div>
+      {{ rightWord.foreignWord }} : {{ rightWord.nativeWord }}
+    </div>
     <p class="final-screen-text">You should learn: {{ mistakesNumber }}</p>
     <div class="final-text-cards" *ngFor="let mistakeWord of mistakeWordsArray">
       <div (click)="soundForeignWord(mistakeWord.audioUrl)">
         <img class="word-audio" src="../../../../../../../assets/images/audiocall/word-audio.png" alt="">
       </div>
-      {{mistakeWord.foreignWord}} : {{mistakeWord.nativeWord}}
-    </div>
-    <p class="final-screen-text">You have learn: {{ rightWords }}</p>
-    <div class="final-text-cards" *ngFor="let rightWord of rightWordsArray">
-      <div (click)="soundForeignWord(rightWord.audioUrl)">
-        <img class="word-audio" src="../../../../../../../assets/images/audiocall/word-audio.png" alt="">
-      </div>
-      {{rightWord.foreignWord}} : {{ rightWord.nativeWord}}
+      {{ mistakeWord.foreignWord }} : {{ mistakeWord.nativeWord }}
     </div>
   </div>
 

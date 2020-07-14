@@ -18,6 +18,10 @@
     top: 0;
     z-index: -10;
   }
+}
+
+.start-description {
+  padding-top: 40px;
 
   h1 {
     padding-top: 10px;
@@ -29,41 +33,44 @@
     font-size: 1.5em;
   }
 
-  .start-button {
-    position: absolute;
-    top: 420px;
-    left: 45vw;
-    border-radius: 6px;
-    height: 40px;
-    background-color: $primary;
-    color: $font-color;
+  .select-level {
+    width: 100px;
+    height: 35px;
+    margin-right: 8px;
+    border-color: $primary;
+    color: $primary;
+    border-radius: 8px;
+    border-width: 3px;
+    text-align: center;
+    cursor: pointer;
   }
 }
 
-.select-level {
-  width: 100px;
-  height: 35px;
-  margin-right: 8px;
-  border-color: $primary;
-  color: $primary;
-  border-radius: 8px;
-  border-width: 3px;
-  text-align: center;
-  cursor: pointer;
+.start-button {
+  position: absolute;
+  top: 420px;
+  left: 45vw;
+  border-radius: 6px;
+  height: 40px;
+  background-color: $primary;
+  color: $font-color;
 }
-
 
 .hidden {
   display: none;
 }
 
-.sound-toggler-container {
+.sound-button-container {
   text-align: left;
   padding-top: 180px;
   margin-left: auto;
   margin-right: auto;
 
-  .sound-toggler-button {
+  @media screen and (max-width: 600px) {
+    padding-top: 50px;
+  }
+
+  .sound-button {
     height: 100px;
   }
 }
@@ -93,22 +100,12 @@
   justify-content: space-between;
 }
 
-.lives-container {
-  text-align: right;
-  margin-right: 10vw;
-  margin-top: 10vh;
-
-  .lives {
-    height: 20px;
-    width: 20px;
-  }
-}
-
 .active-card-container {
   position: relative;
   width: 100px;
   margin-left: auto;
   margin-right: auto;
+  height: 100px;
 
   .active-card {
     position: absolute;
@@ -117,24 +114,51 @@
   }
 }
 
+.active-card-word {
+  position: absolute;
+  top: 158px;
+  font-size: 4em;
+  color: $primary;
+  top: 255px;
+  text-transform: capitalize;
+
+  @media screen and (max-width: 600px) {
+    top: 190px;
+  }
+}
+
 .active-card-image {
   position: absolute;
-  top: 10px;
-  left: -2vw;
+  top: 25px;
+  left: -92px;
   border-radius: 50%;
-  border: solid;
-  height: 100px;
+  height: 187px;
+
+  @media screen and (max-width: 600px) {
+    height: 135px;
+    left: -40px;
+  }
+}
+
+.audio-speaker {
+  position: absolute;
+  height: 65px;
+  top: 230px;
+  left: -149px;
+
+  @media screen and (max-width: 600px) {
+    top: 150px;
+  }
 }
 
 .native-words-container {
   display: flex;
   justify-content: space-around;
-  padding-top: 10vh;
+  padding-top: 17vh;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
     padding-top: 10vh;
-    padding-left: 25vw;
     padding-bottom: 50px;
     font-size: 1.5em;
   }
@@ -143,6 +167,7 @@
 .native-word-card {
   font-size: 1.5em;
   font-weight: bold;
+  text-transform: capitalize;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
@@ -178,22 +203,6 @@
     transform: translateX(100%);
   }
 
-  // 50% {
-  //   transform: translateX(-8%);
-  // }
-
-  // 65% {
-  //   transform: translateX(4%);
-  // }
-
-  // 80% {
-  //   transform: translateX(-4%);
-  // }
-
-  // 95% {
-  //   transform: translateX(2%);
-  // }
-
   100% {
     transform: translateX(0%);
   }
@@ -203,22 +212,6 @@
   0% {
     -webkit-transform: translateX(150%);
   }
-
-  // 50% {
-  //   -webkit-transform: translateX(-8%);
-  // }
-
-  // 65% {
-  //   -webkit-transform: translateX(4%);
-  // }
-
-  // 80% {
-  //   -webkit-transform: translateX(-4%);
-  // }
-
-  // 95% {
-  //   -webkit-transform: translateX(2%);
-  // }
 
   100% {
     -webkit-transform: translateX(0%);
@@ -259,23 +252,24 @@
   font-size: 2em;
   color: $primary;
 }
+
 .final-text-cards {
   display: flex;
-  // justify-content: space-around;
 }
+
 .final-screen {
-  margin-top: 60px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: $card-background-color;
+  position: absolute;
+  left: 36vw;
+  top: 81px;
+  background-color: $font-color;
   border-radius: 20px;
-  width: $card-size;
-  max-height: 240px;
+  width: 280px;
+  max-height: 301px;
   overflow: scroll;
 
   @media screen and (max-width: 600px) {
-    // overflow: scroll;
-    left: 30vw;
+    max-height: 284px;
+    left: 25vw;
   }
 
   @media screen and (max-width: 400px) {

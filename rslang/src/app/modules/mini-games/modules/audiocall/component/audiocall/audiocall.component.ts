@@ -48,6 +48,7 @@ export class AudiocallComponent implements OnInit {
   isNextWordButton = false;
   isSkipButton = true;
   isGameContainerAnimation = false;
+  isActiveCardHidden = true;
 
   pageNumber: number = 0;
   wordsLevel: number = 0;
@@ -65,17 +66,9 @@ export class AudiocallComponent implements OnInit {
     this.currentCheckedWordsNumber = AUDIOCALL_START_VALUES.currentCheckedWordsNumber;
     this.rightWords = AUDIOCALL_START_VALUES.rightWords;
     this.isHiddenFinalScreen = AUDIOCALL_START_VALUES.isHiddenFinalScreen;
-    // this.lives = AUDIOCALL_START_VALUES.lives;
-    // this.fullLivesArray();
     this.mistakeWordsArray = [];
     this.rightWordsArray = [];
   }
-
-  // fullLivesArray(): void {
-  //   for (let i = 1; i <= this.lives; i++) {
-  //     this.livesArray.push(i);
-  //   }
-  // }
 
   newLevel(event: { target: { value: number; }; }): void {
     this.pageNumber = event.target.value - 1;
@@ -110,6 +103,7 @@ export class AudiocallComponent implements OnInit {
   setActiveCard(): void {
     this.correctWordSelected = false;
     this.isGameContainerAnimation = false;
+    this.isActiveCardHidden = true;
 
     const activeCardIndex: number = this.getRandomNumber(
       this.remainGameCards.length
@@ -121,8 +115,8 @@ export class AudiocallComponent implements OnInit {
 
   removeElementFromArray(array: AudioCallCard[], value: AudioCallCard) {
     const index: number = array.indexOf(value);
-    array.splice(index, 1);
-    return array;
+
+    return array.splice(index, 1);
   }
 
   getRandomNumber(maxValue: number): number {
@@ -168,67 +162,47 @@ export class AudiocallComponent implements OnInit {
     this.rightWords === this.audioCallCards.length ? this.gameOver() : this.getNextRandomCards();
     this.isNextWordButton = false;
     this.isSkipButton = true;
-    this.activeImagePath = '';
-
-    setTimeout(() => {
-      this.isGameContainerAnimation = true;
-    }, 1);
   }
 
   skipActiveWord(): void {
     this.notGuessTheWord();
-    this.remainGameCards.length === 1 ? this.gameOver() : this.getNextRandomCards();
-    this.activeImagePath = '';
   }
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
+    this.remainGameCards.length === 1 ? this.gameOver() : this.getNextRandomCards();
     this.mistakeWordsArray.push(this.activeCard);
-    // this.lives--;
-    // this.livesArray.splice(0, 1);
     this.mistakesNumber++;
   }
 
   guessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.CORRECT);
     this.getActiveCardImage();
-    // this.isAnimationEnd = false;
+    this.isActiveCardHidden = false;
     this.isNextWordButton = true;
     this.isSkipButton = false;
     this.rightWordsArray.push(this.activeCard);
     this.rightWords++;
-    // this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
   soundForeignWord(url: string): void {
     const audio = new Audio();
 
     audio.src = `${this.urlConfig.dataUrl()}${url}`;
-    // console.log('audioURL: ', audio.src);
     audio.play();
-    // this. getActiveCardImage();
   }
 
-  //   playWord(word: AudioCallCard): void {
-  //     console.log("WORD: ", word);
-  //     // const card = word.audioUrl;
-
-  //     const audio = new Audio();
-
-  //     audio.src = `${this.urlConfig.dataUrl()}${word.audioUrl}`;
-  //     audio.play();
-  // // this.soundForeignWord()
-  //   }
-
   getActiveCardImage(): void {
-    // const image = new Image();
     this.activeImagePath = `${this.urlConfig.dataUrl()}${this.activeCard.imageUrl}`;
-    // console.log('IMAGE', image.src);
   }
 
   getNextRandomCards(): void {
     this.removeElementFromArray(this.remainGameCards, this.activeCard);
     this.getRandomCards();
+
+    setTimeout(() => {
+      this.isGameContainerAnimation = true;
+    }, 1);
   }
 
   getRandomCards(): void {
@@ -272,6 +246,7 @@ export class AudiocallComponent implements OnInit {
     this.nextLevel();
     this.isHiddenFinalScreen = false;
     this.isHiddenStartScreen = false;
+    this.isActiveCardHidden = true;
     this.isHiddenButton = false;
     this.activeCard = null;
     this.livesArray.length > 0
