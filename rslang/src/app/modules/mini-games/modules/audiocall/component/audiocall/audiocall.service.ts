@@ -3,17 +3,16 @@ import { catchError, map, shareReplay } from 'rxjs/operators';
 
 import { AudioCallApi } from './audiocall-api.model';
 import { AudioCallCard } from './audiocall-card.model';
+import { Config } from '../../../../../../common/config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-enum WordsPageNumber {
-  pageNumber = 2,
-  wordsLevel = 1,
-}
-
 @Injectable()
 export class AudioCallService {
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private urlConfig: Config) { }
+
+  pageNumber: number;
+  wordsLevel: number;
 
   mockData: AudioCallCard[] = [
     { wordId: '1', foreignWord: 'table', nativeWord: 'стол' },
@@ -24,21 +23,24 @@ export class AudioCallService {
     { wordId: '6', foreignWord: 'table6', nativeWord: 'стол6' },
   ];
 
-  getWords(): Observable<AudioCallCard[]> {
+  getWords(wordsLevel: number, pageNumber: number): Observable<AudioCallCard[]> {
     return this.http
       .get(
-        `https:/api-rslang.herokuapp.com/words?page=${WordsPageNumber.pageNumber}&group=${WordsPageNumber.wordsLevel}`
+        `${this.urlConfig.url()}words?page=${wordsLevel}&group=${pageNumber}`
       )
       .pipe(
+
         map((response: AudioCallApi[]) => {
+          console.log('RESPONSE', response);
           const wordsArray: AudioCallCard[] = response.map((el) => {
             return {
               wordId: el.id,
               foreignWord: el.word,
               nativeWord: el.wordTranslate,
+              audioUrl: el.audio,
+              imageUrl: el.image,
             };
           });
-
           return wordsArray;
         }),
         catchError((err) => {

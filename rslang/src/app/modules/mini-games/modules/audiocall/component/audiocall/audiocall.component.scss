@@ -1,17 +1,18 @@
 @import "../../../../../../constants.scss";
 
-.savannah-game-wrapper {
+.audiocall-game-wrapper {
   text-align: center;
 }
 
 .start-screen {
   background-repeat: no-repeat;
   background-size: 100%;
-  color: $font-color;
+  color: $primary;
 
   .start-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 0.3;
     position: absolute;
     left: 0;
     top: 0;
@@ -19,82 +20,71 @@
   }
 
   h1 {
+    padding-top: 10px;
     font-size: 2em;
   }
 
   .start-screen-text {
     margin-top: 10vh;
+    font-size: 1.5em;
   }
 
   .start-button {
-    margin-top: 40vh;
-    margin-bottom: 30vh;
+    position: absolute;
+    top: 420px;
+    left: 45vw;
+    border-radius: 6px;
+    height: 40px;
+    background-color: $primary;
+    color: $font-color;
   }
 }
+
+.select-level {
+  width: 100px;
+  height: 35px;
+  margin-right: 8px;
+  border-color: $primary;
+  color: $primary;
+  border-radius: 8px;
+  border-width: 3px;
+  text-align: center;
+  cursor: pointer;
+}
+
 
 .hidden {
   display: none;
 }
 
-.close-button {
-  position: absolute;
-  right: 32px;
-  top: 32px;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
-}
-
-.close-button:hover {
-  opacity: 1;
-}
-
-.close-button:before,
-.close-button:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 2px;
-  background-color: $shadow;
-}
-
-.close-button:before {
-  transform: rotate(45deg);
-}
-
-.close-button:after {
-  transform: rotate(-45deg);
-}
-
 .sound-toggler-container {
   text-align: left;
-  padding-top: 20px;
-  padding-left: 20px;
+  padding-top: 180px;
+  margin-left: auto;
+  margin-right: auto;
 
   .sound-toggler-button {
-    height: 50px;
+    height: 100px;
   }
 }
 
-.crossed {
-  background:
-    linear-gradient(to top left,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0) calc(50% - 0.8px),
-      $shadow 50%,
-      rgba(0, 0, 0, 0) calc(50% + 0.8px),
-      rgba(0, 0, 0, 0) 100%),
-    linear-gradient(to top right,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0) calc(50% - 0.8px),
-      $shadow 50%,
-      rgba(0, 0, 0, 0) calc(50% + 0.8px),
-      rgba(0, 0, 0, 0) 100%);
-}
+// .crossed {
+//   background:
+//     linear-gradient(to top left,
+//       rgba(0, 0, 0, 0) 0%,
+//       rgba(0, 0, 0, 0) calc(50% - 0.8px),
+//       $shadow 50%,
+//       rgba(0, 0, 0, 0) calc(50% + 0.8px),
+//       rgba(0, 0, 0, 0) 100%),
+//     linear-gradient(to top right,
+//       rgba(0, 0, 0, 0) 0%,
+//       rgba(0, 0, 0, 0) calc(50% - 0.8px),
+//       $shadow 50%,
+//       rgba(0, 0, 0, 0) calc(50% + 0.8px),
+//       rgba(0, 0, 0, 0) 100%);
+// }
 
 .game-container {
-  height: 100vh;
   margin-top: 0;
   margin-left: 0;
   top: 0;
@@ -103,14 +93,20 @@
   background-repeat: no-repeat;
   color: $primary;
 
-  .main-scree-image {
+  .main-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 0.6;
     position: absolute;
     left: 0;
     top: 0;
     z-index: -10;
   }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 
 .lives-container {
@@ -127,93 +123,225 @@
 .active-card-container {
   position: relative;
   width: 100px;
+  // height: 150px;
   margin-left: auto;
   margin-right: auto;
 
   .active-card {
     position: absolute;
     font-size: 2em;
+    font-weight: bold;
+    // background-color: $shadow;
+    // height: 25px;
+    // border-radius: 5px;
   }
+}
+
+.active-card-image {
+   position: absolute;
+  top: 10px;
+  left: -2vw;
+  border-radius: 50%;
+  border: solid;
+  height: 100px;
 }
 
 .native-words-container {
   display: flex;
   justify-content: space-around;
-  padding-top: 40vh;
+  padding-top: 10vh;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    padding-left: 10%;
-    padding-bottom: 20px;
+    padding-top: 10vh;
+    padding-left: 25vw;
+    padding-bottom: 50px;
     font-size: 1.5em;
-  }
-
-  .native-word-card {
-    font-size: 1.5em;
-    width: 100px;
   }
 }
 
-.activeCardFall {
-  animation: active-card-fall 5s ease infinite;
+.native-word-card {
+  font-size: 1.5em;
+  font-weight: bold;
+  // width: 100px;
 
-  @keyframes active-card-fall {
-    0% {
-      top: 0;
-    }
-
-    100% {
-      top: 350px;
-    }
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    // padding-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    font-size: 1.5em;
   }
 }
 
-.bullet {
-  position: absolute;
-  left: 40%;
-  width: 6px;
+.native-word-card:hover {
+  background-color: $shadow;
   height: 20px;
+  border-radius: 5px;
 }
 
-.bulletActive {
-  animation: bullet 1s linear;
-  background-color: $primary;
-  border-radius: 3px;
+// .active-screen-left {
+//   animation: active-card-fall 5s ease linear;
 
-  @keyframes bullet {
-    0% {
-      top: 0;
-    }
+//   @keyframes active-card-fall {
+//     0% {
+//       right: 0;
+//     }
 
-    100% {
-      top: 300px;
-    }
+//     100% {
+//       left: -350px;
+//     }
+//   }
+// }
+
+.slideLeft{
+  animation-name: slideLeft;
+  -webkit-animation-name: slideLeft;
+
+  animation-duration: 2s;
+  -webkit-animation-duration: 2s;
+
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+
+  visibility: visible !important;
+}
+
+@keyframes slideLeft {
+  0% {
+      transform: translateX(150%);
+  }
+  50%{
+      transform: translateX(-8%);
+  }
+  65%{
+      transform: translateX(4%);
+  }
+  80%{
+      transform: translateX(-4%);
+  }
+  95%{
+      transform: translateX(2%);
+  }
+  100% {
+      transform: translateX(0%);
   }
 }
+
+@-webkit-keyframes slideLeft {
+  0% {
+      -webkit-transform: translateX(150%);
+  }
+  50%{
+      -webkit-transform: translateX(-8%);
+  }
+  65%{
+      -webkit-transform: translateX(4%);
+  }
+  80%{
+      -webkit-transform: translateX(-4%);
+  }
+  95%{
+      -webkit-transform: translateX(2%);
+  }
+  100% {
+      -webkit-transform: translateX(0%);
+  }
+}
+
+// .bullet {
+//   position: absolute;
+//   left: 40%;
+//   width: 6px;
+//   height: 20px;
+// }
+
+// .bulletActive {
+//   animation: bullet 1s linear;
+//   background-color: $primary;
+//   border-radius: 3px;
+
+//   @keyframes bullet {
+//     0% {
+//       top: 0;
+//     }
+
+//     100% {
+//       top: 300px;
+//     }
+//   }
+// }
 
 .animationStop {
   animation-name: none;
 }
 
-.diamand-container {
-  position: relative;
-  top: 100px;
-  left: 0%;
+// .diamand-container {
+//   position: relative;
+//   top: 30px;
+//   left: 0%;
 
-  @media screen and (max-width: 600px) {
-    top: 0;
-  }
+//   @media screen and (max-width: 600px) {
+//     top: 0;
+//   }
 
-  .diamand-image {
-    height: 100px;
-  }
+//   .diamand-image {
+//     height: 100px;
+//   }
+// }
+// .words-controls {
+//   margin-left: auto;
+//   margin-right: auto;
+
+
+// }
+.not-know-word {
+  border-radius: 6px;
+  height: 40px;
+  width: 80px;
+  background-color: $primary;
+  color: $font-color;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-word {
+  border-radius: 6px;
+  height: 40px;
+  width: 80px;
+  background-color: $primary;
+  color: $font-color;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-additional-text {
+  margin-top: 10px;
 }
 
 .final-screen {
-  position: absolute;
-  top: 90px;
-  left: 40vw;
+  // position: absolute;
+  // top: 90px;
+  // left: 40vw;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: $card-background-color;
   border-radius: 20px;
   width: $card-size;
+  max-height: 240px;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    overflow: scroll;
+    left: 30vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    left: 15vw;
+  }
 }

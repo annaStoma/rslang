@@ -3,4 +3,5 @@ export interface AudioCallCard {
   foreignWord: string;
   nativeWord: string;
   audioUrl?: string;
+  imageUrl?: string;
 }
