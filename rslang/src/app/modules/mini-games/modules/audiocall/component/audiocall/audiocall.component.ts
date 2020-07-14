@@ -203,8 +203,20 @@ export class AudiocallComponent implements OnInit {
     const audio = new Audio();
 
     audio.src = `${this.urlConfig.dataUrl()}${this.activeCard.audioUrl}`;
+    console.log('audioURL: ', audio.src);
     audio.play();
     // this. getActiveCardImage();
+  }
+
+  playWord(word: string): void {
+    console.log("WORD: ", word);
+    const card = this.savannahCards.find(el => el.foreignWord === word.split(':')[0].trim() );
+
+    const audio = new Audio();
+
+    audio.src = `${this.urlConfig.dataUrl()}${card.audioUrl}`;
+    audio.play();
+
   }
 
   getActiveCardImage(): void {

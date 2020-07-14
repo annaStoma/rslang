@@ -47,8 +47,10 @@
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
-    <p>Mistakes: {{ mistakes }}</p>
-    <p *ngFor="let mistakeWord of mistakeWordsArray">{{mistakeWord}}</p>
+    <!-- <p>Mistakes: {{ mistakes }}</p> -->
+    <div *ngFor="let mistakeWord of mistakeWordsArray">
+      <div (click)="playWord(mistakeWord)">voice</div>
+      {{mistakeWord}}</div>
     <p>Right words: {{ rightWords }}</p>
     <p *ngFor="let rightWord of rightWordsArray">{{rightWord}}</p>
   </div>
