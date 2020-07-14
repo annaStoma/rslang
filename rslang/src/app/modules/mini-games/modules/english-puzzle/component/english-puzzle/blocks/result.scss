@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 200px;
+  width: 314px;
   height: 400px;
   overflow: auto;
   border: 3px solid $primary;
@@ -14,12 +14,17 @@
   transform: translateY(-50%);
 }
 
+.result h1 {
+  margin-top: 25px;
+}
+
 .result[hidden] {
   display: none;
 }
 
 .result__voice{
   width: 25px;
+  min-width: 25px;
   height: 25px;
   background-image: url("../../../../../../../assets/images/english-puzzle/sound.svg");
   margin: 0;
@@ -29,4 +34,9 @@
 
 .result__word {
   display: flex;
+  width: 282px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }

@@ -26,7 +26,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  isSmall:boolean = false;
+  isSmall: boolean = false;
   startPageIsHidden: boolean = false;
   hiddenContinue = true;
   answers: string[] = [];
@@ -48,13 +48,13 @@ export class EnglishPuzzleComponent implements OnInit {
     this.resetQuestion();
   }
 
-  setStyleOfTextExample(text) : Object {
+  setStyleOfTextExample(text): Object {
     return {
       'width': (text.length / this.numberOfLetters * 100) + '%',
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) : void {
+  drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -75,39 +75,39 @@ export class EnglishPuzzleComponent implements OnInit {
     this.startPageIsHidden = true;
   }
 
-  abort() : void {
-    this.wrongWords.push(this.currentWord);
+  abort(): void {
+    this.wrongWords.push(this.currentTextExample);
     this.hiddenContinue = false;
     this.answers.push(this.currentTextExample);
     this.currentSplittedTextExample = [];
     this.currentAnswer = [];
   }
 
-  check(event) : void {
+  check(event): void {
     if (this.currentAnswer.join(' ') === this.currentTextExample) {
       this.answers.push(this.currentTextExample);
-      this.rightWords.push(this.currentWord);
+      this.rightWords.push(this.currentTextExample);
       this.currentAnswer = [];
       this.hiddenContinue = false;
     } else {
-      document.querySelectorAll(".word").forEach((item)=>{
+      document.querySelectorAll(".word").forEach((item) => {
         item.classList.add("field-for-words__wrong");
       })
       setTimeout(() => {
-        document.querySelectorAll(".word").forEach((item)=>{
+        document.querySelectorAll(".word").forEach((item) => {
           item.classList.remove("field-for-words__wrong");
         })
       }, 500);
     }
   }
 
-  createNewLine() : void {
+  createNewLine(): void {
     this.hiddenContinue = true;
     this.currentWordNumber++;
     this.currentTextExample = this.getCurrentTextExample();
     this.currentWord = this.words[this.currentWordNumber]['word'];
     this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
-    this.currentSplittedTextExample = this.currentTextExample.split(' ');
+    this.currentSplittedTextExample = this.shuffle(this.currentTextExample.split(' '));
   }
 
   getCurrentTextExample(): string {
@@ -123,7 +123,7 @@ export class EnglishPuzzleComponent implements OnInit {
     ];
   }
 
-  wordToBottomBlock(text) : void {
+  wordToBottomBlock(text): void {
     const index = this.currentAnswer.indexOf(text);
     if (index !== -1) {
       this.currentAnswer.splice(index, 1);
@@ -131,7 +131,7 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  wordToUpperBlock(text) : void {
+  wordToUpperBlock(text): void {
     const index = this.currentSplittedTextExample.indexOf(text);
     if (index !== -1) {
       this.currentSplittedTextExample.splice(index, 1);
@@ -139,21 +139,21 @@ export class EnglishPuzzleComponent implements OnInit {
     }
   }
 
-  createNewLevel(evt) : void {
+  createNewLevel(evt): void {
     this.wordsService.level = evt.target.value;
     this.resetQuestion();
   }
 
-  createNewPage(evt) : void {
+  createNewPage(evt): void {
     this.wordsService.page = evt.target.value;
     this.resetQuestion();
   }
 
-  createNextLevel() : void {
+  createNextLevel(): void {
     const lvl = document.querySelector(".menu__level");
     const pg = document.querySelector(".menu__page");
     if (pg["value"] < 60) {
-      pg["value"]++  
+      pg["value"]++
     } else if (lvl["value"] < 6) {
       pg["value"] = 1;
       lvl["value"]++;
@@ -169,7 +169,7 @@ export class EnglishPuzzleComponent implements OnInit {
     this.resetQuestion();
   }
 
-  resetQuestion() : void {
+  resetQuestion(): void {
     this.answers = [];
     this.currentAnswer = [];
     this.currentWordNumber = 0;
@@ -180,23 +180,34 @@ export class EnglishPuzzleComponent implements OnInit {
       this.currentTextExample = this.getCurrentTextExample();
       this.currentWord = this.words[this.currentWordNumber]['word'];
       this.numberOfLetters = this.currentTextExample.replace(/ /g, '').length;
-      this.currentSplittedTextExample = this.currentTextExample.split(' ');
+      this.currentSplittedTextExample = this.shuffle(this.currentTextExample.split(' '));
       return this.words;
     });
   }
 
-  setStatistic(rightWordsCount, wrongWordsCount) : void {
+  shuffle(arr) {
+    var j, x, i;
+    for (i = arr.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = arr[i];
+      arr[i] = arr[j];
+      arr[j] = x;
+    }
+    return arr;
+  }
+
+  setStatistic(rightWordsCount, wrongWordsCount): void {
     this.wordsService.setUserStatistic(rightWordsCount, wrongWordsCount);
   }
 
-  voiceExample() : void {
+  voiceExample(): void {
     const message = new SpeechSynthesisUtterance();
     message.lang = "en";
     message.text = this.currentTextExample;
     window.speechSynthesis.speak(message);
   }
 
-  voiceWord(event) : void {
+  voiceWord(event): void {
     const message = new SpeechSynthesisUtterance();
     message.lang = "en";
     message.text = event.target.closest("div").innerText;
