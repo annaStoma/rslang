@@ -255,6 +255,14 @@
   margin-top: 10px;
 }
 
+.final-screen-text {
+  font-size: 2em;
+  color: $primary;
+}
+.final-text-cards {
+  display: flex;
+  // justify-content: space-around;
+}
 .final-screen {
   margin-top: 60px;
   margin-left: auto;
@@ -272,5 +280,11 @@
 
   @media screen and (max-width: 400px) {
     left: 15vw;
+  }
+
+  .word-audio {
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

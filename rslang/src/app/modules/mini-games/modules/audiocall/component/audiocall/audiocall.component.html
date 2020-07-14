@@ -47,14 +47,20 @@
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
-    <p>You should learn: {{ mistakesNumber }}</p>
-    <div *ngFor="let mistakeWord of mistakeWordsArray">
-      <div (click)="soundForeignWord(mistakeWord.audioUrl)">voice</div>
-      {{mistakeWord.foreignWord}} : {{mistakeWord.nativeWord}}</div>
-    <p>You have learn: {{ rightWords }}</p>
-    <div *ngFor="let rightWord of rightWordsArray">
-      <div (click)="soundForeignWord(rightWord.audioUrl)">voice</div>
-      {{rightWord.foreignWord}} : {{ rightWord.nativeWord}}</div>
+    <p class="final-screen-text">You should learn: {{ mistakesNumber }}</p>
+    <div class="final-text-cards" *ngFor="let mistakeWord of mistakeWordsArray">
+      <div (click)="soundForeignWord(mistakeWord.audioUrl)">
+        <img class="word-audio" src="../../../../../../../assets/images/audiocall/word-audio.png" alt="">
+      </div>
+      {{mistakeWord.foreignWord}} : {{mistakeWord.nativeWord}}
+    </div>
+    <p class="final-screen-text">You have learn: {{ rightWords }}</p>
+    <div class="final-text-cards" *ngFor="let rightWord of rightWordsArray">
+      <div (click)="soundForeignWord(rightWord.audioUrl)">
+        <img class="word-audio" src="../../../../../../../assets/images/audiocall/word-audio.png" alt="">
+      </div>
+      {{rightWord.foreignWord}} : {{ rightWord.nativeWord}}
+    </div>
   </div>
 
 </div>

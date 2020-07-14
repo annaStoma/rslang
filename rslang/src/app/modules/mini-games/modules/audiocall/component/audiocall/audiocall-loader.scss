@@ -1,5 +1,11 @@
 @import "../../../../../../constants.scss";
 
+.loader-container {
+  padding-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .loader {
   border-top: 16px solid $primary;
   border-right: 16px solid $accent;
@@ -8,7 +14,6 @@
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
   animation: spin 2s linear infinite;
