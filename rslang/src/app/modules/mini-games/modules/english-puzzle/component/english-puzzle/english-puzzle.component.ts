@@ -195,4 +195,15 @@ export class EnglishPuzzleComponent implements OnInit {
     message.text = this.currentTextExample;
     window.speechSynthesis.speak(message);
   }
+
+  voiceWord(event) : void {
+    const message = new SpeechSynthesisUtterance();
+    message.lang = "en";
+    message.text = event.target.closest("div").innerText;
+    window.speechSynthesis.speak(message);
+    console.log(event.target.closest("div").innerText);
+    console.log(event.target.closest("div"));
+    console.log(event.target);
+    console.log("hello");
+  }
 }

@@ -7,13 +7,34 @@
   height: 100%;
   background-color: $background;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  color: white;
   justify-content: center;
   align-items: center;
   background-image: url("../../../../../../../assets/images/english-puzzle/english-puzzle-bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+}
+
+.start-page__name {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -125px);
+  font-size: 32px;
+  font-weight: bold;
+  width: 320px;
+  text-align: center;
+}
+
+.start-page__description {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -75px);
+  width: 320px;
+  text-align: center;
 }
 
 .start-page {
@@ -57,4 +78,10 @@
 
   left: 5px;
   top: 5px;
+}
+
+@mixin start-page_320 {
+  .start-page__description {
+    width: 310px;
+  }
 }

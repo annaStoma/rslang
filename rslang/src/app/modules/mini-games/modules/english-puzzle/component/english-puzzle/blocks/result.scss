@@ -17,3 +17,16 @@
 .result[hidden] {
   display: none;
 }
+
+.result__voice{
+  width: 25px;
+  height: 25px;
+  background-image: url("../../../../../../../assets/images/english-puzzle/sound.svg");
+  margin: 0;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.result__word {
+  display: flex;
+}
