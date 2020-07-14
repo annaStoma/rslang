@@ -46,6 +46,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   date = Date.now();
   isGuessed = false;
   isShowGameStats = false;
+  totalGames: number;
+  countGameIncreated = false;
 
   constructor(private apiService: ApiService,
               private config: Config,
@@ -53,7 +55,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
               private scroll: ScrollService,
               private getWordsService: GetWordsService,
               private snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.scroll.off();
@@ -82,6 +85,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
     this.apiService.getUserStatistics().subscribe((stats: StatsMiniGamesResponse) => {
       this.statistics = stats.optional?.speakit?.words || [];
+      this.totalGames = stats.optional.speakit.totalGamesCompleted;
     }, () => {
       this.isLoading = false;
       this.statistics = [];
@@ -208,6 +212,9 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.audio = null;
     }
 
+    this.totalGames = 0;
+    this.countGameIncreated = false;
+
     if (this.words) {
       this.words.forEach(word => {
         word.learned = false;
@@ -302,12 +309,17 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
     this.statistics = this.statistics.slice(-10);
 
+    if (!this.countGameIncreated) {
+      this.totalGames++;
+      this.countGameIncreated = true;
+    }
+
     const updateStats: StatsMiniGames = {
       optional: {
         speakit: {
           words: this.statistics,
           errorRatePercent: 0,
-          totalGamesCompleted: 0
+          totalGamesCompleted: this.totalGames
         }
       }
     };

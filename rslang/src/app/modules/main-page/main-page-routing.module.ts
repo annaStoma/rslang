@@ -19,14 +19,14 @@ const routes: Routes = [
     data: { title: 'About Us'}
   },
   {
-    path: 'statistic',
+    path: 'statistics',
     component: StatisticsComponent,
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('../statistics/statistics.module').then(
         (module) => module.StatisticsModule
       ),
-    data: { title: 'Statistic'}
+    data: { title: 'Statistics'}
   },
   {
     path: 'setting',

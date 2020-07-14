@@ -79,5 +79,6 @@ export class SettingsComponent implements OnInit {
     this.wordsPerDay = this.myForm.get('wordsPerDay').value;
     this.myForm.get('maxWords').setValidators([Validators.min(this.wordsPerDay)]);
     this.myForm.get('maxWords').setValue(this.myForm.get('maxWords').value);
+    this.myForm.markAllAsTouched();
   }
 }

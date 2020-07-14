@@ -23,8 +23,7 @@
             name="wordsPerDay"
             formControlName="wordsPerDay"/>
         </label>
-        <mat-error *ngIf="myForm.get('wordsPerDay').invalid">Значение не
-          может быть меньше, чем 1
+        <mat-error>Значение не может быть меньше, чем 1
         </mat-error>
       </mat-form-field>
     </div>
@@ -43,7 +42,7 @@
             name="maxWords"
             formControlName="maxWords"/>
         </label>
-        <mat-error *ngIf="myForm.get('maxWords').invalid">
+        <mat-error>
           Максимальное количество слов не может быть меньше, чем количество изучаемых слов в день
         </mat-error>
       </mat-form-field>

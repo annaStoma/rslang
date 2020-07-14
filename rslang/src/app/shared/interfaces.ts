@@ -93,7 +93,7 @@ export interface SprintWord {
 }
 
 export interface SprintTranslateItem {
-  word: string
+  word: string;
   wordTranslate: string;
   index?: number;
   isDisabled?: boolean;
@@ -101,10 +101,10 @@ export interface SprintTranslateItem {
 }
 
 export interface SprintResult {
-  historyOfAnswers?: boolean[],
-  countOfCorrect?: number,
-  countCorrectInRow?:number,
-  totalScore?: number,
+  historyOfAnswers?: boolean[];
+  countOfCorrect?: number;
+  countCorrectInRow?: number;
+  totalScore?: number;
 }
 
 export interface AggregatedWord extends Word {

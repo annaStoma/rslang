@@ -1,0 +1,45 @@
+<div class="control-section">
+  <ejs-accumulationchart
+    class="container-chart"
+    #pie
+    [legendSettings]="legendSettings"
+    [tooltip]="tooltip"
+    [title]="title"
+    (load)='load($event)'>
+    <e-accumulation-series-collection>
+      <e-accumulation-series
+        [name]='tooltipTitle'
+        [dataSource]='data'
+        xName='nameMiniGame'
+        yName='totalGamesCompleted'
+        [startAngle]="startAngle"
+        [endAngle]="endAngle"
+        innerRadius="40%"
+        radius="70%"
+        [dataLabel]="dataLabel">
+      </e-accumulation-series>
+    </e-accumulation-series-collection>
+  </ejs-accumulationchart>
+  <ejs-chart
+    class="container-chart"
+    #pie2
+    [chartArea]='chartArea'
+    [primaryXAxis]='primaryXAxis'
+    [primaryYAxis]='primaryYAxis'
+    [title]='titleErrorRate'
+    [tooltip]='tooltip'
+    (load)='loadChart($event)'>
+    <e-series-collection>
+      <e-series
+        [dataSource]='data'
+        type='Column'
+        xName='nameMiniGame'
+        yName='totalGamesCompleted'
+        name='Mini Games'
+        width=2
+      ></e-series>
+    </e-series-collection>
+  </ejs-chart>
+</div>
+<div class="control-section">
+</div>

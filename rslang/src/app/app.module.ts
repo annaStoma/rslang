@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SettingsModule } from './modules/learning-mode/components/settings/setting.module';
+import { AccumulationChartAllModule, ChartAllModule } from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,8 @@ import { SettingsModule } from './modules/learning-mode/components/settings/sett
     MatDialogModule,
     MatSnackBarModule,
     SettingsModule,
+    AccumulationChartAllModule,
+    ChartAllModule,
   ],
   providers: [
     {
