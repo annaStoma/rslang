@@ -29,9 +29,7 @@ export class AudioCallService {
         `${this.urlConfig.url()}words?page=${wordsLevel}&group=${pageNumber}`
       )
       .pipe(
-
         map((response: AudioCallApi[]) => {
-          console.log('RESPONSE', response);
           const wordsArray: AudioCallCard[] = response.map((el) => {
             return {
               wordId: el.id,

@@ -32,9 +32,6 @@ export const AUDIOCALL_DEFAULT_VALUES = {
   isHiddenLoader: true,
   isHiddenStartScreen: false,
   isHiddenFinalScreen: true,
-  isAnimationStart: true,
-  isAnimationEnd: true,
-  isAnimationBullet: false,
   isSoundSelected: true,
 }
 
@@ -42,7 +39,6 @@ export const AUDIOCALL_START_VALUES = {
   isHiddenDescription: true,
   isHiddenButton: true,
   isHiddenLoader: false,
-  isAnimationStart: true,
   isHiddenStartScreen: true,
   isHiddenFinalScreen: true,
   lives: 5,

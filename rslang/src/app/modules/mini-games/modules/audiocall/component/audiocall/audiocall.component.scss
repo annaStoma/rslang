@@ -68,22 +68,6 @@
   }
 }
 
-// .crossed {
-//   background:
-//     linear-gradient(to top left,
-//       rgba(0, 0, 0, 0) 0%,
-//       rgba(0, 0, 0, 0) calc(50% - 0.8px),
-//       $shadow 50%,
-//       rgba(0, 0, 0, 0) calc(50% + 0.8px),
-//       rgba(0, 0, 0, 0) 100%),
-//     linear-gradient(to top right,
-//       rgba(0, 0, 0, 0) 0%,
-//       rgba(0, 0, 0, 0) calc(50% - 0.8px),
-//       $shadow 50%,
-//       rgba(0, 0, 0, 0) calc(50% + 0.8px),
-//       rgba(0, 0, 0, 0) 100%);
-// }
-
 .game-container {
   margin-top: 0;
   margin-left: 0;
@@ -123,7 +107,6 @@
 .active-card-container {
   position: relative;
   width: 100px;
-  // height: 150px;
   margin-left: auto;
   margin-right: auto;
 
@@ -131,14 +114,11 @@
     position: absolute;
     font-size: 2em;
     font-weight: bold;
-    // background-color: $shadow;
-    // height: 25px;
-    // border-radius: 5px;
   }
 }
 
 .active-card-image {
-   position: absolute;
+  position: absolute;
   top: 10px;
   left: -2vw;
   border-radius: 50%;
@@ -163,11 +143,9 @@
 .native-word-card {
   font-size: 1.5em;
   font-weight: bold;
-  // width: 100px;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    // padding-left: 10%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 20px;
@@ -182,21 +160,7 @@
   border-radius: 5px;
 }
 
-// .active-screen-left {
-//   animation: active-card-fall 5s ease linear;
-
-//   @keyframes active-card-fall {
-//     0% {
-//       right: 0;
-//     }
-
-//     100% {
-//       left: -350px;
-//     }
-//   }
-// }
-
-.slideLeft{
+.slideLeft {
   animation-name: slideLeft;
   -webkit-animation-name: slideLeft;
 
@@ -211,92 +175,60 @@
 
 @keyframes slideLeft {
   0% {
-      transform: translateX(150%);
+    transform: translateX(150%);
   }
-  50%{
-      transform: translateX(-8%);
+
+  50% {
+    transform: translateX(-8%);
   }
-  65%{
-      transform: translateX(4%);
+
+  65% {
+    transform: translateX(4%);
   }
-  80%{
-      transform: translateX(-4%);
+
+  80% {
+    transform: translateX(-4%);
   }
-  95%{
-      transform: translateX(2%);
+
+  95% {
+    transform: translateX(2%);
   }
+
   100% {
-      transform: translateX(0%);
+    transform: translateX(0%);
   }
 }
 
 @-webkit-keyframes slideLeft {
   0% {
-      -webkit-transform: translateX(150%);
+    -webkit-transform: translateX(150%);
   }
-  50%{
-      -webkit-transform: translateX(-8%);
+
+  50% {
+    -webkit-transform: translateX(-8%);
   }
-  65%{
-      -webkit-transform: translateX(4%);
+
+  65% {
+    -webkit-transform: translateX(4%);
   }
-  80%{
-      -webkit-transform: translateX(-4%);
+
+  80% {
+    -webkit-transform: translateX(-4%);
   }
-  95%{
-      -webkit-transform: translateX(2%);
+
+  95% {
+    -webkit-transform: translateX(2%);
   }
+
   100% {
-      -webkit-transform: translateX(0%);
+    -webkit-transform: translateX(0%);
   }
 }
-
-// .bullet {
-//   position: absolute;
-//   left: 40%;
-//   width: 6px;
-//   height: 20px;
-// }
-
-// .bulletActive {
-//   animation: bullet 1s linear;
-//   background-color: $primary;
-//   border-radius: 3px;
-
-//   @keyframes bullet {
-//     0% {
-//       top: 0;
-//     }
-
-//     100% {
-//       top: 300px;
-//     }
-//   }
-// }
 
 .animationStop {
   animation-name: none;
 }
 
-// .diamand-container {
-//   position: relative;
-//   top: 30px;
-//   left: 0%;
-
-//   @media screen and (max-width: 600px) {
-//     top: 0;
-//   }
-
-//   .diamand-image {
-//     height: 100px;
-//   }
-// }
-// .words-controls {
-//   margin-left: auto;
-//   margin-right: auto;
-
-
-// }
 .not-know-word {
   border-radius: 6px;
   height: 40px;
@@ -324,9 +256,6 @@
 }
 
 .final-screen {
-  // position: absolute;
-  // top: 90px;
-  // left: 40vw;
   margin-top: 60px;
   margin-left: auto;
   margin-right: auto;

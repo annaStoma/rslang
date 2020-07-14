@@ -44,9 +44,6 @@ export class AudiocallComponent implements OnInit {
   isHiddenButton = AUDIOCALL_DEFAULT_VALUES.isHiddenButton;
   isHiddenStartScreen = AUDIOCALL_DEFAULT_VALUES.isHiddenStartScreen;
   isHiddenFinalScreen = AUDIOCALL_DEFAULT_VALUES.isHiddenFinalScreen;
-  isAnimationStart = AUDIOCALL_DEFAULT_VALUES.isAnimationStart;
-  isAnimationEnd = AUDIOCALL_DEFAULT_VALUES.isAnimationEnd;
-  isAnimationBullet = AUDIOCALL_DEFAULT_VALUES.isAnimationBullet;
   isSoundSelected = AUDIOCALL_DEFAULT_VALUES.isSoundSelected;
   isNextWordButton = false;
   isSkipButton = true;
@@ -58,8 +55,6 @@ export class AudiocallComponent implements OnInit {
   totalErrorPercent: number;
   totalGamesNumber: number;
 
-  title: string[] = 'SAVANAH'.split('').reverse();
-
   ngOnInit(): void { }
 
   getDefaultAdditionalGameValues(): void {
@@ -70,7 +65,6 @@ export class AudiocallComponent implements OnInit {
     this.currentCheckedWordsNumber = AUDIOCALL_START_VALUES.currentCheckedWordsNumber;
     this.rightWords = AUDIOCALL_START_VALUES.rightWords;
     this.isHiddenFinalScreen = AUDIOCALL_START_VALUES.isHiddenFinalScreen;
-    this.isAnimationStart = AUDIOCALL_START_VALUES.isAnimationStart;
     this.lives = AUDIOCALL_START_VALUES.lives;
     this.fullLivesArray();
     this.mistakeWordsArray = [];
@@ -113,9 +107,6 @@ export class AudiocallComponent implements OnInit {
     this.randomCards.push(this.activeCard);
   }
 
-
-  fallingBlock: ReturnType<typeof setTimeout>;
-
   setActiveCard(): void {
     this.correctWordSelected = false;
     this.isGameContainerAnimation = false;
@@ -126,13 +117,6 @@ export class AudiocallComponent implements OnInit {
 
     this.activeCard = this.remainGameCards[activeCardIndex];
     this.soundForeignWord();
-    // if (this.isSoundSelected) {
-    //   this.soundForeignWord();
-    // }
-
-    // this.fallingBlock = setTimeout(() => {
-    //   this.ifGuessTheWord();
-    // }, 5000);
   }
 
   removeElementFromArray(array: AudioCallCard[], value: AudioCallCard) {
@@ -165,7 +149,6 @@ export class AudiocallComponent implements OnInit {
   }
 
   checkResult(wordId: string): void {
-    clearTimeout(this.fallingBlock);
     this.correctWordSelected = true;
     this.currentCheckedWordsNumber++;
     wordId === this.activeCard.wordId
@@ -182,12 +165,10 @@ export class AudiocallComponent implements OnInit {
   }
 
   setNextWord(): void {
-    // this. getActiveCardImage();
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
     this.isNextWordButton = false;
     this.isSkipButton = true;
     this.activeImagePath = '';
-    // this.isGameContainerAnimation = true;
 
     setTimeout(() => {
       this.isGameContainerAnimation = true;
@@ -195,11 +176,8 @@ export class AudiocallComponent implements OnInit {
   }
 
   skipActiveWord(): void {
-    // this.notGuessTheWord();
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
     this.activeImagePath = '';
-    // this.isSkipButton = false;
-    // this.isNextWordButton = true;
   }
 
   notGuessTheWord(): void {
@@ -207,14 +185,12 @@ export class AudiocallComponent implements OnInit {
     this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
     this.lives--;
     this.livesArray.splice(0, 1);
-    // this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
-    this.isAnimationEnd = false;
     this.mistakesNumber++;
   }
 
   guessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.CORRECT);
-    this. getActiveCardImage();
+    this.getActiveCardImage();
     // this.isAnimationEnd = false;
     this.isNextWordButton = true;
     this.isSkipButton = false;
@@ -252,11 +228,6 @@ export class AudiocallComponent implements OnInit {
       this.savannahCards
     );
     this.randomCards.splice(randomActiveNativeWordPosition, 0, this.activeCard);
-
-
-    setTimeout(() => {
-      this.isAnimationBullet = false;
-    }, 1000);
   }
 
   audioPlay(name: string): void {
@@ -322,10 +293,6 @@ export class AudiocallComponent implements OnInit {
       console.log(error)
     });
 
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.fallingBlock);
   }
 
   @HostListener('window:keyup', ['$event'])
