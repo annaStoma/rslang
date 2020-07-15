@@ -4,6 +4,7 @@ import { Word } from '../../../../../../shared/interfaces';
 
 @Injectable()
 export class GetWordsService {
+  private gameCount = 8;
 
   getMix(words: Word[]): WordSpeakit[] {
     const keys = Object.keys(words);
@@ -17,7 +18,7 @@ export class GetWordsService {
       keys.splice(idx2, 1);
       [words[x], words[y]] = [words[y], words[x]];
     }
-    return words.slice(-10).map((w: Word) => ({
+    return words.slice(-this.gameCount).map((w: Word) => ({
       id: w.id,
       word: w.word,
       image: w.image,

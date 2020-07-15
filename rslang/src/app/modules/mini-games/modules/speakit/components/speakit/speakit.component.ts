@@ -29,7 +29,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   audio: HTMLAudioElement;
   isLoading = true;
   countLearnedWords = 0;
-  cardsCount = 10;
+  cardsCount = 8;
   spokenWord = '';
   stopListen = false;
   recognition: SpeechRecognition = null;
@@ -314,14 +314,14 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.statistics.push(newStats);
     }
 
-    this.statistics = this.statistics.slice(-10);
+    this.statistics = this.statistics.slice(-this.cardsCount);
 
     if (!this.countGameIncreased) {
       this.totalGames++;
       this.countGameIncreased = true;
     }
 
-    const errorRatePercent = (this.totalErrors + this.countErrorPerGame * 10) / this.totalGames;
+    const errorRatePercent = (this.totalErrors + this.countErrorPerGame * this.cardsCount) / this.totalGames;
 
     const updateStats: StatsMiniGames = {
       optional: {
