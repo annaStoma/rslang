@@ -43,9 +43,17 @@ export class EnglishPuzzleComponent implements OnInit {
   level = 0;
   textTranslate = '';
   ngOnInit() {
-    this.wordsService.page = 1;
-    this.wordsService.level = 1;
+    console.log(localStorage.getItem("pg"));
+    this.wordsService.page = localStorage.getItem("pg") ? localStorage.getItem("pg") : 1;
+    this.wordsService.level = localStorage.getItem("lvl") ? localStorage.getItem("lvl") : 1;
+    document.querySelector(".menu__page")["value"] = localStorage.getItem("pg") ? localStorage.getItem("pg") : 1;
+    document.querySelector(".menu__level")["value"] = localStorage.getItem("lvl") ? localStorage.getItem("lvl") : 1;
     this.resetQuestion();
+  }
+
+  setLevelAndPage() : void {
+    document.querySelector(".menu__page")["value"] = localStorage.getItem("pg") ? localStorage.getItem("pg") : 1;
+    document.querySelector(".menu__level")["value"] = localStorage.getItem("lvl") ? localStorage.getItem("lvl") : 1;
   }
 
   setStyleOfTextExample(text): Object {
@@ -163,6 +171,8 @@ export class EnglishPuzzleComponent implements OnInit {
     }
     this.wordsService.level = lvl["value"];
     this.wordsService.page = pg["value"];
+    localStorage.setItem("pg", pg["value"]);
+    localStorage.setItem("lvl", lvl["value"]);
     this.setStatistic(this.rightWords.length, this.wrongWords.length);
     this.wrongWords = [];
     this.rightWords = [];
