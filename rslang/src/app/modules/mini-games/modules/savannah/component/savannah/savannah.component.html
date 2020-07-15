@@ -1,6 +1,7 @@
 <div class="savannah-game-wrapper">
   <div class="start-screen">
-    <img class="start-screen-image" src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
+    <img class="start-screen-image" *ngIf="!isHiddenStartScreen"
+      src="../../../../../../../assets/images/savannah/start-page.jpg" alt="">
     <div class="start-description" [ngClass]="{hidden:isHiddenDescription}">
       <h1>SAVANNAH</h1>
       <div class="game-name">
@@ -25,7 +26,7 @@
           <div class="loader"></div>
         </div>
       </div>
-      <p>Use keys 1, 2, 3, and 4 to give a quick answer</p>
+
     </div>
     <button (click)="startGame()" class="start-button" [ngClass]="{hidden:isHiddenButton}">Start game </button>
   </div>
@@ -42,7 +43,6 @@
       </div>
     </div>
 
-
     <div class="active-card-container">
       <div class="active-card" [ngClass]="{activeCardFall:isAnimationEnd}">
         {{ activeCard.foreignWord }}
@@ -52,21 +52,33 @@
     </div>
 
     <div class="native-words-container">
-      <div *ngFor="let card of randomCards" class="native-word-card" (click)="checkResult(card.wordId)">
+      <div *ngFor="let card of randomCards; index as i" class="native-word-card" (click)="checkResult(card.wordId)">
+        {{ i+1 }}.
         {{ card.nativeWord }}</div>
     </div>
     <div class="diamand-container">
       <img class="diamand-image" src="../../../../../../../assets/images/savannah/diamond.png" alt="">
     </div>
+    <p class="game-additional-key-text">Use keys 1, 2, 3, and 4 to give a quick answer</p>
+    <p class="game-additional-text">If you make a mistake the word will be repeated</p>
   </div>
 
   <div class="final-screen" [ngClass]="{hidden:isHiddenFinalScreen}">
     <h2>GAME OVER!!!</h2>
-    <p>Mistakes: {{ mistakes }}</p>
-    <p *ngFor="let mistakeWord of mistakeWordsArray">{{mistakeWord}}</p>
-    <p>Right words: {{ rightWords }}</p>
-    <p *ngFor="let rightWord of rightWordsArray">{{rightWord}}</p>
+    <p class="final-screen-text">You learned: {{ rightWords }}</p>
+    <div class="final-text-cards" *ngFor="let rightWord of rightWordsArray">
+      <div (click)="soundForeignWord(rightWord.audioUrl)">
+        <img class="word-audio" src="../../../../../../../assets/images/savannah/final-screen-audio.png" alt="">
+      </div>
+      {{ rightWord.foreignWord }} : {{ rightWord.nativeWord }}
+    </div>
+    <p class="final-screen-text">You should learn: {{ mistakesNumber }}</p>
+    <div class="final-text-cards" *ngFor="let mistakeWord of mistakeWordsArray">
+      <div (click)="soundForeignWord(mistakeWord.audioUrl)">
+        <img class="word-audio" src="../../../../../../../assets/images/savannah/final-screen-audio.png" alt="">
+      </div>
+      {{ mistakeWord.foreignWord }} : {{ mistakeWord.nativeWord }}
+    </div>
   </div>
-
 
 </div>
