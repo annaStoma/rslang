@@ -15,7 +15,7 @@
       flex-wrap: wrap;
       padding: 0;
 
-      a {
+      .main-page-btn {
         margin: 10px 35px;
         cursor: pointer;
         font-size: 20px;
@@ -61,4 +61,15 @@
       font-size: 16px;
     }
   }
+}
+.git-hub-icon{
+  filter: invert(1);
+  width: 20px;
+  height: 20px;
+}
+.github-page-btn{
+  cursor: pointer;
+}
+.username-name{
+  color: $background-color-header;
 }

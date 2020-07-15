@@ -13,7 +13,7 @@ export class DictionariesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToDeleted(vocabulary: string): void{
+  goToVac(vocabulary: string): void{
     this.router.navigate(['/vocabulary'], { queryParams: {voc: `${vocabulary}`} });
   }
 
