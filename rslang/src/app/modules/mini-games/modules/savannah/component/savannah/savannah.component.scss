@@ -37,9 +37,10 @@
     height: 40px;
     background-color: $primary;
     color: $font-color;
-  @media screen and (max-width: 600px) {
-    left: 41vw;
-  }
+
+    @media screen and (max-width: 600px) {
+      left: 41vw;
+    }
   }
 }
 
@@ -222,6 +223,7 @@
 
   .diamand-image {
     height: 100px;
+
     @media screen and (max-width: 600px) {
       height: 80px;
     }
@@ -231,13 +233,15 @@
 
 .game-additional-key-text {
   margin-top: 10px;
+
   @media screen and (max-width: 600px) {
-   display: none;
+    display: none;
   }
 }
 
 .game-additional-text {
   margin-top: 10px;
+
   @media screen and (max-width: 600px) {
     margin-top: 0px;
   }
