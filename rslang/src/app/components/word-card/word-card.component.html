@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-card-title *ngIf="!isWordHidden">{{word}}</mat-card-title>
     <mat-card-subtitle *ngIf="isShowTranscription">{{transcription}}</mat-card-subtitle>
-    <mat-card-subtitle *ngIf="isWordTranslationHidden">{{wordTranslate}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="isShowTranslation">{{wordTranslate}}</mat-card-subtitle>
   </mat-card-header>
   <img *ngIf="isShowAssociation"
     class="mat-card-image"
@@ -30,7 +30,7 @@
     <div class="form">
       <div class="form-group">
         <mat-form-field class="example-full-width" [ngStyle]="{'width': word.length * 10 + 'px'}">
-<!--          <mat-label>Введите слово</mat-label>-->
+          <!--          <mat-label>Введите слово</mat-label>-->
           <label>
             <input matInput #inputWord
               [autofocus]="true"
@@ -50,8 +50,9 @@
     </div>
   </form>
   <mat-card-actions>
-    <button mat-flat-button color="warn" (click)="delete.emit(id)">Удалить</button>
-    <button mat-flat-button color="accent" (click)="hard.emit(id)">Сложные</button>
+    <button mat-flat-button color="warn" (click)="delete.emit(id)">"Удаленные"</button>
+    <button mat-flat-button color="accent" (click)="hard.emit(id)">"Сложные"</button>
+    <button mat-flat-button style="background-color: #5fbf3b" (click)="learned.emit(id)">"Изученные"</button>
     <!--    или  enter -->
     <button mat-flat-button color="primary" (click)="next.emit()">Дальше</button>
     <button mat-flat-button color="primary" (click)="showAnswer()">Показать ответ</button>

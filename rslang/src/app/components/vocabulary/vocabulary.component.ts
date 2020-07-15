@@ -70,23 +70,35 @@ export class VocabularyComponent implements OnInit {
         this.isSpinnerVisible = true;
         this.apiService.getUserAggregatedWords(this.filter)
           .subscribe(data => {
-          this.dataSource = new MatTableDataSource(data[0].paginatedResults);
-          this.words = data[0].paginatedResults;
-          this.dataSource.paginator = this.paginator;
-          this.isSpinnerVisible = false;
-        });
+            this.dataSource = new MatTableDataSource(data[0].paginatedResults);
+            this.words = data[0].paginatedResults;
+            this.dataSource.paginator = this.paginator;
+            this.isSpinnerVisible = false;
+          });
         break;
       case 3:
         this.filter = {$and: [{'userWord.difficulty': 'easy', 'userWord.optional.deleted': true}]};
         this.isSpinnerVisible = true;
         this.apiService.getUserAggregatedWords(this.filter)
           .subscribe(data => {
-          this.dataSource = new MatTableDataSource(data[0].paginatedResults);
-          this.words = data[0].paginatedResults;
-          this.dataSource.paginator = this.paginator;
-          this.isSpinnerVisible = false;
-        });
+            this.dataSource = new MatTableDataSource(data[0].paginatedResults);
+            this.words = data[0].paginatedResults;
+            this.dataSource.paginator = this.paginator;
+            this.isSpinnerVisible = false;
+          });
         break;
+      case 4:
+        this.filter = {$and: [{'userWord.optional.learned': true}]};
+        this.isSpinnerVisible = true;
+        this.apiService.getUserAggregatedWords(this.filter)
+          .subscribe(data => {
+            this.dataSource = new MatTableDataSource(data[0].paginatedResults);
+            this.words = data[0].paginatedResults;
+            this.dataSource.paginator = this.paginator;
+            this.isSpinnerVisible = false;
+          });
+        break;
+
     }
   }
 }

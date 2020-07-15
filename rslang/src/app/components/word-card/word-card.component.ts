@@ -43,11 +43,12 @@ export class WordCardComponent implements OnInit, AfterViewInit {
   @Input() isAutoPlay: boolean;
   @Output() delete: EventEmitter<string> = new EventEmitter<string>();
   @Output() hard: EventEmitter<any> = new EventEmitter<any>();
+  @Output() learned: EventEmitter<any> = new EventEmitter<any>();
   @Output() next: EventEmitter<any> = new EventEmitter<any>();
   hiddenTextExample: string = this.textExample;
   isWordHidden: boolean = true;
   hiddenTextMeaning: string = this.textMeaning;
-  isWordTranslationHidden: boolean = false;
+  // isWordTranslationHidden: boolean = false;
   isExplanationHidden: boolean = false;
   isExampleTextHidden: boolean = false;
   wordForm: FormGroup;
@@ -87,9 +88,9 @@ export class WordCardComponent implements OnInit, AfterViewInit {
   playWord(): any {
     if (!this.wordForm.invalid) {
       this.showAnswer();
-      if (this.isShowTranslation) {
-        this.isWordTranslationHidden = true;
-      }
+      // if (this.isShowTranslation) {
+      //   this.isWordTranslationHidden = true;
+      // }
       if (this.isShowTextMeaningTranslate) {
         this.isExplanationHidden = true;
       }
