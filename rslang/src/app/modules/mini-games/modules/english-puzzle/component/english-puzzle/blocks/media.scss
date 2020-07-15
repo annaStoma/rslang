@@ -1,0 +1,21 @@
+@media (max-width: 1599px) {
+  @include field-for-answer_1035;
+  @include field-for-words_1035;
+  @include word_1035;
+  @include menu_1035;
+  @include check_1035;
+  @include text_1035;
+}
+
+@media (max-width: 705px) {
+  @include field-for-answer_705;
+  @include field-for-words_705;
+  @include word_705;
+  @include menu_705;
+  @include check_705;
+  @include text_705;
+}
+
+@media (max-width: 320px) {
+  @include start-page_320;
+}
