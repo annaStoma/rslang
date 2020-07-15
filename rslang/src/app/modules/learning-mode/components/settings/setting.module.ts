@@ -13,6 +13,16 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [SettingsComponent],
   exports: [SettingsComponent],
-  imports: [CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatProgressSpinnerModule, MatCheckboxModule, MatInputModule, MatDialogModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule],
 })
-export class SettingsModule {}
+export class SettingsModule {
+}

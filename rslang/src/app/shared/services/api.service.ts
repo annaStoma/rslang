@@ -58,10 +58,7 @@ export class ApiService {
     return this.http.get<Array<Word>>(url, {params});
   }
 
-  createUserWordByWordId(
-    wordId: string,
-    word: UsersWords
-  ): Observable<UsersWords> {
+  createUserWordByWordId(wordId: string, word: UsersWords): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
     return this.http.post<UsersWords>(url, word);
@@ -73,10 +70,7 @@ export class ApiService {
     return this.http.get<UsersWords>(url);
   }
 
-  updateUserWordByWordId(
-    wordId: string,
-    word: UsersWords
-  ): Observable<UsersWords> {
+  updateUserWordByWordId(wordId: string, word: UsersWords): Observable<UsersWords> {
     this.url.pathname = `/users/${this.id}/words/${wordId}`;
     const url = this.url.toString();
     return this.http.put<UsersWords>(url, word);

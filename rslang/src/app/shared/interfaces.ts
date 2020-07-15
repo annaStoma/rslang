@@ -52,12 +52,14 @@ export interface AuthData {
 export interface UsersWords {
   difficulty: string;
   optional: {
-    learned: boolean;
+    learned?: boolean;
+    hard?: boolean;
+    deleted?: boolean;
   };
 }
 
 export interface Word {
-  id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -93,7 +95,7 @@ export interface SprintWord {
 }
 
 export interface SprintTranslateItem {
-  word: string
+  word: string;
   wordTranslate: string;
   index?: number;
   isDisabled?: boolean;
@@ -101,10 +103,10 @@ export interface SprintTranslateItem {
 }
 
 export interface SprintResult {
-  historyOfAnswers?: boolean[],
-  countOfCorrect?: number,
-  countCorrectInRow?:number,
-  totalScore?: number,
+  historyOfAnswers?: boolean[];
+  countOfCorrect?: number;
+  countCorrectInRow?: number;
+  totalScore?: number;
 }
 
 export interface AggregatedWord extends Word {

@@ -6,6 +6,8 @@ import { AboutUsComponent } from '../../components/about-us/about-us.component';
 import { AuthGuard } from '../../shared/guards/auth.guard';
 import { StatisticsComponent } from '../statistics/components/statistics/statistics.component';
 import { SettingsComponent } from '../learning-mode/components/settings/settings.component';
+import { VocabularyComponent } from '../../components/vocabulary/vocabulary.component';
+import { LearningModeComponent } from '../learning-mode/learning-mode.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,18 @@ const routes: Routes = [
         (module) => module.SettingsModule
       ),
      data: { title: 'Setting'}
+  },
+  {
+    path: 'vocabulary',
+    component: VocabularyComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Vocabulary'}
+  },
+  {
+    path: 'learning',
+    component: LearningModeComponent,
+    canActivate: [AuthGuard],
+    data: { title: 'Learning'}
   },
 ];
 

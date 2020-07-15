@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dictionaries',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DictionariesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  goToDeleted(vocabulary: string): void{
+    this.router.navigate(['/vocabulary'], { queryParams: {voc: `${vocabulary}`} });
+  }
+
+  goToLearningNewWords(): void{
+    this.router.navigate(['/learning']);
+  }
 }
