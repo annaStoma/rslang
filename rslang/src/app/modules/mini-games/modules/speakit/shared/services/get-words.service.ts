@@ -19,7 +19,7 @@ export class GetWordsService {
       [words[x], words[y]] = [words[y], words[x]];
     }
     return words.slice(-this.gameCount).map((w: Word) => ({
-      id: w.id,
+      id: w._id,
       word: w.word,
       image: w.image,
       audio: w.audio,
