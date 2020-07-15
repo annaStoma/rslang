@@ -261,14 +261,14 @@ export class AudiocallComponent implements OnInit {
 
   getUserStatistic(): void {
     this.apiService.getUserStatistics().subscribe((stats) => {
-      this.totalErrorPercent = stats.optional.audiocall.errorRatePercent;
-      this.totalGamesNumber = stats.optional.audiocall.totalGamesCompleted;
+      this.totalErrorPercent = stats.optional?.audiocall?.errorRatePercent || 0;
+      this.totalGamesNumber = stats.optional?.audiocall?.totalGamesCompleted || 0;
     });
   }
 
   setUserStatistic(): void {
     this.totalGamesNumber++;
-    let countErrorsFromPercent: number = ((this.totalErrorPercent) * (this.currentCheckedWordsNumber * this.totalGamesNumber)) / 100;
+    let countErrorsFromPercent: number = (this.totalErrorPercent * (this.currentCheckedWordsNumber * this.totalGamesNumber) / 100) || 0;
     countErrorsFromPercent += this.mistakesNumber;
     this.totalErrorPercent = (countErrorsFromPercent * 100) / (this.currentCheckedWordsNumber * this.totalGamesNumber);
     this.apiService.updateUserStatistics({
