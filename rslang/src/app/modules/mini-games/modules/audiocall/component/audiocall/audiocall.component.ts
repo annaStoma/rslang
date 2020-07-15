@@ -16,7 +16,7 @@ import { first } from 'rxjs/operators';
 })
 export class AudiocallComponent implements OnInit {
   constructor(private audioCallService: AudioCallService, private urlConfig: Config, private apiService: ApiService,) {
-    for (let i = 1; i < MAX_NUMBER.LEVEL; i++) {
+    for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
     for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
