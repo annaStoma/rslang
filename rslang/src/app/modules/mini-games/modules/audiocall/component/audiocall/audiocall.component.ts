@@ -162,7 +162,7 @@ export class AudiocallComponent implements OnInit {
   }
 
   setNextWord(): void {
-    this.rightWords === this.audioCallCards.length ? this.gameOver() : this.getNextRandomCards();
+    this.remainGameCards.length === 1 ? this.gameOver() : this.getNextRandomCards();
     this.isNextWordButton = false;
     this.isSkipButton = true;
   }
