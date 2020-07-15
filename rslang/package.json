@@ -24,6 +24,8 @@
     "@angular/platform-browser": "~9.1.11",
     "@angular/platform-browser-dynamic": "~9.1.11",
     "@angular/router": "~9.1.11",
+    "@syncfusion/ej2-angular-charts": "^18.2.45",
+    "@syncfusion/ej2-base": "^18.2.44",
     "express": "^4.17.1",
     "ngx-owl-carousel-o": "^3.0.1",
     "normalize.css": "^8.0.1",

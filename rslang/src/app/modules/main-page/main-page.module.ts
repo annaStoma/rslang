@@ -63,7 +63,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatTooltipModule,
     MatSelectModule,
-    BgImageDirective
+    BgImageDirective,
   ],
     providers: [
     {
