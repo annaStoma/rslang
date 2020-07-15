@@ -16,8 +16,8 @@ export class WordsService {
   constructor(private http: HttpClient, private apiService: ApiService) {
   }
 
-  page = 1;
-  level = 1;
+  page : any = 1;
+  level : any = 1;
 
   getWords(): Observable<object> {
     return this.http.get(
