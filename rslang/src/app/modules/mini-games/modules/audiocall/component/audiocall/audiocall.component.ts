@@ -144,10 +144,13 @@ export class AudiocallComponent implements OnInit {
 
   checkResult(wordId: string): void {
     this.correctWordSelected = true;
-    this.currentCheckedWordsNumber++;
-    wordId === this.activeCard.wordId
-      ? this.guessTheWord()
-      : this.notGuessTheWord();
+    if (!this.isNextWordButton) {
+      this.currentCheckedWordsNumber++;
+      wordId === this.activeCard.wordId
+        ? this.guessTheWord()
+        : this.notGuessTheWord();
+    }
+
   }
 
   correctWordSelected: boolean = false;
