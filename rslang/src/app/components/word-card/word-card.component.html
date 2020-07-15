@@ -1,32 +1,59 @@
 <mat-card class="example-card">
   <mat-card-header>
-    <mat-card-title>Слово</mat-card-title>
-    <mat-card-subtitle>транскрипция</mat-card-subtitle>
-    <mat-card-subtitle>перевод слова</mat-card-subtitle>
+    <mat-card-title *ngIf="!isWordHidden">{{word}}</mat-card-title>
+    <mat-card-subtitle *ngIf="isShowTranscription">{{transcription}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="isWordTranslationHidden">{{wordTranslate}}</mat-card-subtitle>
   </mat-card-header>
-  <img class="mat-card-image" mat-card-image src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+  <img *ngIf="isShowAssociation"
+    class="mat-card-image"
+    mat-card-image
+    src="https://raw.githubusercontent.com/irinainina/rslang-data/master/{{image}}"
     alt="картинка-ассоциация">
   <mat-card-content>
-    <p class="explantation">
-      предложение с объяснением значения слова
+    <p class="explanation" *ngIf="isShowExplanation">
+      {{hiddenTextMeaning}}
+    </p>
+    <p class="explanation explanation__translate" *ngIf="isExplanationHidden">
+      {{textMeaningTranslate}}
     </p>
 
-    <p class="exampleText">
-      предложение с примером использования изучаемого слова
+    <p class="exampleText" *ngIf="isShowExampleText">
+      {{hiddenTextExample}}
+    </p>
+    <p class="exampleText exampleText__translate" *ngIf="isExampleTextHidden">
+      {{textExampleTranslate}}
     </p>
   </mat-card-content>
   <!--   ширина поля ввода соответствует длине изучаемого слова-->
-  <mat-form-field class="example-full-width">
-    <mat-label>Введите слово</mat-label>
-    <input matInput
-      placeholder="введите слово ..."
-      value=""
-      class="form-control"/>
-  </mat-form-field>
+  <mat-card-subtitle>Введите слово ниже</mat-card-subtitle>
+  <form [formGroup]="wordForm" (submit)="playWord()">
+    <div class="form">
+      <div class="form-group">
+        <mat-form-field class="example-full-width" [ngStyle]="{'width': word.length * 10 + 'px'}">
+<!--          <mat-label>Введите слово</mat-label>-->
+          <label>
+            <input matInput #inputWord
+              [autofocus]="true"
+              name="word"
+              value="word"
+              formControlName="word"
+              class="form-control"/>
+          </label>
+          <mat-error *ngIf="wordForm.get('word').invalid"></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group enter-button">
+        <button type="submit" mat-flat-button color="primary" class="btn btn-default">
+          Ввод
+        </button>
+      </div>
+    </div>
+  </form>
   <mat-card-actions>
-    <button mat-flat-button color="accent">Удалить</button>
-    <button mat-flat-button color="warn">Сложные</button>
+    <button mat-flat-button color="warn" (click)="delete.emit(id)">Удалить</button>
+    <button mat-flat-button color="accent" (click)="hard.emit(id)">Сложные</button>
     <!--    или  enter -->
-    <button mat-flat-button color="primary">Дальше</button>
+    <button mat-flat-button color="primary" (click)="next.emit()">Дальше</button>
+    <button mat-flat-button color="primary" (click)="showAnswer()">Показать ответ</button>
   </mat-card-actions>
 </mat-card>

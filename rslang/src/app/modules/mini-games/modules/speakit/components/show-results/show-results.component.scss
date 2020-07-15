@@ -36,6 +36,10 @@
   & .results-container {
     max-height: calc(100vh - 130px);
     overflow: auto;
+
+    .know {
+      margin-bottom: 7px;
+    }
   }
 }
 

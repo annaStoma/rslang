@@ -1,0 +1,30 @@
+@import "../../../../../../constants.scss";
+
+.loader-container {
+  padding-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.loader {
+  border-top: 16px solid $primary;
+  border-right: 16px solid $accent;
+  border-bottom: 16px solid $shadow;
+  border-left: 16px solid $font-color;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -23,5 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     GamesStatsComponent
   ],
   imports: [CommonModule, MatButtonModule, MatIconModule, MatCardModule, MatProgressSpinnerModule],
+  exports: [
+    WordCardComponent
+  ]
 })
 export class SpeakitModule {}

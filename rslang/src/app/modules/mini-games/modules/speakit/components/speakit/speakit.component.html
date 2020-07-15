@@ -14,26 +14,9 @@
         <input
           type="text"
           [value]="currentWord?.wordTranslate || spokenWord" readonly>
-        <span class="output-word__span">{{ heardAs }}</span>
+
       </div>
-      <span
-        [ngClass]="{
-          active: currentWord,
-          on: isPlayExample
-        }"
-        class="text-example"
-        [innerHTML]="currentWord?.textExample"
-        (click)="playAudio('isPlayExample', 'audioExample')"
-      ></span>
-      <span
-        [ngClass]="{
-          active: currentWord,
-          on: isPlayMeaning
-        }"
-        class="text-meaning"
-        [innerHTML]="currentWord?.textMeaning"
-        (click)="playAudio('isPlayMeaning', 'audioMeaning')"
-      ></span>
+
     </div>
     <div class="level-of-difficulty">
       <app-check-level-radio-button
