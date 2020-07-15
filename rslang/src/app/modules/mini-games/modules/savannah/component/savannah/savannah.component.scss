@@ -37,6 +37,9 @@
     height: 40px;
     background-color: $primary;
     color: $font-color;
+  @media screen and (max-width: 600px) {
+    left: 41vw;
+  }
   }
 }
 
@@ -129,9 +132,7 @@
     position: absolute;
     font-size: 2em;
     font-weight: bold;
-    // background-color: $shadow;
-    // height: 25px;
-    // border-radius: 5px;
+    text-transform: capitalize;
   }
 }
 
@@ -143,7 +144,6 @@
   @media screen and (max-width: 600px) {
     flex-direction: column;
     padding-top: 10vh;
-    padding-left: 25vw;
     padding-bottom: 50px;
     font-size: 1.5em;
   }
@@ -152,11 +152,10 @@
 .native-word-card {
   font-size: 1.5em;
   font-weight: bold;
-  // width: 100px;
+  text-transform: capitalize;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    // padding-left: 10%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 20px;
@@ -223,32 +222,58 @@
 
   .diamand-image {
     height: 100px;
+    @media screen and (max-width: 600px) {
+      height: 80px;
+    }
+  }
+
+}
+
+.game-additional-key-text {
+  margin-top: 10px;
+  @media screen and (max-width: 600px) {
+   display: none;
   }
 }
 
 .game-additional-text {
   margin-top: 10px;
+  @media screen and (max-width: 600px) {
+    margin-top: 0px;
+  }
+}
+
+.final-screen-text {
+  font-size: 2em;
+  color: $primary;
+}
+
+.final-text-cards {
+  display: flex;
 }
 
 .final-screen {
-  // position: absolute;
-  // top: 90px;
-  // left: 40vw;
-  margin-top: 60px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: $card-background-color;
+  position: absolute;
+  left: 36vw;
+  top: 81px;
+  background-color: $font-color;
   border-radius: 20px;
-  width: $card-size;
-  max-height: 240px;
-  overflow: hidden;
+  width: 280px;
+  max-height: 301px;
+  overflow: scroll;
 
   @media screen and (max-width: 600px) {
-    overflow: scroll;
-    left: 30vw;
+    max-height: 284px;
+    left: 25vw;
   }
 
   @media screen and (max-width: 400px) {
     left: 15vw;
+  }
+
+  .word-audio {
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

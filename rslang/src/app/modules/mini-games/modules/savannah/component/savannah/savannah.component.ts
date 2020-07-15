@@ -19,7 +19,7 @@ import { first } from 'rxjs/operators';
 })
 export class SavannahComponent implements OnInit {
   constructor(private savannahService: SavannahService, private urlConfig: Config, private apiService: ApiService,) {
-    for (let i = 1; i < MAX_NUMBER.LEVEL; i++) {
+    for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
     for (let i = 0; i < MAX_NUMBER.PAGE; i++) {
@@ -37,8 +37,8 @@ export class SavannahComponent implements OnInit {
   rightWords: number;
   mistakesNumber: number;
   currentCheckedWordsNumber: number;
-  mistakeWordsArray: string[] = [];
-  rightWordsArray: string[] = [];
+  mistakeWordsArray: SavannahCard[] = [];
+  rightWordsArray: SavannahCard[] = [];
   livesArray: Array<number> = [];
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
@@ -123,7 +123,7 @@ export class SavannahComponent implements OnInit {
 
     this.activeCard = this.remainGameCards[activeCardIndex];
     if (this.isSoundSelected) {
-      this.soundForeignWord();
+      this.soundForeignWord(this.activeCard.audioUrl);
     }
 
     this.fallingBlock = setTimeout(() => {
@@ -133,8 +133,8 @@ export class SavannahComponent implements OnInit {
 
   removeElementFromArray(array: SavannahCard[], value: SavannahCard) {
     const index: number = array.indexOf(value);
-    array.splice(index, 1);
-    return array;
+
+    return array.splice(index, 1);;
   }
 
   getRandomNumber(maxValue: number): number {
@@ -179,7 +179,7 @@ export class SavannahComponent implements OnInit {
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
-    this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
+    this.mistakeWordsArray.push(this.activeCard);
     this.lives--;
     this.livesArray.splice(0, 1);
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
@@ -191,15 +191,15 @@ export class SavannahComponent implements OnInit {
     this.audioPlay(AUDIO_NAMES.CORRECT);
     this.isAnimationEnd = false;
     this.isAnimationBullet = true;
-    this.rightWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
+    this.rightWordsArray.push(this.activeCard);
     this.rightWords++;
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
-  soundForeignWord(): void {
+  soundForeignWord(url: string): void {
     const audio = new Audio();
 
-    audio.src = `${this.urlConfig.dataUrl()}${this.activeCard.audioUrl}`;
+    audio.src = `${this.urlConfig.dataUrl()}${url}`;
     audio.play();
   }
 
