@@ -30,18 +30,23 @@ export class WordsService {
   setUserStatistic(rightWordsCount, wrongWordsCount): void {
     let oldStatistic: Statistic;
     let commonRating: number;
+    const firstGame = { errorRatePercent: 0, totalGamesCompleted: 0 };
     this.apiService.getUserStatistics().subscribe(res => {
-      oldStatistic = res.optional ? res.optional['english-puzzle'] : {errorRatePercent: 0, totalGamesCompleted: 0};
+      oldStatistic = res.optional?.['english-puzzle'] || firstGame;
       commonRating = (wrongWordsCount / (rightWordsCount + wrongWordsCount)) + (oldStatistic.errorRatePercent / 100);
       commonRating = oldStatistic.totalGamesCompleted > 0 ? commonRating / 2 : commonRating;
-      this.apiService.updateUserStatistics({
-        optional: {
-          'english-puzzle': {
-            errorRatePercent: commonRating * 100,
-            totalGamesCompleted: oldStatistic.totalGamesCompleted + 1,
-          }
-        }
-      }).pipe(take(1)).subscribe();
+      this.updateUserStatistic(commonRating, oldStatistic);
     });
+  }
+
+  private updateUserStatistic(commonRating, oldStatistic): void {
+    this.apiService.updateUserStatistics({
+      optional: {
+        'english-puzzle': {
+          errorRatePercent: commonRating * 100,
+          totalGamesCompleted: oldStatistic.totalGamesCompleted + 1,
+        }
+      }
+    }).pipe(take(1)).subscribe();
   }
 }
