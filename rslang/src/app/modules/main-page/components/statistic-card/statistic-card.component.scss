@@ -33,6 +33,9 @@
       width: 95%;
     }
 
+    .statistic-image{
+      width: 95%;
+    }
     .mat-column-name {
       flex: 3;
     }
@@ -41,4 +44,8 @@
 
 .mat-elevation-z8 {
   box-shadow: none;
+}
+
+.statistic-image {
+ max-width:  $card-size * 2 + $card-margins * 2;
 }
