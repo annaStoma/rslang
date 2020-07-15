@@ -1,16 +1,20 @@
 <p class="title">Dictionaries</p>
 <button mat-raised-button class="learn-btn" (click)="goToLearningNewWords()">Learning new words</button>
 <div class="dictionaries-list">
-  <button class="studied" (click)="goToDeleted('studied')">
-    <mat-icon aria-hidden="false" aria-label="Example heart icon">menu_book</mat-icon>
+  <button class="studied" (click)="goToVac('studied')">
+    <mat-icon aria-hidden="false" class="studied-icon" aria-label="Example heart icon">menu_book</mat-icon>
     <span class="dictionary-type">Studied</span>
   </button>
-  <button class="hard" (click)="goToDeleted('hard')">
-    <mat-icon aria-hidden="false" aria-label="Example heart icon">priority_high</mat-icon>
+  <button class="hard" (click)="goToVac('hard')">
+    <mat-icon aria-hidden="false" class="hard-icon" aria-label="Example heart icon">priority_high</mat-icon>
     <span class="dictionary-type">Hard</span>
   </button>
-  <button class="deleted" (click)="goToDeleted('deleted')">
-    <mat-icon aria-hidden="false" aria-label="Example heart icon">delete</mat-icon>
+  <button class="deleted" (click)="goToVac('deleted')">
+    <mat-icon aria-hidden="false" class="deleted-icon" aria-label="Example heart icon">delete</mat-icon>
     <span class="dictionary-type">Deleted</span>
+  </button>
+  <button class="learned" (click)="goToVac('learned')">
+    <mat-icon class="learned-icon" aria-hidden="false" aria-label="Example heart icon">assignment_turned_in</mat-icon>
+    <span class="dictionary-type">Learned</span>
   </button>
 </div>

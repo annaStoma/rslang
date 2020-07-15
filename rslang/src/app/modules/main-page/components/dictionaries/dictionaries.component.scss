@@ -38,11 +38,18 @@
 
 .title {
   @include title;
+  text-align: center;
+  width: 100%;
+  left: 0 !important;
+  font-size: 24px;
+  color: #8e4de4;
+  text-transform: uppercase;
 }
 
 .hard,
 .deleted,
-.studied {
+.studied,
+.learned {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -56,7 +63,22 @@
   mat-icon {
     height: auto;
     width: auto;
-    color: $primary;
-    font-size: 120px;
+    font-size: 80px;
   }
+}
+
+.studied-icon {
+  color: $accent;
+}
+
+.hard-icon {
+  color: $primary;
+}
+
+.learned-icon {
+  color: $example-text;
+}
+
+.deleted-icon {
+  color: $deleted;
 }
