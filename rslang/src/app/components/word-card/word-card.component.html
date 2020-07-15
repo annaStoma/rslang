@@ -10,9 +10,7 @@
     src="https://raw.githubusercontent.com/irinainina/rslang-data/master/{{image}}"
     alt="картинка-ассоциация">
   <mat-card-content>
-    <p class="explanation" *ngIf="isShowExplanation">
-      {{hiddenTextMeaning}}
-    </p>
+    <p class="explanation" *ngIf="isShowExplanation" [innerHTML]="hiddenTextMeaning"></p>
     <p class="explanation explanation__translate" *ngIf="isExplanationHidden">
       {{textMeaningTranslate}}
     </p>

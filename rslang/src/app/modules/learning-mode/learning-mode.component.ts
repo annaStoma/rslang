@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ApiService } from '../../shared/services/api.service';
 import { UsersWords, Word } from '../../shared/interfaces';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-learning-mode',
@@ -31,7 +32,7 @@ export class LearningModeComponent implements OnInit {
       }
     }
   };
-  isSpinnerVisible: boolean = false;
+  isSpinnerVisible = false;
 
   maxWords: number;
   wordsPerDay: number;
@@ -87,10 +88,9 @@ export class LearningModeComponent implements OnInit {
         deleted: true
       }
     };
-    this.apiService.createUserWordByWordId(id, body).subscribe(_ => {
-      return this.apiService.updateUserWordByWordId(id, body).subscribe(data => data);
-    });
-    // updateUserWordByWordId(id, body).subscribe(data => data);
+    this.apiService.updateUserWordByWordId(id, body)
+      .pipe(first())
+      .subscribe(data => data);
   }
 
   addToHard(id: string): void {
@@ -101,9 +101,9 @@ export class LearningModeComponent implements OnInit {
         hard: true
       }
     };
-    this.apiService.createUserWordByWordId(id, body).subscribe(_ => {
-      return this.apiService.updateUserWordByWordId(id, body).subscribe(data => data);
-    });
+    this.apiService.updateUserWordByWordId(id, body)
+      .pipe(first())
+      .subscribe(data => data);
   }
 
   addToLearned(id: string): void {

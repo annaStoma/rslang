@@ -17,7 +17,9 @@ const routes = [
   '/audiocall',
   '/english-puzzle',
   '/sprint',
-  '/own-game'
+  '/own-game',
+  '/vocabulary',
+  '/learning',
 ];
 
 
