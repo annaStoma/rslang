@@ -9,7 +9,7 @@ const routes = [
   '/login',
   '/register',
   '/setting',
-  '/statistic',
+  '/statistics',
   '/promo',
   '/about-us',
   '/speakit',

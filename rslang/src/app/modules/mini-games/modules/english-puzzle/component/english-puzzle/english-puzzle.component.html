@@ -1,25 +1,35 @@
-
 <body>
+    <div [style.left]="startPageIsHidden ? '-100vw' : '0%'" class="start-page__wrapper">
+        <span class="start-page__name">English Puzzle</span>
+        <span class="start-page__description">Collect the sentence from the submitted words</span>
+        <div class="start-page" (click)="removeStartPage()">start</div>
+    </div>
     <div [hidden]="answers !== undefined && !(answers.length > 9)" class="result">
-        <h1 [hidden]="rightWords.length === 0">Right: </h1>
-        <p *ngFor="let word of rightWords">{{word}}</p>
-        <h1 [hidden]="wrongWords.length === 0">Wrong: </h1>
-        <p *ngFor="let word of wrongWords">{{word}}</p>
-        <button (click)="nextLevel()">Okay</button>
+        <div class="result__container">
+            <h1 [hidden]="rightWords.length === 0">Right: </h1>
+            <div class="result__word" *ngFor="let word of rightWords">{{word}}
+                <p class="result__voice" (click)="voiceWord($event)"></p>
+            </div>
+            <h1 [hidden]="wrongWords.length === 0">Wrong: </h1>
+            <div class="result__word" *ngFor="let word of wrongWords">{{word}}
+                <p class="result__voice" (click)="voiceWord($event)"></p>
+            </div>
+        </div>
+        <button class="okay" (click)="createNextLevel()">Okay</button>
     </div>
     <div class="menu">
         <div class="menu__left">
-            <select name="" id="" class="menu__select menu__level" (change)="newLevel($event)">
+            <select name="" id="" class="menu__select menu__level" (change)="createNewLevel($event)">
                 <option #level value="{{level}}" *ngFor="let level of levels">{{level}}</option>
             </select>
-            <select name="" id="" class="menu__select menu__page" (change)="newPage($event)">
+            <select name="" id="" class="menu__select menu__page" (change)="createNewPage($event)">
                 <option #page value="{{page}}" *ngFor="let page of pages">{{page}}</option>
             </select>
         </div>
         <div class="menu__right">
             <button (click)="voiceExample()" class="menu__voice">voice</button>
             <button (click)="getCurrentTextTranslate()" class="menu__translate">translate</button>
-            <button class="menu__background">background</button>
+            <button [hidden]="true" class="menu__background">background</button>
         </div>
     </div>
     <p #placeForTranslate class="field-for-translate">{{textTranslate}}</p>
@@ -41,16 +51,16 @@
                 *ngFor="let text of currentAnswer" cdkDrag>{{text}}</button>
         </div>
     </div>
-    <div [hidden]="answers && answers.length > 9" cdkDropListOrientation="horizontal" cdkDropList #doneList="cdkDropList" [cdkDropListConnectedTo]="[todoList]"
-        [cdkDropListData]="currentSplittedTextExample" (cdkDropListDropped)="drop($event)"
-        class="field-for-words dropzone field-for-words--bottom">
+    <div [hidden]="answers && answers.length > 9" cdkDropListOrientation="horizontal" cdkDropList
+        #doneList="cdkDropList" [cdkDropListConnectedTo]="[todoList]" [cdkDropListData]="currentSplittedTextExample"
+        (cdkDropListDropped)="drop($event)" class="field-for-words dropzone field-for-words--bottom">
         <button (click)="wordToUpperBlock(text)" class="word" [ngStyle]="setStyleOfTextExample(text)"
             *ngFor="let text of currentSplittedTextExample" cdkDrag>{{text}}</button>
     </div>
     <div class="check__wrapper">
         <button [hidden]="!hiddenContinue" class="check" (click)="abort()">i don't know</button>
         <button [hidden]="currentSplittedTextExample && currentSplittedTextExample.length !== 0" class="check"
-            (click)="check()">check</button>
-        <button [hidden]="hiddenContinue" class="check" (click)="newLine()">continue</button>
+            (click)="check($event)">check</button>
+        <button [hidden]="hiddenContinue" class="check" (click)="createNewLine()">continue</button>
     </div>
 </body>

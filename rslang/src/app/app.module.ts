@@ -34,6 +34,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AccumulationChartAllModule, ChartAllModule } from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     SettingsModule,
     CarouselModule,
     FormsModule,
+    AccumulationChartAllModule,
+    ChartAllModule,
   ],
   providers: [
     {

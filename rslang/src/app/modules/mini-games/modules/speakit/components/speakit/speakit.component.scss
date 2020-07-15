@@ -37,7 +37,7 @@
 
 .word-original {
   display: flex;
-  max-width: 1200px;
+  max-width: 900px;
   flex-wrap: wrap;
   margin: 0 auto;
   padding: 10px 0;
@@ -54,7 +54,7 @@
 .example-conversation {
   display: flex;
   flex-direction: column;
-  margin: 55px auto 20px;
+  margin: 5px auto 20px;
   color: $text-color-middle;
 
   & span.active {
@@ -127,24 +127,31 @@
   &.record-wait {
 
     &::after {
-      content: url(#{$img-path}/record-wait.gif);
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: $warn;
       position: absolute;
-      width: 100px;
-      height: 67px;
-      top: -55%;
-      left: calc(50% - 50px);
+      top: -7px;
+      left: calc(50% - 15px);
     }
   }
 
   &.record-on {
 
     &::after {
-      content: url(#{$img-path}/record-on.gif);
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: $warn;
+      animation: pulse-red 2s infinite;
       position: absolute;
-      width: 100px;
-      height: 67px;
-      top: -55%;
-      left: calc(50% - 50px);
+      top: -7px;
+      left: calc(50% - 15px);
     }
   }
 }
@@ -206,6 +213,7 @@
         &:nth-child(odd) {
           margin-right: 10px;
         }
+
         width: 190px;
       }
     }

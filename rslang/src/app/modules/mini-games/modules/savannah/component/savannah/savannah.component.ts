@@ -1,6 +1,8 @@
 import { AUDIO_NAMES, CARD_NUMBER, KEY_CODE, MAX_NUMBER, SAVANNAH_DEFAULT_VALUES, SAVANNAH_START_VALUES } from './savannah-default-values';
 import { Component, HostListener, OnInit } from '@angular/core';
 
+import { ApiService } from '../../../../../../shared/services/api.service';
+import { Config } from '../../../../../../common/config'
 import { SavannahCard } from './savannah-card.model';
 import { SavannahService } from './savannah.service';
 import { first } from 'rxjs/operators';
@@ -16,7 +18,7 @@ import { first } from 'rxjs/operators';
   providers: [SavannahService]
 })
 export class SavannahComponent implements OnInit {
-  constructor(public savannahService: SavannahService) {
+  constructor(private savannahService: SavannahService, private urlConfig: Config, private apiService: ApiService,) {
     for (let i = 0; i < MAX_NUMBER.LEVEL; i++) {
       this.levels.push(i + 1);
     }
@@ -33,13 +35,15 @@ export class SavannahComponent implements OnInit {
   randomCards: SavannahCard[];
   lives: number;
   rightWords: number;
-  mistakes: number;
-  mistakeWordsArray: string[] = [];
-  rightWordsArray: string[] = [];
-  livesArray: Array<number> = SAVANNAH_DEFAULT_VALUES.livesArray;
+  mistakesNumber: number;
+  currentCheckedWordsNumber: number;
+  mistakeWordsArray: SavannahCard[] = [];
+  rightWordsArray: SavannahCard[] = [];
+  livesArray: Array<number> = [];
   isHiddenDescription = SAVANNAH_DEFAULT_VALUES.isHiddenDescription;
   isHiddenLoader = SAVANNAH_DEFAULT_VALUES.isHiddenLoader;
   isHiddenButton = SAVANNAH_DEFAULT_VALUES.isHiddenButton;
+  isHiddenStartScreen = SAVANNAH_DEFAULT_VALUES.isHiddenStartScreen;
   isHiddenFinalScreen = SAVANNAH_DEFAULT_VALUES.isHiddenFinalScreen;
   isAnimationStart = SAVANNAH_DEFAULT_VALUES.isAnimationStart;
   isAnimationEnd = SAVANNAH_DEFAULT_VALUES.isAnimationEnd;
@@ -49,6 +53,9 @@ export class SavannahComponent implements OnInit {
   pageNumber: number = 0;
   wordsLevel: number = 0;
 
+  totalErrorPercent: number;
+  totalGamesNumber: number;
+
   title: string[] = 'SAVANAH'.split('').reverse();
 
   ngOnInit(): void { }
@@ -57,24 +64,34 @@ export class SavannahComponent implements OnInit {
     this.isHiddenDescription = SAVANNAH_START_VALUES.isHiddenDescription;
     this.isHiddenButton = SAVANNAH_START_VALUES.isHiddenButton;
     this.isHiddenLoader = SAVANNAH_START_VALUES.isHiddenLoader;
-    this.lives = SAVANNAH_START_VALUES.lives;
-    this.mistakes = SAVANNAH_START_VALUES.mistakes;
+    this.mistakesNumber = SAVANNAH_START_VALUES.mistakesNumber;
+    this.currentCheckedWordsNumber = SAVANNAH_START_VALUES.currentCheckedWordsNumber;
     this.rightWords = SAVANNAH_START_VALUES.rightWords;
     this.isHiddenFinalScreen = SAVANNAH_START_VALUES.isHiddenFinalScreen;
+    this.isAnimationStart = SAVANNAH_START_VALUES.isAnimationStart;
+    this.lives = SAVANNAH_START_VALUES.lives;
+    this.fullLivesArray();
     this.mistakeWordsArray = [];
     this.rightWordsArray = [];
   }
 
-  newLevel(event): void {
+  fullLivesArray(): void {
+    for (let i = 1; i <= this.lives; i++) {
+      this.livesArray.push(i);
+    }
+  }
+
+  newLevel(event: { target: { value: number; }; }): void {
     this.pageNumber = event.target.value - 1;
   }
 
-  newPage(event): void {
+  newPage(event: { target: { value: number; }; }): void {
     this.wordsLevel = event.target.value - 1;
   }
 
   startGame(): void {
     this.getDefaultAdditionalGameValues();
+    this.getUserStatistic();
     this.savannahService
       .getWords(this.wordsLevel, this.pageNumber)
       .pipe(first()).subscribe((words) => {
@@ -86,6 +103,7 @@ export class SavannahComponent implements OnInit {
 
   getForeignWord(): void {
     this.isHiddenLoader = true;
+    this.isHiddenStartScreen = true;
     this.setActiveCard();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
       this.savannahCards
@@ -104,6 +122,10 @@ export class SavannahComponent implements OnInit {
     );
 
     this.activeCard = this.remainGameCards[activeCardIndex];
+    if (this.isSoundSelected) {
+      this.soundForeignWord(this.activeCard.audioUrl);
+    }
+
     this.fallingBlock = setTimeout(() => {
       this.ifGuessTheWord();
     }, 5000);
@@ -111,8 +133,8 @@ export class SavannahComponent implements OnInit {
 
   removeElementFromArray(array: SavannahCard[], value: SavannahCard) {
     const index: number = array.indexOf(value);
-    array.splice(index, 1);
-    return array;
+
+    return array.splice(index, 1);;
   }
 
   getRandomNumber(maxValue: number): number {
@@ -141,6 +163,7 @@ export class SavannahComponent implements OnInit {
   checkResult(wordId: string): void {
     clearTimeout(this.fallingBlock);
     this.correctWordSelected = true;
+    this.currentCheckedWordsNumber++;
     wordId === this.activeCard.wordId
       ? this.guessTheWord()
       : this.notGuessTheWord();
@@ -156,31 +179,28 @@ export class SavannahComponent implements OnInit {
 
   notGuessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.ERROR);
-    this.mistakeWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
+    this.mistakeWordsArray.push(this.activeCard);
     this.lives--;
     this.livesArray.splice(0, 1);
     this.livesArray.length === 0 ? this.gameOver() : this.getRandomCards();
     this.isAnimationEnd = false;
-    this.mistakes++;
+    this.mistakesNumber++;
   }
 
   guessTheWord(): void {
     this.audioPlay(AUDIO_NAMES.CORRECT);
     this.isAnimationEnd = false;
     this.isAnimationBullet = true;
-    this.rightWordsArray.push(`${this.activeCard.foreignWord} : ${this.activeCard.nativeWord}`);
+    this.rightWordsArray.push(this.activeCard);
     this.rightWords++;
     this.rightWords === 20 ? this.gameOver() : this.getNextRandomCards();
   }
 
-  soundForeignWord(): void {
-    const msg = new SpeechSynthesisUtterance();
-    const foreignWordText = this.activeCard.foreignWord;
+  soundForeignWord(url: string): void {
+    const audio = new Audio();
 
-    if (this.isSoundSelected) {
-      msg.text = foreignWordText;
-      speechSynthesis.speak(msg);
-    }
+    audio.src = `${this.urlConfig.dataUrl()}${url}`;
+    audio.play();
   }
 
   getNextRandomCards(): void {
@@ -194,7 +214,6 @@ export class SavannahComponent implements OnInit {
     );
 
     this.setActiveCard();
-    this.soundForeignWord();
     this.randomCards = this.getThreeRandomCardsRandomNumbers(
       this.savannahCards
     );
@@ -210,7 +229,8 @@ export class SavannahComponent implements OnInit {
 
   audioPlay(name: string): void {
     if (name && this.isSoundSelected) {
-      const audio = new Audio(`../../../../../../../assets/audio/savannah/${name}.mp3`);
+      const audioSrc = '../../../../../../../assets/audio/savannah/';
+      const audio = new Audio(`${audioSrc}${name}.mp3`);
 
       audio.play();
     }
@@ -235,11 +255,45 @@ export class SavannahComponent implements OnInit {
   gameOver(): void {
     this.nextLevel();
     this.isHiddenFinalScreen = false;
+    this.isHiddenStartScreen = false;
     this.isHiddenButton = false;
     this.activeCard = null;
     this.livesArray.length > 0
       ? this.audioPlay(AUDIO_NAMES.SUCCESS)
       : this.audioPlay(AUDIO_NAMES.FAILURE);
+
+    this.setUserStatistic();
+  }
+
+  getUserStatistic(): void {
+    this.apiService.getUserStatistics().subscribe((stats) => {
+      this.totalErrorPercent = stats.optional.savannah.errorRatePercent;
+      this.totalGamesNumber = stats.optional.savannah.totalGamesCompleted;
+    });
+  }
+
+  setUserStatistic(): void {
+    this.totalGamesNumber++;
+    let countErrorsFromPercent: number = ((this.totalErrorPercent) * (this.currentCheckedWordsNumber * this.totalGamesNumber)) / 100;
+    countErrorsFromPercent += this.mistakesNumber;
+    this.totalErrorPercent = (countErrorsFromPercent * 100) / (this.currentCheckedWordsNumber * this.totalGamesNumber);
+    this.apiService.updateUserStatistics({
+      optional: {
+        savannah: {
+          errorRatePercent: this.totalErrorPercent,
+          totalGamesCompleted: this.totalGamesNumber,
+        }
+      }
+    }).subscribe(res => {
+      console.log(res.optional.savannah)
+    }, error => {
+      console.log(error)
+    });
+
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.fallingBlock);
   }
 
   @HostListener('window:keyup', ['$event'])

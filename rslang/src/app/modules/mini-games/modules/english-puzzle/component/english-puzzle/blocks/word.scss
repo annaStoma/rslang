@@ -3,14 +3,34 @@
   height: 50px;
   text-align: center;
   padding: 0;
-  color: white;
+  color: $font-color;
   font-weight: bolder;
   cursor: grab;
   font-size: 20px;
   text-shadow: black 1px 1px 0, black -1px -1px 0, black -1px 1px 0,
     black 1px -1px 0;
-  border: 3px solid #673AB7;
-  background-color: white;
+  border: 3px solid $primary;
+  background-color: $background;
   border-radius: 8px;
   user-select: none;    
+}
+
+@mixin word_1035 {
+  .word {
+    height: 35px;
+    font-size: 13px;
+    border: 2px solid $primary;
+  }
+}
+
+@mixin word_705 {
+  .word {
+    height: 7vw;
+    font-size: 2vw;
+    min-width: 9px;
+    border: 1px solid $primary;
+    line-height: 7vw;
+    color: black;
+    text-shadow: none;
+  }
 }

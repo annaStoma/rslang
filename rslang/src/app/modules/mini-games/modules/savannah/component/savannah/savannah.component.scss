@@ -7,11 +7,12 @@
 .start-screen {
   background-repeat: no-repeat;
   background-size: 100%;
-  color: $font-color;
+  color: $primary;
 
   .start-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 0.3;
     position: absolute;
     left: 0;
     top: 0;
@@ -25,6 +26,7 @@
 
   .start-screen-text {
     margin-top: 10vh;
+    font-size: 1.5em;
   }
 
   .start-button {
@@ -35,6 +37,10 @@
     height: 40px;
     background-color: $primary;
     color: $font-color;
+
+    @media screen and (max-width: 600px) {
+      left: 41vw;
+    }
   }
 }
 
@@ -93,6 +99,7 @@
   .main-screen-image {
     height: 100%;
     width: 100%;
+    opacity: 0.6;
     position: absolute;
     left: 0;
     top: 0;
@@ -125,6 +132,8 @@
   .active-card {
     position: absolute;
     font-size: 2em;
+    font-weight: bold;
+    text-transform: capitalize;
   }
 }
 
@@ -136,7 +145,6 @@
   @media screen and (max-width: 600px) {
     flex-direction: column;
     padding-top: 10vh;
-    padding-left: 25vw;
     padding-bottom: 50px;
     font-size: 1.5em;
   }
@@ -144,15 +152,23 @@
 
 .native-word-card {
   font-size: 1.5em;
-  width: 100px;
+  font-weight: bold;
+  text-transform: capitalize;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
-    padding-left: 10%;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 20px;
     padding-bottom: 30px;
     font-size: 1.5em;
   }
+}
+
+.native-word-card:hover {
+  background-color: $shadow;
+  height: 20px;
+  border-radius: 5px;
 }
 
 .activeCardFall {
@@ -207,25 +223,61 @@
 
   .diamand-image {
     height: 100px;
+
+    @media screen and (max-width: 600px) {
+      height: 80px;
+    }
   }
+
+}
+
+.game-additional-key-text {
+  margin-top: 10px;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.game-additional-text {
+  margin-top: 10px;
+
+  @media screen and (max-width: 600px) {
+    margin-top: 0px;
+  }
+}
+
+.final-screen-text {
+  font-size: 2em;
+  color: $primary;
+}
+
+.final-text-cards {
+  display: flex;
 }
 
 .final-screen {
   position: absolute;
-  top: 90px;
-  left: 40vw;
-  background-color: $card-background-color;
+  left: 36vw;
+  top: 81px;
+  background-color: $font-color;
   border-radius: 20px;
-  width: $card-size;
-  max-height: 240px;
-  overflow: hidden;
+  width: 280px;
+  max-height: 301px;
+  overflow: scroll;
 
   @media screen and (max-width: 600px) {
-    overflow: scroll;
-    left: 30vw;
+    max-height: 284px;
+    left: 25vw;
   }
 
   @media screen and (max-width: 400px) {
     left: 15vw;
+  }
+
+  .word-audio {
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

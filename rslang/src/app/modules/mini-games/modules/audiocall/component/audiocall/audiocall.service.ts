@@ -1,41 +1,42 @@
 import { Observable, of } from 'rxjs';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 
+import { AudioCallApi } from './audiocall-api.model';
+import { AudioCallCard } from './audiocall-card.model';
 import { Config } from '../../../../../../common/config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SavannahApi } from './savannah-api.model';
-import { SavannahCard } from './savannah-card.model';
 
 @Injectable()
-export class SavannahService {
+export class AudioCallService {
   constructor(public http: HttpClient, private urlConfig: Config) { }
 
   pageNumber: number;
   wordsLevel: number;
 
-  mockData: SavannahCard[] = [
+  mockData: AudioCallCard[] = [
     { wordId: '1', foreignWord: 'table', nativeWord: 'стол' },
-    { wordId: '2', foreignWord: 'chear', nativeWord: 'стул' },
-    { wordId: '3', foreignWord: 'bed', nativeWord: 'кровать' },
-    { wordId: '4', foreignWord: 'cupboard', nativeWord: 'шкаф' },
-    { wordId: '5', foreignWord: 'window', nativeWord: 'окно' },
-    { wordId: '6', foreignWord: 'house', nativeWord: 'дом' },
+    { wordId: '2', foreignWord: 'table2', nativeWord: 'стол2' },
+    { wordId: '3', foreignWord: 'table3', nativeWord: 'стол3' },
+    { wordId: '4', foreignWord: 'table4', nativeWord: 'стол4' },
+    { wordId: '5', foreignWord: 'table5', nativeWord: 'стол5' },
+    { wordId: '6', foreignWord: 'table6', nativeWord: 'стол6' },
   ];
 
-  getWords(wordsLevel: number, pageNumber: number): Observable<SavannahCard[]> {
+  getWords(wordsLevel: number, pageNumber: number): Observable<AudioCallCard[]> {
     return this.http
       .get(
         `${this.urlConfig.url()}words?page=${wordsLevel}&group=${pageNumber}`
       )
       .pipe(
-        map((response: SavannahApi[]) => {
-          const wordsArray: SavannahCard[] = response.map((el) => {
+        map((response: AudioCallApi[]) => {
+          const wordsArray: AudioCallCard[] = response.map((el) => {
             return {
               wordId: el.id,
               foreignWord: el.word,
               nativeWord: el.wordTranslate,
               audioUrl: el.audio,
+              imageUrl: el.image,
             };
           });
           return wordsArray;
