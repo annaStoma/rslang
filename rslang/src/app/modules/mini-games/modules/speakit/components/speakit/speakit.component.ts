@@ -47,7 +47,9 @@ export class SpeakitComponent implements OnInit, OnDestroy {
   isGuessed = false;
   isShowGameStats = false;
   totalGames: number;
-  countGameIncreated = false;
+  totalErrors: number;
+  countGameIncreased = false;
+  countErrorPerGame = 0;
 
   constructor(private apiService: ApiService,
               private config: Config,
@@ -86,6 +88,7 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     this.apiService.getUserStatistics().subscribe((stats: StatsMiniGamesResponse) => {
       this.statistics = stats.optional?.speakit?.words || [];
       this.totalGames = stats.optional.speakit.totalGamesCompleted;
+      this.totalErrors = stats.optional.speakit.errorRatePercent;
     }, () => {
       this.isLoading = false;
       this.statistics = [];
@@ -134,7 +137,6 @@ export class SpeakitComponent implements OnInit, OnDestroy {
     if (this.countLearnedWords >= this.cardsCount) {
       return;
     }
-
     let coincidence = false;
 
     this.recordWait = true;
@@ -163,11 +165,13 @@ export class SpeakitComponent implements OnInit, OnDestroy {
                   this.cardImg = word.image;
                   word.learned = true;
                   this.countLearnedWords++;
+
                   if (this.repairStatistics) {
                     this.statistics = this.repairStatistics;
                     this.repairStatistics = null;
                     this.date = Date.now();
                   }
+
                   this.saveStats();
                   this.isGuessed = true;
                 }
@@ -187,7 +191,10 @@ export class SpeakitComponent implements OnInit, OnDestroy {
             }
           }
 
-          this.spokenWord = this.spokenWord || 'not recognized';
+          if (!this.spokenWord) {
+            this.spokenWord = 'not recognized';
+            this.countErrorPerGame++;
+          }
 
           if (!percent || percent < tempKey) {
             this.heardAs = tempValue ? `heard as "${tempValue}" (${Math.round(tempKey)})%` : '';
@@ -212,8 +219,8 @@ export class SpeakitComponent implements OnInit, OnDestroy {
       this.audio = null;
     }
 
-    this.totalGames = 0;
-    this.countGameIncreated = false;
+    this.countGameIncreased = false;
+    this.countErrorPerGame = 0;
 
     if (this.words) {
       this.words.forEach(word => {
@@ -309,16 +316,18 @@ export class SpeakitComponent implements OnInit, OnDestroy {
 
     this.statistics = this.statistics.slice(-10);
 
-    if (!this.countGameIncreated) {
+    if (!this.countGameIncreased) {
       this.totalGames++;
-      this.countGameIncreated = true;
+      this.countGameIncreased = true;
     }
+
+    const errorRatePercent = (this.totalErrors + this.countErrorPerGame * 10) / this.totalGames;
 
     const updateStats: StatsMiniGames = {
       optional: {
         speakit: {
           words: this.statistics,
-          errorRatePercent: 0,
+          errorRatePercent,
           totalGamesCompleted: this.totalGames
         }
       }
