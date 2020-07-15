@@ -52,12 +52,14 @@ export interface AuthData {
 export interface UsersWords {
   difficulty: string;
   optional: {
-    learned: boolean;
+    learned?: boolean;
+    hard?: boolean;
+    deleted?: boolean;
   };
 }
 
 export interface Word {
-  id: string;
+  _id: string;
   group: number;
   page: number;
   word: string;
@@ -192,6 +194,11 @@ export interface StatsMiniGamesItem {
 
 export interface StatsSpeakitGameItem {
   words?: SpeakitStatsWords[];
+  totalGamesCompleted: number;
+  errorRatePercent: number;
+}
+
+export interface StatsSprintGameItem {
   totalGamesCompleted: number;
   errorRatePercent: number;
 }

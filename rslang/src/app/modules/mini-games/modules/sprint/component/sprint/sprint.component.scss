@@ -29,7 +29,6 @@ $background-scoreOfAnswer: #0e860ebf;
   }
 
   .gameTimeOut{
-    width: 30%;
     background: $background-gameTimeOut;
     color: $text-color;
     border-radius: 10px;
@@ -80,7 +79,6 @@ $background-scoreOfAnswer: #0e860ebf;
 
   .card {
     width: 40%;
-    height: 40%;
     background: $background-card;
     border: 2px solid $card-border-color;
     border-radius: 5px;
@@ -151,7 +149,6 @@ $background-scoreOfAnswer: #0e860ebf;
 
     .card{
       width: 80%;
-      height: 45%;
     }
 
     .gameTimeOut {

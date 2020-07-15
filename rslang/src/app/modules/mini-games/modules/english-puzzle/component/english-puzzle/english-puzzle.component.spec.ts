@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { EnglishPuzzleComponent } from './englishPuzzle.component';
+import { EnglishPuzzleComponent } from '../english-puzzle/english-puzzle.component';
 
 describe('EnglishPuzzleComponent', () => {
   let component: EnglishPuzzleComponent;

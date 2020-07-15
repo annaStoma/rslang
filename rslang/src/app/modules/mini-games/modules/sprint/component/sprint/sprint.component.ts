@@ -3,6 +3,8 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { SprintTranslateItem, SprintResult, Word, SprintWord } from '../../../../../../shared/interfaces';
 import { ApiService } from '../../../../../../shared/services/api.service';
 import { Config } from '../../../../../../common/config';
+import { Page } from '../../../../../../shared/types';
+
 
 @Component({
   selector: 'app-sprint',
@@ -11,14 +13,12 @@ import { Config } from '../../../../../../common/config';
 })
 export class SprintComponent implements OnInit {
   public countOfCards: number = 10;
-
   public resultOfGame: SprintResult = {
     historyOfAnswers: [],
     countOfCorrect: 0,
     countCorrectInRow: 0,
     totalScore: 0,
   };
-
   public currentGameItem: SprintTranslateItem;
   public listOfCards: SprintWord[] = [];
   public listOfGameTranslateItems: SprintTranslateItem [] = [];
@@ -53,6 +53,12 @@ export class SprintComponent implements OnInit {
   isLoad: boolean = false;
   randomNumbers = []
   counterListOfCards: number = 0;
+  page: Page;
+  percentError: number;
+  falseAnswer: number = 0;
+
+  globalPercentOfErrors: number;
+  globalCountOfGames: number;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -64,7 +70,9 @@ export class SprintComponent implements OnInit {
   ngOnInit(): void {
     this.selectedGroup = localStorage.getItem('levelGroup');
     if(this.selectedGroup == null) this.selectedGroup = 0;
-    this.apiService.getWords(this.selectedGroup, 0).subscribe(data => {
+    const page = Math.round(Math.random() * 29) as Page;
+    this.page = page;
+    this.apiService.getWords(this.selectedGroup, page).subscribe(data => {
       this.listOfCards = data.slice(0, this.countOfCards);
       this.listOfCards.forEach((card, index) => {
         const isRandom: boolean = Math.random() < 0.5;
@@ -82,6 +90,11 @@ export class SprintComponent implements OnInit {
     setTimeout(() => {
       this.isLoad = true;
     },2500);
+
+    this.apiService.getUserStatistics().subscribe((stats) => {
+      this.globalPercentOfErrors = stats.optional.sprint.errorRatePercent;
+      this.globalCountOfGames = stats.optional.sprint.totalGamesCompleted;
+    });
   }
   public gameTime(): any {
     this.interval = setInterval(() => {
@@ -105,8 +118,11 @@ export class SprintComponent implements OnInit {
     this.countsCards++;
     if(this.countsCards == this.countOfCards){
       this.gameTimeStop();
+
+      this.sendStatistic()
       this.gameOver = true;
     }
+
     if(!this.isTimer) {
       this.gameTime();
       this.isTimer = true;
@@ -118,24 +134,22 @@ export class SprintComponent implements OnInit {
         this.inRowUnFour = false;
         this.scoreUnFour = 10
         this.resultOfGame.totalScore += this.scoreUnFour;
-        this.audio.src = "../../../../../../../assets/audio/savannah/correct.mp3";
-        this.audio.play();
       } else {
         this.errorAnswer = false;
         this.inRowUnFour = true;
         this.scoreBeforeFour = 20 * this.numbersOfUpdateScore[this.boostScore];
         this.resultOfGame.totalScore +=  this.scoreBeforeFour;
         this.boostScore++
-        this.audio.src = "../../../../../../../assets/audio/savannah/correct.mp3";
-        this.audio.play();
       }
       this.resultOfGame.countCorrectInRow++;
       this.resultOfGame.countOfCorrect++;
-
+      this.audio.src = "../../../../../../../assets/audio/savannah/correct.mp3";
+      this.audio.play();
     } else {
       this.resultOfGame.countCorrectInRow = 0;
       this.audio.src = "../../../../../../../assets/audio/savannah/error.mp3";
       this.audio.play();
+      this.falseAnswer++
     }
 
     if (this.sliderValue <= this.countOfCards) {
@@ -163,6 +177,24 @@ export class SprintComponent implements OnInit {
     });
   }
 
+  sendStatistic() : void {
+    this.globalCountOfGames++;
+    let countErrorsFromPercent: number = ((this.globalPercentOfErrors) * (this.countOfCards * this.globalCountOfGames)) / 100;
+    countErrorsFromPercent += this.falseAnswer;
+    this.globalPercentOfErrors = (countErrorsFromPercent * 100) / (this.countOfCards * this.globalCountOfGames);
+    this.apiService.updateUserStatistics({
+      optional: {
+        sprint: {
+          errorRatePercent: this.globalPercentOfErrors,
+          totalGamesCompleted: this.globalCountOfGames,
+        }
+      }
+    }).subscribe(res => {
+          console.log(res.optional.sprint)
+        }, error => {
+          console.log(error)
+        });
+  }
   setWord(word: Word): void {
     this.currentWord = word;
   }
@@ -213,6 +245,7 @@ export class SprintComponent implements OnInit {
     localStorage.setItem('levelGroup', this.currentGroupWords);
     window.location.reload();
   }
+
 }
 
 

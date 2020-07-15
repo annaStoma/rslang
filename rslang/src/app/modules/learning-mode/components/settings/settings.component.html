@@ -49,19 +49,38 @@
     </div>
 
     <div class="form-group translate">
-      <mat-checkbox color="primary"  class="form-control" name="phone" formControlName="translation">Показывать перевод
+      <mat-checkbox color="primary" class="form-control" name="phone" formControlName="translation">Показывать перевод
       </mat-checkbox>
     </div>
 
     <div class="form-group">
-      <mat-checkbox color="primary" class="form-control" name="explantation" formControlName="explantation">Показывать
+      <mat-checkbox color="primary" class="form-control" name="autoPlay" formControlName="autoPlay">
+        Воиспроизводить звук автоматически
+      </mat-checkbox>
+    </div>
+
+    <div class="form-group">
+      <mat-checkbox color="primary" class="form-control" name="explanation" formControlName="explanation">Показывать
         пояснение
+      </mat-checkbox>
+    </div>
+    <div class="form-group">
+      <mat-checkbox color="primary" class="form-control" name="textMeaningTranslate"
+        formControlName="textMeaningTranslate">Показывать
+        перевод пояснения
       </mat-checkbox>
     </div>
 
     <div class="form-group">
       <mat-checkbox color="primary" class="form-control" name="exampleText" formControlName="exampleText">Показывать
         пример текста
+      </mat-checkbox>
+    </div>
+
+    <div class="form-group">
+      <mat-checkbox color="primary" class="form-control"
+        name="textExampleTranslate" formControlName="textExampleTranslate">Показывать
+        перевод примера текста
       </mat-checkbox>
     </div>
 
@@ -73,12 +92,33 @@
 
     <div class="form-group">
       <mat-checkbox color="primary" class="form-control" name="association" formControlName="association">Показывать
-        ассоциации
+        картинку-ассоциацию
       </mat-checkbox>
     </div>
 
     <div class="form-group">
-      <button type="submit" mat-dialog-close mat-flat-button color="primary" class="btn btn-default" [disabled]="myForm.invalid">
+      <mat-form-field class="example-full-width">
+        <mat-label>Номер группы слов, слова которой Вы хотели бы изучить (1 - 6)</mat-label>
+        <label>
+          <input matInput
+            type="number"
+            [min]="1"
+            [max]="6"
+            placeholder="введите номер ..."
+            value="group"
+            class="form-control"
+            name="group"
+            formControlName="group"/>
+        </label>
+        <mat-error *ngIf="myForm.get('group').invalid">
+          Группа может быть от 1 до 6
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" mat-dialog-close mat-flat-button color="primary" class="btn btn-default"
+        [disabled]="myForm.invalid">
         Применить настройки
       </button>
     </div>

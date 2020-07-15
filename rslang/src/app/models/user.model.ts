@@ -21,10 +21,14 @@ export interface UserSettings {
   optional: {
     maxWords: number;
     translation: boolean;
-    explantation: boolean;
+    explanation: boolean;
     exampleText: boolean;
     transcription: boolean;
     association: boolean;
+    textExampleTranslate: boolean;
+    textMeaningTranslate: boolean;
+    autoPlay: boolean;
+    group: number;
   };
 }
 

@@ -1,8 +1,10 @@
-export enum KEY_CODE {
-  NUMBER_ONE = 1,
-  NUMBER_TWO = 2,
-  NUMBER_THREE = 3,
-  NUMBER_FOUR = 4,
+export const KEY_CODE = {
+  NUMBER_ONE: 1,
+  NUMBER_TWO: 2,
+  NUMBER_THREE: 3,
+  NUMBER_FOUR: 4,
+  NUMBER_FIVE: 5,
+  ENTER: 'Enter',
 }
 
 export enum CARD_NUMBER {
@@ -10,6 +12,7 @@ export enum CARD_NUMBER {
   SECOND = 1,
   THIRD = 2,
   FOURTH = 3,
+  FIVES = 4,
 }
 
 export const MAX_NUMBER = {
@@ -24,23 +27,19 @@ export const AUDIO_NAMES = {
   CORRECT: 'correct',
 };
 
-export const SAVANNAH_DEFAULT_VALUES = {
+export const AUDIOCALL_DEFAULT_VALUES = {
   isHiddenDescription: false,
   isHiddenButton: false,
   isHiddenLoader: true,
   isHiddenStartScreen: false,
   isHiddenFinalScreen: true,
-  isAnimationStart: true,
-  isAnimationEnd: true,
-  isAnimationBullet: false,
   isSoundSelected: true,
 }
 
-export const SAVANNAH_START_VALUES = {
+export const AUDIOCALL_START_VALUES = {
   isHiddenDescription: true,
   isHiddenButton: true,
   isHiddenLoader: false,
-  isAnimationStart: true,
   isHiddenStartScreen: true,
   isHiddenFinalScreen: true,
   lives: 5,

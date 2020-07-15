@@ -36,10 +36,14 @@ export class SettingsComponent implements OnInit {
           (control: AbstractControl) => Validators.min(this.wordsPerDay)(control)
         ]),
         translation: new FormControl(s.optional.translation, Validators.required),
-        explantation: new FormControl(s.optional.explantation, Validators.required),
+        explanation: new FormControl(s.optional.explanation, Validators.required),
         exampleText: new FormControl(s.optional.exampleText, Validators.required),
         transcription: new FormControl(s.optional.transcription, Validators.required),
         association: new FormControl(s.optional.association, Validators.required),
+        textExampleTranslate: new FormControl(s.optional.textExampleTranslate, Validators.required),
+        textMeaningTranslate: new FormControl(s.optional.textMeaningTranslate, Validators.required),
+        autoPlay: new FormControl(s.optional.autoPlay, Validators.required),
+        group: new FormControl(s.optional.group, [Validators.required, Validators.max(6), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       });
       this.isSpinnerVisible = false;
     }, () => {
@@ -55,10 +59,14 @@ export class SettingsComponent implements OnInit {
       optional: {
         maxWords: +settings.maxWords,
         translation: settings.translation,
-        explantation: settings.explantation,
+        explanation: settings.explanation,
         exampleText: settings.exampleText,
         transcription: settings.transcription,
         association: settings.association,
+        textExampleTranslate: settings.textExampleTranslate,
+        textMeaningTranslate: settings.textMeaningTranslate,
+        autoPlay: settings.autoPlay,
+        group: settings.group
       }
     };
     this.apiServices.setUserSettings(this.newSettings).subscribe((data) => {
@@ -82,3 +90,4 @@ export class SettingsComponent implements OnInit {
     this.myForm.markAllAsTouched();
   }
 }
+

@@ -27,6 +27,7 @@
     "@syncfusion/ej2-angular-charts": "^18.2.45",
     "@syncfusion/ej2-base": "^18.2.44",
     "express": "^4.17.1",
+    "ngx-owl-carousel-o": "^3.0.1",
     "normalize.css": "^8.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
