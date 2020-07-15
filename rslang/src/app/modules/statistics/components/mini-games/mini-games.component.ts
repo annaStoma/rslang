@@ -1,5 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { IAccLoadedEventArgs, AccumulationChart, ILoadedEventArgs } from '@syncfusion/ej2-angular-charts';
+import {
+  IAccLoadedEventArgs,
+  AccumulationChart,
+  ILoadedEventArgs,
+  IPointRenderEventArgs
+} from '@syncfusion/ej2-angular-charts';
 import { Browser } from '@syncfusion/ej2-base';
 import { ApiService } from '../../../../shared/services/api.service';
 
@@ -85,5 +90,17 @@ export class MiniGamesComponent {
 
   loadChart(args: ILoadedEventArgs): void {
     args.chart.theme = 'Bootstrap';
+  }
+
+  pointRender(args: IPointRenderEventArgs): void {
+    const materialColors = [
+      'rgb(161, 110, 229)',
+      'rgb(247, 206, 105)',
+      'rgb(85, 165, 194)',
+      'rgb(125, 223, 30)',
+      'rgb(255, 110, 166)',
+      'rgb(121, 83, 172)'
+    ];
+    args.fill = materialColors[args.point.index % 10];
   }
 }

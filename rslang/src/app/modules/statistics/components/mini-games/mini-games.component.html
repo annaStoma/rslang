@@ -28,7 +28,8 @@
     [primaryYAxis]='primaryYAxis'
     [title]='titleErrorRate'
     [tooltip]='tooltip'
-    (load)='loadChart($event)'>
+    (load)='loadChart($event)'
+    (pointRender)='pointRender($event)'>
     <e-series-collection>
       <e-series
         [dataSource]='data'
