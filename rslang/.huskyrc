@@ -1,0 +1,5 @@
+{
+  "hooks": {
+    "pre-commit": "git-branch-is -r \"\\b(?:(?!master)\\w)+\\b\""
+  }
+}

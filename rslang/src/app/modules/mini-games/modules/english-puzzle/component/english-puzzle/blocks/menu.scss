@@ -1,0 +1,67 @@
+.menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 25px;
+  width: 1024px;
+}
+
+.menu__select {
+  width: 55px;
+  height: 35px;
+  margin-right: 8px;
+  border-color: $primary;
+  color: $primary;
+  border-radius: 8px;
+  border-width: 3px;
+  text-align: center;
+  cursor: pointer;
+
+}
+
+.menu__right button {
+  margin-left: 8px;
+  width: 86px;
+  height: 35px;
+  color: $alternative-font-color;
+  border: 3px solid $primary;
+  cursor: pointer;
+  background-color: $background;
+  border-radius: 8px;
+}
+
+@mixin menu_1035 {
+  .menu {
+    width: 700px;
+  }
+
+  .menu__select {
+    border-width: 2px;
+  }
+
+  .menu__right button {
+    border: 2px solid $primary;
+  }
+}
+
+@mixin menu_705 {
+  .menu {
+    width: 95%;
+  }
+
+  .menu__select {
+    border-width: 1px;
+    width: 35px;
+    height: 17px;
+    font-size: 11px;
+    margin-right: 2px;
+  }
+
+  .menu__right button {
+    border: 1px solid $primary;
+    width: 65px;
+    height: 17px;
+    margin-left: 2px;
+    font-size: 10px;
+  }
+}

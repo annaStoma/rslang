@@ -1,0 +1,36 @@
+@import "./src/app/constants";
+
+table {
+  width: 100%;
+}
+
+.mat-row:hover {
+  transition: 0.2s;
+  background-color: #f4eefa;
+  cursor: default;
+}
+
+.title,
+.choose-group-title{
+  text-align: center;
+  color: $explain-text;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.studied-words-group {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+.choose-group-btn{
+  background-color: $accent;
+  font-size: 24px;
+  margin: 5px;
+  height: 50px;
+  width: 50px;
+}

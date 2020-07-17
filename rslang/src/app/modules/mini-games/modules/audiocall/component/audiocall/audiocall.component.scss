@@ -1,0 +1,290 @@
+@import "../../../../../../constants.scss";
+
+.audiocall-game-wrapper {
+  text-align: center;
+  overflow: hidden;
+}
+
+.start-screen {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: $primary;
+
+  .start-screen-image {
+    height: 100%;
+    width: 100%;
+    opacity: 0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10;
+  }
+}
+
+.start-description {
+  padding-top: 40px;
+
+  h1 {
+    padding-top: 10px;
+    font-size: 2em;
+  }
+
+  .start-screen-text {
+    margin-top: 10vh;
+    font-size: 1.5em;
+  }
+
+  .select-level {
+    width: 100px;
+    height: 35px;
+    margin-right: 8px;
+    border-color: $primary;
+    color: $primary;
+    border-radius: 8px;
+    border-width: 3px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.start-button {
+  position: absolute;
+  top: 420px;
+  left: 45vw;
+  border-radius: 6px;
+  height: 40px;
+  background-color: $primary;
+  color: $font-color;
+}
+
+.hidden {
+  display: none;
+}
+
+.sound-button-container {
+  text-align: left;
+  padding-top: 180px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 1s;
+
+  @media screen and (max-width: 600px) {
+    padding-top: 50px;
+  }
+
+  .sound-button {
+    height: 100px;
+  }
+}
+
+.game-container {
+  margin-top: 0;
+  margin-left: 0;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: $primary;
+
+  .main-screen-image {
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -10;
+  }
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.active-card-container {
+  position: relative;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+
+  .active-card {
+    position: absolute;
+    font-size: 2em;
+    font-weight: bold;
+  }
+}
+
+.active-card-word {
+  position: absolute;
+  top: 158px;
+  font-size: 4em;
+  color: $primary;
+  top: 255px;
+  text-transform: capitalize;
+  transition: 1s;
+
+  @media screen and (max-width: 600px) {
+    top: 190px;
+  }
+}
+
+.active-card-image {
+  position: absolute;
+  top: 25px;
+  left: -92px;
+  border-radius: 50%;
+  height: 187px;
+  border: solid;
+  transition: 1s;
+
+  @media screen and (max-width: 600px) {
+    height: 135px;
+    left: -40px;
+  }
+}
+
+.audio-speaker {
+  position: absolute;
+  height: 65px;
+  top: 230px;
+  left: -149px;
+  transition: 1s;
+
+  @media screen and (max-width: 600px) {
+    top: 150px;
+  }
+}
+
+.native-words-container {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 17vh;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    padding-top: 10vh;
+    padding-bottom: 50px;
+    font-size: 1.5em;
+  }
+}
+
+.native-word-card {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: capitalize;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    font-size: 1.5em;
+  }
+}
+
+.native-word-card:hover {
+  background-color: $shadow;
+  height: 20px;
+  border-radius: 5px;
+}
+
+.slideLeft {
+  animation-name: slideLeft;
+  -webkit-animation-name: slideLeft;
+
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+
+  animation-timing-function: ease-in-out;
+  -webkit-animation-timing-function: ease-in-out;
+
+  visibility: visible !important;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes slideLeft {
+  0% {
+    -webkit-transform: translateX(150%);
+  }
+
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+.animationStop {
+  animation-name: none;
+}
+
+.not-know-word {
+  border-radius: 6px;
+  height: 40px;
+  width: 80px;
+  background-color: $primary;
+  color: $font-color;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.next-word {
+  border-radius: 6px;
+  height: 40px;
+  width: 80px;
+  background-color: $primary;
+  color: $font-color;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.game-additional-text {
+  margin-top: 10px;
+}
+
+.final-screen-text {
+  font-size: 2em;
+  color: $primary;
+}
+
+.final-text-cards {
+  display: flex;
+}
+
+.final-screen {
+  position: absolute;
+  left: 36vw;
+  top: 81px;
+  background-color: $font-color;
+  border-radius: 20px;
+  width: 280px;
+  max-height: 301px;
+  overflow: scroll;
+
+  @media screen and (max-width: 600px) {
+    max-height: 284px;
+    left: 25vw;
+  }
+
+  @media screen and (max-width: 400px) {
+    left: 15vw;
+  }
+
+  .word-audio {
+    height: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

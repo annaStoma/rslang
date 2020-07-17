@@ -1,0 +1,77 @@
+@import "./src/app/constants";
+
+.example-card {
+  //max-width: 400px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg");
+  background-size: cover;
+}
+
+.explanation {
+  color: $explain-text;
+  font-weight: bolder;
+  font-size: 16px;
+
+  &__translate {
+    color: $explain-text-translate;
+    font-style: italic;
+    word-wrap: break-spaces;
+  }
+}
+
+.exampleText {
+  color: $example-text;
+  font-weight: bolder;
+  font-size: 16px;
+
+  &__translate {
+    color: $example-text-translate;
+    font-style: italic;
+    word-wrap: break-spaces;
+
+  }
+}
+
+.mat-card-image {
+  //width: 320px;
+  //height: 400px;
+  border-radius: 6px;
+}
+
+mat-card-title {
+  color: rebeccapurple;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+:host {
+  mat-form-field {
+    width: 90%;
+    font-size: 20px;
+  }
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.enter-button {
+  margin-left: 20px;
+}
+
+//::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+//  width: 20px;
+//}

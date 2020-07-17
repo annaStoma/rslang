@@ -1,0 +1,36 @@
+@import "../../constants";
+
+:host {
+  width: 100%;
+
+  footer {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-top: $border-primary;
+    justify-content: space-between;
+    background: $primary;
+    color: $font-color;
+    font-size: 15px;
+
+    span {
+      margin: 0 30px;
+    }
+  }
+
+  a {
+    margin-right: 40px;
+  }
+
+  @media screen and (max-width: 645px) {
+    footer {
+      span {
+        margin: 0 20px;
+      }
+    }
+    a {
+      margin-right: 10px;
+    }
+  }
+}

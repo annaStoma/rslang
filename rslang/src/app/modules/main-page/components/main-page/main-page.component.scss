@@ -1,0 +1,51 @@
+@import "../../../../constants";
+
+@function column-width() {
+  @return ($card-size * $columns)+ ($card-margins * 2 * $columns);
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.main {
+  display: flex;
+  align-items: baseline;
+  transform: translateY(-10vw);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: column-width();
+
+  * {
+    margin: $card-margins;
+
+    @media screen and (max-width: 645px) {
+      margin: $card-margins-mobile;
+    }
+  }
+
+  @media screen and (max-width: 645px) {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+.background {
+  width: 100%;
+  background-image: url("https://fluencycorp.com/wp-content/uploads/2019/01/hardest-part-learning-english.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 25vw;
+}

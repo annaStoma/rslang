@@ -1,0 +1,51 @@
+@import "./src/app/modules/main-page/components/main-page/main-page.component";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: $card-size * 2 + $card-margins * 2;
+  height: $card-size * 2 + $card-margins * 2;
+  box-shadow: 0 5px 7px 2px $shadow;
+  border-radius: 5px;
+  background: $card-background-color;
+
+
+  .title {
+    @include title;
+  }
+
+  .stat {
+    height: 470px;
+    width: 80%;
+  }
+
+  .showAll-btn {
+    margin-bottom: 16px;
+  }
+
+  @include size-mobile;
+
+  @media screen and (max-width: 645px) {
+    .stat {
+      height: 470px;
+      width: 95%;
+    }
+
+    .statistic-image{
+      width: 95%;
+    }
+    .mat-column-name {
+      flex: 3;
+    }
+  }
+}
+
+.mat-elevation-z8 {
+  box-shadow: none;
+}
+
+.statistic-image {
+ max-width:  $card-size * 2 + $card-margins * 2;
+}

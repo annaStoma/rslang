@@ -1,0 +1,41 @@
+$accent: #ffd740;
+$primary: #673ab7;
+$shadow: #0000004a;
+$font-color: #ffffff;
+$font-color-2: #000000;
+$card-background-color: #ffffff;
+$background-color-header: #ffd740;
+$not-found-text-color: #646464;
+
+$border-primary: 5px solid #8e4de4;
+
+$card-size: 280px;
+$card-margins: 16px;
+$card-margins-mobile: 5px;
+$columns: 2;
+
+$mobile-size: 90vw;
+
+$explain-text: #6236a7;
+$explain-text-translate: #8b70b4;
+$example-text: #5fbf3b;
+$example-text-translate: #75c258;
+$deleted: #f44336;
+@mixin title {
+  margin-top: 15px;
+  left: 40px;
+  align-self: flex-start;
+  position: relative;
+  font-size: 18px;
+}
+
+@mixin size-mobile($height: false) {
+
+  @media screen and (max-width: 645px) {
+    width: $mobile-size;
+
+    @if ($height) {
+      height: $mobile-size;
+    }
+  }
+}

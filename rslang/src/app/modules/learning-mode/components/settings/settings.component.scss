@@ -1,0 +1,19 @@
+.settings {
+  display: flex;
+  justify-content: center;
+
+  .form-group {
+    margin-top: 10px;
+  }
+
+  .form-setting {
+    margin: 25px;
+  }
+
+  .translate {
+    margin-top: 25px;
+  }
+}
+::ng-deep .mat-form-field-infix{
+  width: 255px;
+}

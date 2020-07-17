@@ -1,0 +1,78 @@
+<mat-spinner *ngIf="isLoading" class="mat-spinner"></mat-spinner>
+<div class="form-wrapper">
+  <form name="reg" class="form reg-form" [formGroup]="formRegister" (submit)="register()">
+    <div class="wrap-user-name">
+      <mat-form-field class="register-form">
+        <mat-label for="firstName" class="label">
+          <span class="span-login">Name: </span>
+        </mat-label>
+        <input
+          matInput
+          formControlName="name"
+          type="text"
+          name="firstName"
+          id="firstName"
+          placeholder="name"
+          class="input"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+    <div class="wrap-login">
+      <mat-form-field class="login-reg">
+        <mat-label for="login-reg" class="label">
+          <span class="span-login">Login(e-mail): </span>
+        </mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="text"
+          name="login"
+          id="login-reg"
+          placeholder="login"
+          class="input"
+          (focus)="emailTooltip.show()"
+          (input)="emailInput()"
+          #emailTooltip="matTooltip"
+          [matTooltip]="emailTooltipText"
+          matTooltipPosition="right"
+          [matTooltipDisabled]="isShowTooltipEmail"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="wrap-password">
+      <mat-form-field class="login-reg">
+        <mat-label for="password-reg" class="label">
+          <span class="span-password">Password: </span>
+        </mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password-reg"
+          placeholder="password"
+          class="input"
+          (focus)="passwordTooltip.show()"
+          (input)="passwordInput()"
+          (mouseover)="passwordInput()"
+          #passwordTooltip="matTooltip"
+          [matTooltip]="passwordTooltipText"
+          matTooltipPosition="right"
+          [matTooltipDisabled]="isShowTooltipPassword"
+        />
+      </mat-form-field>
+    </div>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="accent"
+        class="login"
+        type="submit"
+        [disabled]="formRegister.invalid || formRegister.disabled"
+      >Registration
+      </button>
+    </div>
+  </form>
+</div>

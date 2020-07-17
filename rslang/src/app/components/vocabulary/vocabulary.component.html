@@ -1,0 +1,56 @@
+<section *ngIf="isStudied; else studied">
+  <mat-spinner *ngIf="isSpinnerVisible"></mat-spinner>
+  <h1 class="title">{{title}}</h1>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="word">
+      <mat-header-cell *matHeaderCellDef> Word</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.word}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="wordTranslate">
+      <mat-header-cell *matHeaderCellDef> Translate</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.wordTranslate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="transcription">
+      <mat-header-cell *matHeaderCellDef> Transcription</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.transcription}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="textMeaning">
+      <mat-header-cell *matHeaderCellDef> Meaning</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.textMeaning}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="textMeaningTranslate">
+      <mat-header-cell *matHeaderCellDef> Meaning translate</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.textMeaningTranslate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Restore">
+      <mat-header-cell *matHeaderCellDef> Restore</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-stroked-button color="primary"
+          (click)="restoreWord(element)"
+          [disabled]="!isDisable">Restore
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row class="table-row" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</section>
+<mat-paginator [disabled]="!isStudied" [pageSizeOptions]="[5, 20, 50]" showFirstLastButtons></mat-paginator>
+
+<ng-template #studied>
+  <section class="studied-words-group">
+    <h1 class="choose-group-title"> Choose group</h1>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(0)">1</button>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(1)">2</button>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(2)">3</button>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(3)">4</button>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(4)">5</button>
+    <button class="choose-group-btn" mat-stroked-button color="primary" (click)="chooseGroup(5)">6</button>
+  </section>
+</ng-template>

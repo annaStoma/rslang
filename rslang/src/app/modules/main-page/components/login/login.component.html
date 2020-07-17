@@ -1,0 +1,50 @@
+<mat-spinner *ngIf="isLoading" class="mat-spinner"></mat-spinner>
+<div class="form-wrapper">
+  <form name="auth" class="form auth-form" [formGroup]="formLogin" (submit)="login()">
+    <div class="wrap-login">
+      <mat-form-field class="login-form">
+        <mat-label for="login" class="label">
+        <span class="span-login">Login(e-mail): </span>
+        </mat-label>
+        <input
+          matInput
+          formControlName="email"
+          type="text"
+          name="login"
+          id="login"
+          placeholder="login"
+          class="input"
+        />
+    </mat-form-field>
+    </div>
+    <div class="wrap-password">
+      <mat-form-field class="password-form">
+        <mat-label for="password" class="label">
+          <span class="span-password">Password: </span>
+        </mat-label>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password"
+          placeholder="password"
+          class="input"
+        />
+    </mat-form-field>
+
+    </div>
+    <div class="buttons">
+      <button
+      mat-raised-button color="accent"
+      class="login"
+      type="submit"
+      [disabled]="formLogin.invalid || formLogin.disabled">
+        Login
+      </button>
+      <div *ngIf="false" class="error">
+          <span class="span-error">Connection error</span>
+      </div>
+    </div>
+  </form>
+</div>

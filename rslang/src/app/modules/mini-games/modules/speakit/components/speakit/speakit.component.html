@@ -1,0 +1,90 @@
+<div *ngIf="isLoading" class="hover">
+  <mat-spinner class="mat-spinner"></mat-spinner>
+</div>
+<div class="wrap-game">
+  <div class="words-list">
+    <div class="card-img" [appCardImg]="cardImg"></div>
+    <div
+      [class.is-playing]="!isNotPlay"
+      class="example-conversation record"
+      [class.record-wait]="recordWait"
+      [class.record-on]="recordOn"
+    >
+      <div class="output-word">
+        <input
+          type="text"
+          [value]="currentWord?.wordTranslate || spokenWord" readonly>
+
+      </div>
+
+    </div>
+    <div class="level-of-difficulty">
+      <app-check-level-radio-button
+        *ngFor="let letter of levels; index as i"
+        [letter]="letter"
+        [idx]="i"
+        [level]="group"
+        [isNotPlay]="isNotPlay"
+        (changeLevel)="changeLevel($event)"
+      ></app-check-level-radio-button>
+    </div>
+    <div class="word-original">
+      <app-word-card
+        *ngFor="let word of words; index as i"
+        [word]="word"
+        [isNotPlay]="isNotPlay"
+        [speech]="recognition"
+        (currentWord)="setWord($event)"
+        (setIsNotPlay)="setIsNotPlay($event)"
+      ></app-word-card>
+    </div>
+    <div class="control-buttons">
+      <button
+        class="control-buttons___item"
+        mat-raised-button
+        color="primary"
+        (click)="newGame()"
+      >new game</button>
+      <button
+        class="control-buttons___item start-stop"
+        mat-raised-button
+        [color]="recognition ? 'warn' : 'primary'"
+        (click)="startStopRecord()"
+      >{{ recognition ? 'stop & restart' : 'start speech' }}</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button
+        color="primary"
+        (click)="showResults()"
+      >show results</button>
+      <button
+        class="control-buttons___item"
+        mat-raised-button
+        color="primary"
+        (click)="showGameStats()"
+      >games stats</button>
+    </div>
+  </div>
+  <div
+    *ngIf="startScreen"
+    class="start-page"
+    [class.close]="closeStartScreen"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      class="start-game"
+      (click)="startGame()"
+    >start game</button>
+  </div>
+  <app-show-results
+    *ngIf="isShowResults"
+    (hideResult)="hideResults($event)"
+    [words]="words"
+  ></app-show-results>
+  <app-games-stats
+    (hideStats)="hideStats($event)"
+    *ngIf="isShowGameStats"
+    [statistics]="statistics"
+  ></app-games-stats>
+</div>

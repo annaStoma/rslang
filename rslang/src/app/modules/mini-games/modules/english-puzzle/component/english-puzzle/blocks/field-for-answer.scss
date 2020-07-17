@@ -1,0 +1,38 @@
+.field-for-answer {
+  height: 506px;
+  width: 1030px;
+  border: 3px solid $primary;
+  border-radius: 8px;
+}
+
+.field-for-answer__answer {
+  height: 50px;
+}
+
+.field-for-answer--small {
+  height: 500px;
+}
+
+@mixin field-for-answer_1035 {
+  .field-for-answer {
+    width: 700px;
+    height: 356px;
+    border: 2px solid $primary;
+  }
+
+  .field-for-answer--small {
+    height: 350px;
+  }
+}
+
+@mixin field-for-answer_705 {
+  .field-for-answer {
+    width: 95vw;
+    height: calc(70vw + 6px);
+    border: 2px solid $primary;
+  }
+
+  .field-for-answer--small {
+    height: 70vw;
+  }
+}
